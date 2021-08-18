@@ -25,6 +25,8 @@ export class ProductDetailComponent implements OnInit {
         res => {
           res.purchaseDate = new Date(res.purchaseDate).toDateString();
           this.productDetails = res;
+          console.log(this.productDetails);
+          
           this._loader.stopLoader('loader');
         }
       )
