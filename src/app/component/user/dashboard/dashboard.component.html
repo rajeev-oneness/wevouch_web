@@ -1,0 +1,53 @@
+<div class="body_content pt-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-11">
+        <div class="row justify-content-between m-0">
+          <div>
+            <h1 class="mb-0 heading"><span>Welcome</span> {{userDetails?.name}}</h1>
+            <p class="text-muted mb-3">You have {{productCount}} products you own</p>
+          </div>
+          <div>
+            <a routerLink="/user/product/add" class="more_btn">
+              <i data-feather="plus"></i> Add Product</a
+            >
+          </div>
+        </div>
+        <app-product-category></app-product-category>
+      </div>
+    </div>
+    <div class="row justify-content-start m-0 mt-5 pb-4">
+      <div class="col-md-11 col-12 tickets_d pl-0 pr-0">
+        <h1 class="mb-0 heading"><span>hi'</span> {{userDetails?.name}}</h1>
+        <p class="text-muted mb-3">You have {{productCount}} products you own</p>
+        <div class="row">
+          <div class="col-lg-12">
+            <ul class="ticket-list">
+              <li>
+                <img src="../../../../assets/img/ticket.png" />
+                <div class="details">
+                  <h4>iphone 12</h4>
+                  <p>Expires on 14th March 2021</p>
+                </div>
+              </li>
+              <li>
+                <img src="../../../../assets/img/ticket.png" />
+                <div class="details">
+                  <h4>iphone 12</h4>
+                  <p>Expires on 14th March 2021</p>
+                </div>
+              </li>
+              <li>
+                <img src="../../../../assets/img/ticket.png" />
+                <div class="details">
+                  <h4>iphone 12</h4>
+                  <p>Expires on 14th March 2021</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

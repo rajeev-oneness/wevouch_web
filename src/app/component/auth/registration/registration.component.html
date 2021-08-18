@@ -1,0 +1,130 @@
+<ngx-ui-loader
+  loaderId="loader"
+  fgsColor="#FFFFFF"
+  bgsOpacity="1"
+  overlayColor="rgba(40,40,40,0.1)"
+></ngx-ui-loader>
+<section class="login-sec pt-5">
+  <div class="container">
+    <div class="row h-100 m-0 justify-content-center align-items-center">
+      <div class="col-md-6 login-L pr-0 pr-md-5">
+        <img src="../../../../assets/img/login-logo.png" />
+        <div class="login_con">
+          <h3>Sign Up Your Account</h3>
+          <p>
+            To keep connected with us please Register with your personal
+            information by email address and password
+          </p>
+        </div>
+        <div class="login-it1">
+          <img src="../../../../assets/img/login_it1.png" />
+        </div>
+      </div>
+      <div class="col-12 col-md-5 pl-md-3 pr-md-3">
+        <div class="login-R">
+          <h5>Sign Up for Dashboard</h5>
+          <div class="p-4 form-section">
+            <div class="text-center social_icon">
+              <a href="" class="gs"
+                ><img src="../../../../assets/img/g+logo.png"
+              /></a>
+              <a href="" class="fs"><i data-feather="facebook"></i></a>
+              <a href="" class="tw"><i data-feather="twitter"></i></a>
+              <a href="javascript:void(0)" class="sm"
+                ><i data-feather="smartphone"></i
+              ></a>
+            </div>
+            <span class="or-sec"><small>Or</small></span>
+            <form
+              id="signup-form"
+              #userSignupForm="ngForm"
+              (ngSubmit)="userSignupSubmit(userSignupForm)"
+            >
+              <div class="form-group">
+                <label><i data-feather="user" class="mr-1"></i> Name</label>
+                <input
+                  class="form-control"
+                  #name="ngModel"
+                  ngModel
+                  type="text"
+                  name="name"
+                  id="your_name"
+                  placeholder="Your Name"
+                  required
+                  [ngClass]="{ 'is-invalid': name?.invalid && name?.touched }"
+                />
+                <label
+                  ><i data-feather="mail" class="mr-1"></i> Email Address</label
+                >
+                <input
+                  class="form-control"
+                  #email="ngModel"
+                  ngModel
+                  type="email"
+                  autocomplete="email"
+                  name="email"
+                  id="your_email"
+                  placeholder="Your Email"
+                  required
+                  [ngClass]="{ 'is-invalid': email?.invalid && email?.touched }"
+                />
+                <label><i data-feather="lock" class="mr-1"></i> Password</label>
+                <input
+                  class="form-control"
+                  tabindex="2"
+                  #password="ngModel"
+                  ngModel
+                  type="password"
+                  name="password"
+                  id="your_pass"
+                  placeholder="Password"
+                  required
+                  [ngClass]="{
+                    'is-invalid': password?.invalid && password?.touched
+                  }"
+                />
+                <label
+                  ><i data-feather="lock" class="mr-1"></i> CONFIRM
+                  PASSWORD</label
+                >
+                <input
+                  class="form-control"
+                  tabindex="2"
+                  #conPassword="ngModel"
+                  ngModel
+                  type="password"
+                  name="conPassword"
+                  id="your_conPassword"
+                  placeholder="Confirm Password"
+                  required
+                  [ngClass]="{
+                    'is-invalid': conPassword?.invalid && conPassword?.touched
+                  }"
+                />
+                <div class="d-flex justify-content-between re_dflex mb-3">
+                  <p>
+                    Already have an account?
+                    <a routerLink="/login">(Sign In)</a>
+                  </p>
+                  <span class="text-danger">{{errorMessage}}</span>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-secondary btn-lg btn-block login-btn mt-2"
+                >
+                  Sign Up
+                </button>
+                <!-- <button class="btn btn-secondary btn-lg btn-block login-btn mt-2">Sign Up</button> -->
+                <p>
+                  Protected by recaptcha. Google
+                  <a href="javascript:void(0);">Privacy Policy</a> &
+                  <a href="javascript:void(0);">Terms of Service</a> apply.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

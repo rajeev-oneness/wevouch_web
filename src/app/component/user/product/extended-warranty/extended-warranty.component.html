@@ -1,0 +1,63 @@
+<div class="col-lg-12">
+  <h2 class="subheading">Extend Warranty</h2>
+  <form class="Extended-warranty" id="extended-form" #extendedWarrantyForm="ngForm" (ngSubmit)="addWarranty(extendedWarrantyForm)">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="brand-container">
+          <div class="brand-wrapper">
+            <input type="file" class="brand-file" />
+          </div>
+          <h6>Upload Invoice Photo</h6>
+          <p class="text-muted text-center">
+            Image of invoice recieved on the day of purchase
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-lg-6">
+            <label for="provider">Service Provider<span>*</span></label>
+            <input
+              type="text"
+              #serviceProvider="ngModel" ngModel
+              placeholder="LG"
+              class="form-control"
+              required
+              name="serviceProvider"
+            />
+          </div>
+          <div class="col-lg-6">
+            <label for="vendor">Vendors No. <span>(optional)</span></label>
+            <input
+              type="number"
+              id="mobileNo"
+              #mobileNo="ngModel" ngModel
+              placeholder="+91"
+              class="form-control"
+              name="mobileNo"
+            />
+          </div>
+          <div class="col-lg-6">
+            <label for="start">Start Date<span>*</span></label>
+            <input required type="date" id="startDate" #startDate="ngModel" ngModel name="startDate" class="form-control" required />
+          </div>
+          <div class="col-lg-6">
+            <label for="end">End Date<span>*</span></label>
+            <input required type="date" id="endDate" #endDate="ngModel" ngModel name="endDate" class="form-control" />
+          </div>
+          <div class="col-lg-6">
+            <label for="invoiceNo">Policy Number<span>*</span></label>
+            <input type="number" id="invoiceNo" class="form-control" required #invoiceNo="ngModel" ngModel name="invoiceNo"/>
+          </div>
+          <div class="col-lg-12">
+            <span class="text-danger">{{errorMessage}}</span>
+            <div class="button-container">
+              <button class="product-button skip-button" (click)="skipWarranty()">Skip</button>
+              <button class="product-button continue-button" type="submit">continue</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,36 @@
+<div class="body_content p-4">
+    <div class="container ticket-container">
+        <div class="row">
+            <div class="col-lg-6">
+                <p class="text-muted">Ticket No.<span> {{ticketDetails.uniqueId}}</span></p>
+                <div class="ticket-image ticket-details-image" *ngIf="ticketDetails.products && ticketDetails.products.productImagesUrl">
+                    <img src={{prodImg}} alt="" class="first-image" *ngFor="let prodImg of ticketDetails.products.productImagesUrl; let i = index">
+                    
+                </div>
+            </div>
+            <div class="col-lg-4 ticket-text">
+                <div class="upper-text">
+                    <h4 class="mb-2">{{ticketDetails.products?.name}}</h4>
+                <p class="expired mb-2">Expires on : <span>20 Feb 2023</span></p>
+                </div>
+                <p class="text-muted">Serial No : <span>{{ticketDetails.serialNo}}</span></p>
+                <img src="../../../../../assets/img/barcode.png" class="img-fluid">
+            </div>
+        </div>
+    </div>
+    <div class="container ticket-progress-container mt-3">
+        <ul class="progressbar progressbar-ticket">
+            <li class="active">WeVouch get in touch with<br> the {{ticketDetails.brand?.name}} Service team</li>
+            <li class="active">Service request No<br>(SRN) {{ticketDetails.uniqueId}}</li>
+            <li>{{ticketDetails.brand?.name}} team got in <br> touch with you</li>
+          </ul>
+    </div>
+    <div class="ticket-question">
+        <h6>Has the {{ticketDetails.brand?.name}} team reach out to you yet?</h6>
+        <div class="ticket-buttons">
+            <a href="rate.html" class="btn btn-yes">YES</a>
+            <!-- <button class="btn btn-yes">YES</button> -->
+            <button class="btn btn-no">NO</button>
+        </div>
+    </div>
+</div>

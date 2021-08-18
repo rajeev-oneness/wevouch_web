@@ -1,0 +1,156 @@
+<div class="body_content pt-4">
+  <div class="container product-container">
+    <div class="row justify-content-start m-0">
+      <div class="col-12">
+        <h1 class="hedaing mb-3">Claim Warranty</h1>
+        <ul class="progressbar">
+          <li class="active"></li>
+          <li [ngClass]="{ active: isSecondTab === true }"></li>
+          <li></li>
+        </ul>
+      </div>
+      <div class="col-lg-12" *ngIf="isFirstTab">
+        <form class="warrantyone">
+          <div class="row">
+            <div class="col-lg-12">
+              <label for="issue">Issue details<span>*</span></label>
+              <div class="row">
+                <div class="col-lg-6">
+                  <select
+                    name="issueType"
+                    id="issueType"
+                    [(ngModel)]="issueType"
+                    class="form-control"
+                  >
+                    <option value="repair">Repair</option>
+                    <option value="manufacture">Manufacture</option>
+                  </select>
+                </div>
+                <div class="col-lg-6">
+                  <select
+                    name="functionType"
+                    id="functionType"
+                    [(ngModel)]="functionType"
+                    class="form-control"
+                  >
+                    <option value="not-functioning">Not Functioning</option>
+                    <option value="Functioning">Functioning</option>
+                  </select>
+                </div>
+                <div class="col-lg-6">
+                  <span class="text-danger">{{ errorMessage }}</span>
+                </div>
+                <div class="col-lg-12">
+                  <textarea
+                    name="description"
+                    id="description"
+                    [(ngModel)]="description"
+                    placeholder="Describe the problem in details"
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <div class="col-lg-12">
+                  <a
+                    (click)="secondTab()"
+                    class="request-button"
+                    href="javascript:void(0)"
+                    >Request Services</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-12" *ngIf="isSecondTab">
+        <div class="row warranty-two">
+          <div class="col-lg-4 d-flex">
+            <div class="warranty-box">
+              <img src="../../../../../assets/img/warranty.png" alt="" />
+              <h6>Carry-in</h6>
+            </div>
+          </div>
+          <div class="col-lg-4 d-flex">
+            <div class="warranty-box">
+              <img src="../../../../../assets/img/warranty1.png" alt="" />
+              <h6>Pick Up</h6>
+            </div>
+          </div>
+          <div class="col-lg-4 d-flex">
+            <div class="warranty-box">
+              <img src="../../../../../assets/img/warranty2.png" alt="" />
+              <h6>On site</h6>
+            </div>
+          </div>
+          <div class="col-lg-6 text-danger">
+            {{ errorMessage }}
+          </div>
+          <div class="col-lg-12">
+            <form action="" class="warrantytwo">
+              <textarea
+                name="address"
+                id="address"
+                [(ngModel)]="address"
+                placeholder="Address"
+                class="form-control"
+              ></textarea>
+            </form>
+          </div>
+          <div
+            class="col-lg-12 d-flex align-items-center justify-content-between"
+          >
+            <a
+              href="javascript:void(0)"
+              (click)="goToLast()"
+              class="request-button"
+              >Request Service</a
+            >
+            <p class="text-right">Courier charges may apply</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12" *ngIf="isThirdTab">
+        <form class="warrantyone">
+          <div class="row">
+            <div class="col-lg-12">
+              <label for="issue">Request Pickup<span>*</span></label>
+              <div class="row">
+                <div class="col-lg-6">
+                  <input
+                    name="selectedDate"
+                    id="selectedDate"
+                    [(ngModel)]="selectedDate"
+                    placeholder="Select the date"
+                    type="date"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-lg-6">
+                  <input
+                    name="selectedTime"
+                    id="selectedTime"
+                    [(ngModel)]="selectedTime"
+                    placeholder="Select the time"
+                    type="time"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-lg-6">
+                  <span class="text-danger">{{ errorMessage }}</span>
+                </div>
+                <div class="col-lg-12">
+                  <a
+                    (click)="submitTicket()"
+                    class="request-button"
+                    href="javascript:void(0)"
+                    >Request Services</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

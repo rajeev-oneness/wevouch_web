@@ -1,0 +1,119 @@
+<ngx-ui-loader loaderId="loader" fgsColor="#FFFFFF" bgsOpacity="1" overlayColor="rgba(40,40,40,0.1)"></ngx-ui-loader>
+<div class="body_content pt-4 product-details-body">
+  <div class="container">
+    <h1 class="heading mb-3">Product Details</h1>
+    <div class="row justify-content-start m-0">
+      <div class="col-12 col-md-11 card shadow-lg p-0">
+        <div class="row card-wrapper">
+          <div class="col-lg-6 product-imgs">
+            <div class="img-display mb-0">
+              <div class="img-showcase" *ngIf="productDetails && productDetails.productImagesUrl">
+                <img  *ngFor="let productImg of productDetails.productImagesUrl; let i = index" src="{{productImg}}"/>
+              </div>
+            </div>
+            <div class="img-select mt-0" *ngIf="productDetails && productDetails.productImagesUrl">
+              <div class="img-item" *ngFor="let productImg of productDetails.productImagesUrl; let i = index">
+                <a href="javascript:void(0)" data-id="{{i}}">
+                  <img src="{{productImg}}" alt="image" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <h1 class="heading mt-0">{{productDetails?.name}}</h1>
+            <p class="text-muted">{{productDetails?.category?.name}}</p>
+            <div class="row">
+              <div class="col-lg-6 pl-0">
+                <div class="details-box">
+                  <p class="text-blue">Serial Number</p>
+                  <h5>{{productDetails?.modelNo}}</h5>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="details-box">
+                  <p class="text-blue">Brand</p>
+                  <h5>{{productDetails?.brands?.name}}</h5>
+                </div>
+              </div>
+            </div>
+            <div class="invoice-details-box">
+              <div class="row">
+                <div class="col-lg-3">
+                  <img src="./img/invoice.png" alt="" />
+                </div>
+                <div class="col-lg-9">
+                  <h5 class="mb-3">Warranty Details</h5>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <p class="text-muted">Purchase Date</p>
+                      <h6>{{productDetails.purchaseDate}}</h6>
+                      <p class="text-blue">{{productDetails.warrantyPeriod}} Months</p>
+                    </div>
+                    <div class="col-lg-6">
+                      <p class="text-muted">Expires on</p>
+                      <h6>30 th March</h6>
+                      <p class="text-red">350 days left</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="invoice-details-box">
+              <div class="row">
+                <div class="col-lg-3">
+                  <img src="./img/invoice.png" alt="" />
+                </div>
+                <div class="col-lg-9">
+                  <h5 class="mb-3">Extended warranty</h5>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <p class="text-muted">Expires on</p>
+                      <h6>Vijay Sales</h6>
+                      <p class="text-muted">Validity</p>
+                      <h6>18 Months</h6>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="image-wrapper">
+                        <img src="./img/phone.png" alt="" />
+                      </div>
+                      <p class="text-muted">Policy No</p>
+                      <h6>AHGHSJDJO</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="invoice-details-box">
+              <div class="row">
+                <div class="col-lg-3">
+                  <img src="./img/invoice.png" alt="" />
+                </div>
+                <div class="col-lg-9">
+                  <h5 class="mb-3">Extended warranty</h5>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <p class="text-muted">Expires on</p>
+                      <h6>Vijay Sales</h6>
+                      <p class="text-muted">Validity</p>
+                      <h6>18 Months</h6>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="image-wrapper">
+                        <img src="./img/phone.png" alt="" />
+                      </div>
+                      <p class="text-muted">Policy No</p>
+                      <h6>AHGHSJDJO</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 mb-3">
+              <a [routerLink]="['/user/ticket/add', productDetails._id]" class="save-button">Claim Warranty</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

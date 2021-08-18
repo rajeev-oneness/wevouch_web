@@ -1,0 +1,179 @@
+<ngx-ui-loader
+  loaderId="loader"
+  fgsColor="#FFFFFF"
+  bgsOpacity="1"
+  overlayColor="rgba(40,40,40,0.1)"
+></ngx-ui-loader>
+<div class="body_content pt-4">
+  <div class="container account-container">
+    <div class="row m-0 mb-3 justify-content-between">
+      <h1 class="heading mb-3">My Account</h1>
+      <a href="javascript:void(0)" (click)="toggleEdit()"class="pedit_btn mt-0">
+        <i data-feather="edit-3" class="mr-1"></i> Edit</a
+      >
+    </div>
+    <div>
+        <span class="text-danger">{{errorMessage}}</span>
+        <span class="text-success">{{successMessage}}</span>
+    </div>
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="brand-wrapper">
+          <img src="../../../../assets/img/client.png" class="w-100" />
+          <input type="file" class="brand-file" />
+        </div>
+      </div>
+      <div class="col-lg-9 pl-0 pl-md-3">
+        <div class="progress">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            style="width: 25%"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            25%
+          </div>
+         
+        </div>
+        <div class="row">
+          <div class="col-lg-12 pr-0">
+            <label for="name">Name</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control border-0 pl-0"
+                placeholder="Youe Name"
+                [disabled]="!isEdit"
+                name="name" id="name" [(ngModel)]="userDetails.name" 
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-12">
+            <label for="mobile">Mobile</label>
+            <div class="input-group">
+              <input
+                type="number"
+                class="form-control border-0 pl-0"
+                [disabled]="!isEdit"
+                name="mobile" id="mobile" [(ngModel)]="userDetails.mobile" 
+              />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <label for="email">Email</label>
+            <div class="input-group">
+              <input
+                type="email"
+                class="form-control border-0 pl-0"
+                readonly
+                name="email" id="email" [(ngModel)]="userDetails.email" 
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 p-0">
+            <div class="form-row">
+              <div class="form-group col-md-7 pl-md-3 pl-0">
+                <label for="inputEmail4">Age</label>
+                <input
+                type="number"
+                class="form-control border-0 pl-0"
+                placeholder="27"
+                
+                name="age" id="age" [(ngModel)]="userDetails.age" 
+              />
+              </div>
+              <div class="form-group col-md-5 pr-md-3 pr-0">
+                <label for="gender">Gender</label>
+                <select id="gender" class="form-control mt-0" [disabled]="!isEdit" name="gender" [(ngModel)]="userDetails.gender" >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <label for="address">Address</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control border-0 pl-0"
+                placeholder="Address"
+                [disabled]="!isEdit"
+                id="address"
+                name="address"
+                [(ngModel)]="userDetails.address" 
+              />
+            </div>
+          </div>
+          <div class="row m-0">
+            <h6 class="text-muted mt-2 mb-2 pl-2 pr-2 w-100">
+              Update Passsword
+            </h6>
+            <div class="col-lg-6 col-12">
+              <label for="pass">Recent Password</label>
+              <div class="input-group">
+                <input
+                  type={{passwordType}}
+                  class="form-control border-0 pl-0"
+                  [disabled]="!isEdit"
+                  id="password"
+                  name="password"
+                  [(ngModel)]="password" 
+                  placeholder="Current Password"
+                />
+                <div class="input-group-append">
+                  <button class="first-button input-group-text active" (click)="togglePasswordType()">
+                    <i data-feather="eye-off"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-12">
+              <label for="pass-new">New Password</label>
+              <div class="input-group">
+                <input
+                type={{newPasswordType}}
+                  class="form-control border-0 pl-0"
+                  [disabled]="!isEdit"
+                  id="newPassword"
+                  name="newPassword"
+                  [(ngModel)]="newPassword" 
+                  placeholder="New Password"
+                />
+                <div class="input-group-append">
+                  <button class="first-button input-group-text" (click)="toggleNewPasswordType()">
+                    <i data-feather="eye"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 mt-4">
+                <a href="javascript:void(0)" (click)="changePassword()" class="save-button">Change Password</a>
+              </div>
+          </div>
+          <div class="col-lg-6 mt-4">
+            <div class="membership">
+              <div class="row">
+                <div class="col-lg-7">
+                  <p class="text-blue">MEMBERSHIP</p>
+                  <h5>Free Trial</h5>
+                </div>
+                <div class="col-lg-5 d-flex align-items-center">
+                  <!-- <button class="update-button">UPDATE</button> -->
+                  <a href="package.html" class="update-button">Upgrade</a>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+          <div class="col-lg-6 mt-4">
+            <a href="javascript:void(0)" (click)="save()" class="save-button">SAVE & CONTINUE</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,232 @@
+<ngx-ui-loader
+  loaderId="loader"
+  fgsColor="#FFFFFF"
+  bgsOpacity="1"
+  overlayColor="rgba(40,40,40,0.1)"
+></ngx-ui-loader>
+<div class="body_content pt-4">
+  <div class="container product-container">
+    <div class="row justify-content-start m-0">
+      <div class="col-12">
+        <h1 class="hedaing mb-3" *ngIf="isExtendenWarranty === false && isAmcDetails === false">Add Products</h1>
+        <h1 class="hedaing mb-3" *ngIf="isExtendenWarranty">Add Extended Warranty</h1>
+        <h1 class="hedaing mb-3" *ngIf="isAmcDetails">Add AMC Details</h1>
+        <ul class="progressbar">
+          <li class="active">PRODUCT</li>
+          <li [ngClass]="{ active: isSecondTab === true }">WARRANTY</li>
+          <li>FINISH</li>
+        </ul>
+      </div>
+      <div class="col-lg-12" *ngIf="isFirstTab">
+        <form class="addProductStepOne" id="product-first-form" #productFirstForm="ngForm" (ngSubmit)="showSecondTab(productFirstForm)">
+          <div class="row">
+            <div class="col-lg-6">
+              <label for="name">Name<span>*</span></label>
+              <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="product_name" placeholder="Product name" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
+            </div>
+            <div class="col-lg-6">
+              <label for="brandId">Brand Name <span>*</span></label>
+              <select class="form-control" name="brandId" id="brandId" [(ngModel)]="brandId" 
+              >
+                <option *ngFor="let option of brandList" [value]="option._id" >{{option.name}}</option>
+              </select>
+            </div>
+            <div class="col-lg-6">
+              <label for="category">Category<span>*</span></label>
+              <select class="form-control" name="category" id="category" [(ngModel)]="category" 
+              (change)='fetchSubCategory()'>
+                <option *ngFor="let option of categoriesList" [value]="option._id" >{{option.name}}</option>
+              </select>
+            </div>
+            <div class="col-lg-6">
+              <label for="subCategory">Sub Category <span>*</span></label>
+              <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="subCategory" 
+              >
+                <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
+              </select>
+            </div>
+            <div class="col-lg-6">
+              <label for="name">Model No <span>*</span></label>
+              <input class="form-control" #modelNo="ngModel" ngModel type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" required [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
+            </div>
+            <div class="col-lg-6">
+                <span class="text-danger">{{errorMessage}}</span>
+            </div>
+            <div class="col-lg-6">
+             
+              <button class="addButton"  type="submit">
+                Add 
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-12" *ngIf="isSecondTab">
+        <form class="addProductStepfour" *ngIf="isSecondTab" id="product-second-form" #productSecondForm="ngForm" (ngSubmit)="showThirdTab(productSecondForm)">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="brand-container">
+                <div class="brand-wrapper">
+                  <input type="file" class="brand-file" />
+                </div>
+                <h6>Upload Invoice Photo</h6>
+                <p class="text-muted text-center">
+                  Image of invoice recieved on the day of purchase
+                </p>
+              </div>
+              <p class="text-center text-extra text-muted mt-3">
+                Enter full details to receive warranty reminders !
+              </p>
+            </div>
+            <div class="col-lg-8">
+              <div class="row">
+                <div class="col-lg-6">
+                  <label for="name">Product Date<span>*</span></label>
+                  <input
+                    type="date"
+                    #purchaseDate="ngModel" ngModel name="purchaseDate" id="purchaseDate"
+                    placeholder="LG"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-lg-6">
+                  <label for="warranty">Warranty Period <span>*</span></label>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <select #warrantyPeriod="ngModel" ngModel name="warrantyPeriod" id="warrantyPeriod" class="form-control">
+                        <option value="1">one</option>
+                        <option value="2">two</option>
+                        <option value="3">three</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-6">
+                      <select #warrantyType="ngModel" ngModel name="warrantyType" id="warrantyType" class="form-control">
+                        <option value="year">Years</option>
+                        <option value="month">Month</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label for="sno">Serial No.<span>*</span></label>
+                  <input
+                    type="number"
+                    #serialNo="ngModel" ngModel name="serialNo" id="serialNo"
+                    placeholder="2"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-lg-6">
+                  <label for="mobile"
+                    >Registered Mobile No.<span>*</span></label
+                  >
+                  <input
+                    type="number"
+                    #registeredMobileNo="ngModel" ngModel name="registeredMobileNo"
+                    id="registeredMobileNo"
+                    placeholder="+91"
+                    class="form-control"
+                  />
+                </div>
+                <div
+                  class="form-check col-lg-6 d-flex pl-0 pl-md-4 ml-0 ml-2 mt-2 mb-2 custop_check"
+                >
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="exampleCheck1"
+                  />
+                  <label class="form-check-label" for="exampleCheck1"
+                    >International Warranty</label
+                  >
+                </div>
+                <div class="col-12 col-md-12 tex-tright add_warrenty">
+                  <a href="javascript:void(0)" class="mr-0 mr-md-3" (click)="showExtendenWarranty()"
+                    ><i data-feather="plus-circle" width="18" class="mr-1"></i
+                    >Add extended warranty</a
+                  >
+                  <a href="javascript:void(0)" (click)="showAmcDetails()"
+                    ><i data-feather="plus-circle" width="18" class="mr-1"></i
+                    >Add AMC details</a
+                  >
+                </div>
+                <div class="col-lg-6">
+                  <span class="text-danger">{{errorMessage}}</span>
+              </div>
+                <div class="col-lg-12">
+                  <div class="button-container">
+                    <button class="product-button skip-button" (click)="showThirdTab()">
+                        Skip
+                       </button>
+                     <button  type="submit" class="product-button continue-button">
+                      Continue
+                     </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-12" *ngIf="isThirdTab">
+        <h2 class="subheading text-center">Add Product Pictures</h2>
+        <p class="text-muted text-center">
+          Image of invoice received on the date of purchase
+        </p>
+        <div class="row">
+          <div class="col-lg-4 mt-2 mb-2">
+            <form action="" class="addProductStepThree">
+              <div class="brand-wrapper">
+                <input type="file" class="brand-file" />
+              </div>
+            </form>
+          </div>
+          <div class="col-lg-4 mt-2 mb-2">
+            <div class="invoice-box">
+              <img src="../../../../../assets/img/product1.png" alt="" />
+            </div>
+          </div>
+          <div class="col-lg-4 mt-2 mb-2">
+            <div class="invoice-box">
+              <img src="../../../../../assets/img/product3.png" alt="" />
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <h2 class="subheading">Uploading Pictures....</h2>
+            <div class="progress">
+              <div class="progress-bar animated-progress" style="width: 70%">
+                70%
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="button-container">
+              <button class="product-button skip-button" (click)="showThankYou()">
+                Skip
+            </button>
+             <button class="product-button continue-button" (click)="showThankYou()">
+                 Continue
+             </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body_content" *ngIf="isFourthTab">
+        <div class="container">
+            <div class="row m-0">
+                <div class="col-12 thank-you text-center">
+                    <img src="../../../../../assets/img/tick3.png">
+                    <h1>Thank You!</h1>
+                    <p class="b-bottom">Please check your email for further instructions on how to complete your account step.</p>
+
+                    <p>Having trouble? <a href="">Contact Us</a></p>
+                    <a routerLink="/user/dashboard" class="continue-btn">CONTINUE TO HOME PAGE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-extended-warranty (addExtendedWarranty)="addExtendedWarranty($event)" *ngIf="isExtendenWarranty"></app-extended-warranty>
+    <app-amc-details *ngIf="isAmcDetails" (addAmcDetails)="addAmcDetails($event)"></app-amc-details>
+    </div>
+  </div>
+</div>

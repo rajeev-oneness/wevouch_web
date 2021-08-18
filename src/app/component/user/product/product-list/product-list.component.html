@@ -1,0 +1,346 @@
+<ngx-ui-loader
+  loaderId="loader"
+  fgsColor="#FFFFFF"
+  bgsOpacity="1"
+  overlayColor="rgba(40,40,40,0.1)"
+></ngx-ui-loader>
+<div class="body_content pt-4 product-body">
+  <div class="container">
+    <div class="row m-0 mb-3">
+      <div class="col-lg-4">
+        <h1 class="text-blue">Welcome</h1>
+        <p class="text-muted">You have 15 products listed yet</p>
+      </div>
+      <div class="col-lg-3 ml-auto">
+        <select name="filter" id="filter" class="form-control">
+          <option value="category">Filter By Category</option>
+          <option value="alphabet">Filter By Alphabet</option>
+          <option value="price">Filter By Price</option>
+        </select>
+      </div>
+      <div class="col-lg-3">
+        <a routerLink="/user/product/add" class="addButton"
+          ><i class="fa fa-plus"></i>Add Product</a
+        >
+      </div>
+    </div>
+    <div class="row justify-content-start m-0">
+      <div class="col-12 col-md-11 card shadow-none border-0 p-0">
+        <app-product-category></app-product-category>
+        <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="all-tab"
+              data-toggle="tab"
+              href="#all"
+              role="tab"
+              aria-controls="all"
+              aria-selected="true"
+              >all</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link active"
+              id="electronics-tab"
+              data-toggle="tab"
+              href="#electronics"
+              role="tab"
+              aria-controls="electronics"
+              aria-selected="true"
+              >Electronics</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="music-tab"
+              data-toggle="tab"
+              href="#music"
+              role="tab"
+              aria-controls="music"
+              aria-selected="true"
+              >music</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="toy-tab"
+              data-toggle="tab"
+              href="#toy"
+              role="tab"
+              aria-controls="toy"
+              aria-selected="true"
+              >toy & gaming</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="lighting-tab"
+              data-toggle="tab"
+              href="#lighting"
+              role="tab"
+              aria-controls="lighting"
+              aria-selected="true"
+              >lighting</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="virtual-tab"
+              data-toggle="tab"
+              href="#virtual"
+              role="tab"
+              aria-controls="virtual"
+              aria-selected="true"
+              >virtual space</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="gadgets-tab"
+              data-toggle="tab"
+              href="#gadgets"
+              role="tab"
+              aria-controls="gadgets"
+              aria-selected="true"
+              >gadgets</a
+            >
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div
+            class="tab-pane fade show"
+            id="all"
+            role="tabpanel"
+            aria-labelledby="all-tab"
+          >
+            <div class="row">
+              <div class="col-lg-3">
+                <a href="product_details.html">
+                  <div class="product-box">
+                    <img src="../../../../../assets/img/product1.png" alt="" />
+                    <h5 class="product-name">Saregamaa Carvaan</h5>
+                    <h6 class="expires">Expires on 20 Feb</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button class="edit_p">
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3">
+                <a href="product_details.html">
+                  <div class="product-box">
+                    <img src="../../../../../assets/img/product2.png" alt="" />
+                    <h5 class="product-name">Saregamaa Carvaan</h5>
+                    <h6 class="expires">Expires on 20 Feb</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button class="edit_p">
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3">
+                <a href="product_details.html">
+                  <div class="product-box">
+                    <img src="../../../../../assets/img/product3.png" alt="" />
+                    <h5 class="product-name">Saregamaa Carvaan</h5>
+                    <h6 class="expires">Expires on 20 Feb</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button class="edit_p">
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3">
+                <a href="product_details.html">
+                  <div class="product-box">
+                    <img src="../../../../../assets/img/product4.png" alt="" />
+                    <h5 class="product-name">Saregamaa Carvaan</h5>
+                    <h6 class="expires">Expires on 20 Feb</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button class="edit_p">
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3">
+                <a href="product_details.html">
+                  <div class="product-box">
+                    <img src="../../../../../assets/img/product5.png" alt="" />
+                    <h5 class="product-name">Saregamaa Carvaan</h5>
+                    <h6 class="expires">Expires on 20 Feb</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button class="edit_p">
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3">
+                <a href="product_details.html">
+                  <div class="product-box">
+                    <img src="../../../../../assets/img/product1.png" alt="" />
+                    <h5 class="product-name">Saregamaa Carvaan</h5>
+                    <h6 class="expires">Expires on 20 Feb</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button class="edit_p">
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3">
+                <a href="product_details.html">
+                  <div class="product-box">
+                    <img src="../../../../../assets/img/product2.png" alt="" />
+                    <h5 class="product-name">Saregamaa Carvaan</h5>
+                    <h6 class="expires">Expires on 20 Feb</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button class="edit_p">
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3">
+                <a href="product_details.html">
+                  <div class="product-box">
+                    <img src="../../../../../assets/img/product3.png" alt="" />
+                    <h5 class="product-name">Saregamaa Carvaan</h5>
+                    <h6 class="expires">Expires on 20 Feb</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button class="edit_p">
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3">
+                <a href="product_details.html">
+                  <div class="product-box">
+                    <img src="../../../../../assets/product4.png" alt="" />
+                    <h5 class="product-name">Saregamaa Carvaan</h5>
+                    <h6 class="expires">Expires on 20 Feb</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button class="edit_p">
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3">
+                <a href="product_details.html">
+                  <div class="product-box">
+                    <img src="../../../../../assets/img/product5.png" alt="" />
+                    <h5 class="product-name">Saregamaa Carvaan</h5>
+                    <h6 class="expires">Expires on 20 Feb</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button class="edit_p">
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3">
+                <a href="product_details.html">
+                  <div class="product-box">
+                    <img src="../../../../../assets/img/product4.png" alt="" />
+                    <h5 class="product-name">Saregamaa Carvaan</h5>
+                    <h6 class="expires">Expires on 20 Feb</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button class="edit_p">
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3">
+                <a href="product_details.html">
+                  <div class="product-box">
+                    <img src="../../../../../assets/img/product5.png" alt="" />
+                    <h5 class="product-name">Saregamaa Carvaan</h5>
+                    <h6 class="expires">Expires on 20 Feb</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button class="edit_p">
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane fade show active"
+            id="electronics"
+            role="tabpanel"
+            aria-labelledby="electronics-tab"
+          >
+            <div class="row">
+              <div
+                class="col-lg-3"
+                *ngFor="let product of productList; let i = index"
+              >
+                <div (click)="naviagteToDetails(product._id)">
+                  <div class="product-box">
+                    <img src="{{ product.productImagesUrl[0] }}" alt="" />
+                    <h5 class="product-name">{{ product.name }}</h5>
+                    <h6 class="expires">Expires on {{ product.expiryDate }}</h6>
+                    <button><i data-feather="edit-3"></i></button>
+                    <button
+                      class="edit_p"
+                      (click)="
+                        deleteProduct(product._id); $event.stopPropagation()
+                      "
+                    >
+                      <i data-feather="trash-2"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane fade show"
+            id="music"
+            role="tabpanel"
+            aria-labelledby="music-tab"
+          ></div>
+          <div
+            class="tab-pane fade show"
+            id="toy"
+            role="tabpanel"
+            aria-labelledby="toy-tab"
+          ></div>
+          <div
+            class="tab-pane fade show"
+            id="lighting"
+            role="tabpanel"
+            aria-labelledby="lighting-tab"
+          ></div>
+          <div
+            class="tab-pane fade show"
+            id="virtual"
+            role="tabpanel"
+            aria-labelledby="virtual-tab"
+          ></div>
+          <div
+            class="tab-pane fade show"
+            id="gadgets"
+            role="tabpanel"
+            aria-labelledby="gadgets-tab"
+          ></div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<a id="sidebarCollapse" href="javascript:void(0);" class="shadow-lg">
+  <!-- <i class="fas fa-bars"></i> -->
+  <aside>Hide</aside>
+</a>
+<div class="header">
+  <div class="container-fluid">
+    <div class="row">
+      <div
+        class="navbar-container content align-items-center col-12 col-md-5 p-0 ml-auto bg-black d-flex"
+      >
+        <ul class="align-items-center mb-0 bg-grayblue pb-2 fix-p">
+          <li class="nav-item position-relative">
+            <a href="notification-settings.html" class="nav-link"
+              ><i data-feather="settings"></i
+            ></a>
+          </li>
+          <li class="nav-item position-relative">
+            <a href="#" class="nav-link schedthis"
+              ><i data-feather="bell"></i
+            ></a>
+            <span class="noti-count">5</span>
+          </li>
+          <li class="nav-item">
+            <a
+              href=""
+              class="nav-link text-white border-l"
+              data-toggle="collapse"
+              data-target="#collapseExample"
+            >
+              <i data-feather="search" class="mr-1"></i>
+              <span class="re-hide">Search</span>
+            </a>
+          </li>
+        </ul>
+        <a routerLink="/user/profile">
+          <div class="d-flex align-items-start pl-2 user-part">
+            <p class="user-name">
+              Hi, {{userDetails?.name}}<span>Member Since: 2019</span>
+            </p>
+            <diV class="img-user">
+              <img src="../../../../../assets/img/user-pic.png" class="rounded-circle" />
+            </diV>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end-header-->

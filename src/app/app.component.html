@@ -1,0 +1,14 @@
+<div class="customer-details-container" *ngIf="showHeaderFooterSidebar">
+    <div class="row">
+        <app-sidebar></app-sidebar>
+        <div class="dashboard-body" id="content">
+            <div class="dashboard-content">
+                <app-header></app-header><hr>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="customer-details-container" *ngIf="loginRegistration">
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,74 @@
+<div class="product-slider shadow-sm">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        [ngClass]="{ active: selectedCategory === 'all' }"
+        id="all-tab"
+        data-toggle="tab"
+        href="javascript:void(0)"
+        role="tab"
+        aria-controls="all"
+        aria-selected="true"
+        (click)="getProductsByCategory('all')"
+        >all</a
+      >
+    </li>
+    <li class="nav-item" role="presentation" *ngFor="let category of categoryList; let i = index">
+      <a
+        class="nav-link"
+        id="{{category.name}}-tab"
+        data-toggle="tab"
+        href="javascript:void(0)"
+        role="tab"
+        aria-controls="electronics"
+        aria-selected="true"
+        [ngClass]="{ active: selectedCategory === category.name }"
+        (click)="getProductsByCategory(category)"
+        >{{category.name}}</a
+      >
+    </li>
+    
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="all-slider"
+      role="tabpanel"
+      aria-labelledby="all-tab"
+      
+    >
+    <owl-carousel-o class="product-slider" id="first-slider">
+        <ng-template *ngFor="let product of productList; let i = index" carouselSlide>
+            <div >
+                <div class="image-wrapper">
+                  <img [src]="product.productImagesUrl[0]" alt="" />
+                </div>
+                <h6 class="product-name">{{product.name}}</h6>
+                <p class="text-muted text-center mb-3">Expires on {{product.expiryDate}}</p>
+              </div>
+        </ng-template>  
+      </owl-carousel-o>
+      <a routerLink="/user/product/list" class="viewbutton mx-auto">View All</a>
+    </div>
+    <!-- <div
+      class="tab-pane fade show active"
+      id="other-slider"
+      role="tabpanel"
+      aria-labelledby="electronics-tab"
+    >
+    <owl-carousel-o class="product-slider" id="second-slider">
+        <ng-template *ngFor="let product of productList; let i = index" carouselSlide>
+            <div >
+                <div class="image-wrapper">
+                  <img [src]="product.productImagesUrl[0]" alt="" />
+                </div>
+                <h6 class="product-name">{{product.name}}</h6>
+                <p class="text-muted text-center mb-3">Expires on {{product.expiryDate}}</p>
+              </div>
+        </ng-template>  
+      </owl-carousel-o>
+      <a routerLink="/user/product/list" class="viewbutton mx-auto">View All</a>
+    </div> -->
+  </div>
+</div>
