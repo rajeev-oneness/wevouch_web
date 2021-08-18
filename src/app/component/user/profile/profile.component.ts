@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
+import  Swal  from "sweetalert2";
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
+
 export class ProfileComponent implements OnInit {
+
   public isEdit = false;
   public userDetails: any = {};
   public errorMessage: string = '';
@@ -16,6 +20,18 @@ export class ProfileComponent implements OnInit {
   public newPassword: string = '';
   public passwordType: string = 'password';
   public newPasswordType: string = 'password';
+  public Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+
   constructor(
     private _api: ApiService,
     private _loader: NgxUiLoaderService,
@@ -53,6 +69,10 @@ export class ProfileComponent implements OnInit {
             (res) => {
               this._loader.stopLoader('loader');
               this.successMessage = 'Password changed suucessfully.';
+              this.Toast.fire({
+                icon: 'success',
+                title: 'Password changed successfully!'
+              })
             },
             (err) => {
               this.errorMessage = err.error.message;
@@ -73,9 +93,12 @@ export class ProfileComponent implements OnInit {
         this._loader.startLoader('loader');
         this._api.updateUserDetails(this.userDetails).subscribe(
           (res) => {
-            localStorage.setItem('we_vouch_user', JSON.stringify(res));
+            this._api.updateUserLocally(res);
             this._loader.stopLoader('loader');
-            this.successMessage = 'Saved successfully';
+            this.Toast.fire({
+              icon: 'success',
+              title: 'Profile updated successfully!'
+            })
           },
           (err) => {
             this.errorMessage = err.error.message;

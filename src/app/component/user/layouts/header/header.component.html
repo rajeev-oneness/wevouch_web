@@ -13,7 +13,7 @@
             ></a>
           </li>
           <li class="nav-item position-relative">
-            <a href="#" class="nav-link schedthis"
+            <a href="javascript:void(0);" class="nav-link schedthis"
               ><i data-feather="bell"></i
             ></a>
             <span class="noti-count">5</span>
@@ -29,6 +29,11 @@
               <span class="re-hide">Search</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="javascript:void(0);" class="nav-link text-white border-l" (click)="logOutUser()">
+              <span class="re-hide">Log out</span>
+            </a>
+          </li>
         </ul>
         <a routerLink="/user/profile">
           <div class="d-flex align-items-start pl-2 user-part">
@@ -36,7 +41,7 @@
               Hi, {{userDetails?.name}}<span>Member Since: 2019</span>
             </p>
             <diV class="img-user">
-              <img src="../../../../../assets/img/user-pic.png" class="rounded-circle" />
+              <img src="./assets/img/user-pic.png" class="rounded-circle" />
             </diV>
           </div>
         </a>

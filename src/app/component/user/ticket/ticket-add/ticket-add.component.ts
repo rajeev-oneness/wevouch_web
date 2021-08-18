@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import {ActivatedRoute, Router} from "@angular/router";
+import  Swal  from "sweetalert2";
+
 @Component({
   selector: 'app-ticket-add',
   templateUrl: './ticket-add.component.html',
   styleUrls: ['./ticket-add.component.css'],
 })
+
 export class TicketAddComponent implements OnInit {
+
   public issueType: string = '';
   public functionType: string = '';
   public description: string = '';
@@ -18,6 +22,18 @@ export class TicketAddComponent implements OnInit {
   public isThirdTab: boolean = false;
   public selectedDate: string = "";
   public selectedTime: string = "";
+  public Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+
   constructor(private _api: ApiService, private _loader: NgxUiLoaderService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {}
@@ -69,7 +85,10 @@ export class TicketAddComponent implements OnInit {
             };
             this._api.addTicket(tosendData).subscribe(
               res=>{
-                console.log(res);
+                this.Toast.fire({
+                  icon: 'success',
+                  title: 'Tcket raised successfully!'
+                })
                 this.router.navigate(['/user/ticket/list']);
               }
             )

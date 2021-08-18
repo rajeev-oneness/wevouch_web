@@ -4,7 +4,12 @@
 
 export const environment = {
   production: false,
+  basePath: '/',
+  dasboardPath: '/user/dashboard',
+  projectPath : '/login',
   apiUrl : 'https://boiling-dawn-74925.herokuapp.com/api/',
+  rzp_key_id: 'rzp_test_3y2EfpyvWXWhg3',
+  rzp_key_secret: 'WH3KAIawNotIN7fhYCrtcZdp'
 };
 
 /*

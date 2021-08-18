@@ -26,39 +26,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {DpDatePickerModule} from 'ng2-date-picker';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { PackageListComponent } from './component/user/package/package-list/package-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    SidebarComponent,
-    DashboardComponent,
-    ProductAddComponent,
-    ProductListComponent,
-    ProductDetailComponent,
-    LoginComponent,
-    TicketAddComponent,
-    TicketListComponent,
-    TicketDetailComponent,
-    RegistrationComponent,
-    ForgetComponent,
-    ChangeComponent,
-    ExtendedWarrantyComponent,
-    AmcDetailsComponent,
-    ProfileComponent,
-    ProductCategoryComponent
+    AppComponent,HeaderComponent,SidebarComponent,DashboardComponent,ProductAddComponent,ProductListComponent,ProductDetailComponent,LoginComponent,TicketAddComponent,TicketListComponent,TicketDetailComponent,RegistrationComponent,ForgetComponent,ChangeComponent,ExtendedWarrantyComponent,AmcDetailsComponent,ProfileComponent,ProductCategoryComponent,PackageListComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    NgxUiLoaderModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    DpDatePickerModule,
-    CarouselModule
+    BrowserModule,BrowserAnimationsModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,DpDatePickerModule,CarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent],

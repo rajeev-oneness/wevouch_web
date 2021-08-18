@@ -1,3 +1,9 @@
+<ngx-ui-loader
+  loaderId="loader"
+  fgsColor="#FFFFFF"
+  bgsOpacity="1"
+  overlayColor="rgba(40,40,40,0.1)"
+></ngx-ui-loader>
 <div class="body_content p-4">
   <div class="container">
     <h1 class="heading mb-1">Hi,<span> {{userDetails.name}}</span></h1>
@@ -9,7 +15,7 @@
           <div class="card">
             <div class="card-body d-flex p-2">
               <div class="image">
-                <img src="{{ticket.products.productImagesUrl[0]}}" />
+                <img src="{{ticket.products?.productImagesUrl[0]}}" />
               </div>
               <h1>
                 {{ticket?.products?.name}}

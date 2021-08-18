@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       this._loader.startLoader('loader');
       this._api.userLoginAPI(formData.value).subscribe(
         res => {
-          localStorage.setItem("we_vouch_user", JSON.stringify(res.user));
+          this._api.storeUserLocally(res.user);
           this._loader.stopLoader('loader');
           this._router.navigate(["/user/dashboard"]);
         },

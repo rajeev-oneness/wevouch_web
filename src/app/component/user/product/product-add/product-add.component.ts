@@ -41,6 +41,8 @@ export class ProductAddComponent implements OnInit {
     if(value)
     {
       this.addProductValue.extendedWarranty = value;
+      console.log(this.addProductValue);
+
     }
     this.isExtendenWarranty = false;
     this.isSecondTab= true;
@@ -50,6 +52,8 @@ export class ProductAddComponent implements OnInit {
     if(value)
     {
       this.addProductValue.amcDetails = value;
+      console.log(this.addProductValue);
+
     }
     this.isAmcDetails = false;
     this.isSecondTab= true;
@@ -71,6 +75,8 @@ export class ProductAddComponent implements OnInit {
         this.isFirstTab = false;
         this.isSecondTab = true;
         this.errorMessage = "";
+        console.log(this.addProductValue);
+        
       } else {
         this.errorMessage = 'Please fill out all the details';
       }
@@ -112,6 +118,8 @@ export class ProductAddComponent implements OnInit {
         this.addProductValue.warrantyPeriod =
           formData.value.warrantyPeriod || 0;
       }
+      console.log(this.addProductValue);
+
       this.isSecondTab = false;
       this.isThirdTab = true;
       this.errorMessage = "";
@@ -125,13 +133,14 @@ export class ProductAddComponent implements OnInit {
   showThankYou() {
     this._loader.startLoader('loader');
     this.addProductValue.productImagesUrl = [
-      'https://i.pinimg.com/originals/e4/bd/7f/e4bd7fcfa7cab450251ed1208df4a88a.jpg',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdIEHk92xSe6iKOFKZmijD4DwBVkMMbFGFCA&usqp=CAU',
+      'https://justify.websites.co.in/obaju-green/img/product-placeholder.png',
     ];
     this.addProductValue.userId = JSON.parse(
       localStorage.getItem('we_vouch_user')
     )._id;
-    this.addProductValue.invoicePhotoUrl = 'jjkfhg';
+    this.addProductValue.invoicePhotoUrl = 'invoice';
+    console.log(this.addProductValue);
+
     this._api.addProduct(this.addProductValue).subscribe(
       (res) => {
         this._loader.stopLoader('loader');

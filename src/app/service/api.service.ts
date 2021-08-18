@@ -21,6 +21,37 @@ export class ApiService {
   // How to send the data + Header Example is below
   // return this.http.post<any>(_apiUrl + 'update/user/profile',data,{headers: this.header});
 
+  // Storing the User Info Locally
+  storeUserLocally(data : any){
+    let routeIntended = localStorage.getItem('routeIntended');
+    localStorage.clear();
+    // localStorage.setItem('accessToken', 'accessToken1234567890adminWeVouch');
+    localStorage.setItem('we_vouch_user',JSON.stringify(data));
+    window.location.href = environment.dasboardPath;
+    // this._router.navigate([(routeIntended) ? routeIntended : '/admin/dashboard']);
+  }
+
+  updateUserLocally(data : any){
+    localStorage.removeItem('we_vouch_user');
+    localStorage.setItem('we_vouch_user',JSON.stringify(data));
+  }
+
+  // Logging Out the Current User
+  logoutUser():void{
+    localStorage.clear();
+    window.location.href = environment.projectPath;
+  }
+
+  // Checking the Authentication for User
+  isAuthenticated(){
+    return !!localStorage.getItem('we_vouch_user');
+  }
+
+  getUserDetailsFromStorage(){
+    let user = localStorage.getItem('we_vouch_user');
+    return JSON.parse(user || '{}');
+  }
+
   userLoginAPI(formData){
     return this._http.post<any>(_apiUrl+'user/login',formData);
   }
@@ -53,9 +84,7 @@ export class ApiService {
   brandList() {
     return this._http.get<any>(_apiUrl+'brand/list');
   }
-  packageList() {
-    return this._http.get<any>(_apiUrl+'sub/list');
-  }
+  
   addProduct(formData) {
     return this._http.post<any>(_apiUrl+'product/add', formData);
   }
@@ -78,5 +107,22 @@ export class ApiService {
   {
     return this._http.delete<any>(_apiUrl+'product/delete/'+id);
   }
+  deleteTicket(ticketId)
+  {
+    return this._http.delete<any>(_apiUrl+'ticket/delete/'+ticketId);
+  }
   
+  //package
+  packageList() {
+    return this._http.get<any>(_apiUrl+'sub/list');
+  }
+  packageDetail(subscriptionId :any) {
+    return this._http.get<any>( _apiUrl + 'sub/get/' + subscriptionId );
+  }
+
+  //notification list
+  notificationList(userId : any) {
+    return this._http.get<any>(_apiUrl+'notification/get-by-user/'+userId);
+    // return this._http.get<any>(_apiUrl+'notification/list');
+  }
 }

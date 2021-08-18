@@ -1,0 +1,32 @@
+<ngx-ui-loader
+  loaderId="loader"
+  fgsColor="#FFFFFF"
+  bgsOpacity="1"
+  overlayColor="rgba(40,40,40,0.1)"
+></ngx-ui-loader>
+<div class="body_content pt-4">
+    <div class="container">
+        <h1 class="heading mb-3">
+            Select Package
+        </h1>
+        <div class="row">
+            <div class="col-lg-4 py-2" *ngFor="let package of packages; else NopackagesBlock">
+                <div class="package-container recommend">
+                    <div class="ribbon" *ngIf="package.name == 'Platinum'">
+                        <a href="javascript:void(0);">Recommended</a>
+                    </div>
+                    <h6 class="text-center mb-2"><span>{{package.name}}</span> Plan</h6>
+                    <h6 class="text-center mb-2">&#8377;{{package.amount}}</h6>
+                    <p class="text-muted text-center">365 days validity</p>
+                    <p class="text-center">{{package.description}}</p>
+                    <!-- <ul class="package-list">
+                        <li><img src="assets/img/tick.png" alt=""><h6>Pick up update</h6></li>
+                        <li><img src="assets/img/tick.png" alt=""><h6>Pick up update</h6></li>
+                        <li><img src="assets/img/tick.png" alt=""><h6>Pick up update</h6></li>
+                    </ul> -->
+                    <a href="javascript:void(0);" class="subscribe-button mx-auto" (click)="initPay(package._id)">subscribe</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

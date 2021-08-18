@@ -13,10 +13,13 @@ export class DashboardComponent implements OnInit {
   constructor(private _loader: NgxUiLoaderService, private _api: ApiService) { }
   
   ngOnInit(): void {
+    this._loader.startLoader('loader');
     this.userDetails = JSON.parse(localStorage.getItem('we_vouch_user'));
     this._api.productList(this.userDetails._id).subscribe((res) => {
-    this.productCount = res.length;
+      this.productCount = res.length;
+      this._loader.stopLoader('loader');
     });
+
   }
 
 }

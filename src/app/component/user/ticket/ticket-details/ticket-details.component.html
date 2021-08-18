@@ -1,8 +1,15 @@
+<ngx-ui-loader
+  loaderId="loader"
+  fgsColor="#FFFFFF"
+  bgsOpacity="1"
+  overlayColor="rgba(40,40,40,0.1)"
+></ngx-ui-loader>
 <div class="body_content p-4">
     <div class="container ticket-container">
         <div class="row">
             <div class="col-lg-6">
                 <p class="text-muted">Ticket No.<span> {{ticketDetails.uniqueId}}</span></p>
+                <a href="javascript:void(0);" (click)="deleteTicket()" class="text-danger">Delte Ticket</a>
                 <div class="ticket-image ticket-details-image" *ngIf="ticketDetails.products && ticketDetails.products.productImagesUrl">
                     <img src={{prodImg}} alt="" class="first-image" *ngFor="let prodImg of ticketDetails.products.productImagesUrl; let i = index">
                     
@@ -14,7 +21,7 @@
                 <p class="expired mb-2">Expires on : <span>20 Feb 2023</span></p>
                 </div>
                 <p class="text-muted">Serial No : <span>{{ticketDetails.serialNo}}</span></p>
-                <img src="../../../../../assets/img/barcode.png" class="img-fluid">
+                <img src="./assets/img/barcode.png" class="img-fluid">
             </div>
         </div>
     </div>

@@ -12,15 +12,18 @@ import { ForgetComponent } from "./component/auth/password/forget/forget.compone
 import { ChangeComponent } from "./component/auth/password/change/change.component";
 import { TicketDetailComponent } from './component/user/ticket/ticket-details/ticket-details.component';
 import { ProfileComponent } from './component/user/profile/profile.component';
+import { PackageListComponent } from "./component/user/package/package-list/package-list.component";
+import { AuthGuardService } from "./service/auth-guard.service";
+
 const routes: Routes = [
-  {path : '', component : DashboardComponent, pathMatch:'full'},
+  {path : '', component : DashboardComponent, pathMatch:'full', canActivate: [AuthGuardService]},
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
-  {path: 'password', children: [
+  {path: 'password', canActivate: [AuthGuardService], children: [
     {path: 'forget', component: ForgetComponent},
     {path: 'change', component: ChangeComponent},
   ]},
-  {path: 'user', children: [
+  {path: 'user', canActivate: [AuthGuardService], children: [
     {path : 'dashboard', component : DashboardComponent},
     {path : 'profile', component : ProfileComponent},
     {path: 'product', children: [
@@ -33,7 +36,11 @@ const routes: Routes = [
       {path:"list", component:TicketListComponent},
       {path:"detail/:ticketId", component:TicketDetailComponent}
     ]},
-  ]}
+    {path: 'package', children: [
+      {path:"list", component:PackageListComponent},
+    ]},
+  ]},
+  {path : '**', component : DashboardComponent, pathMatch:'full',canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

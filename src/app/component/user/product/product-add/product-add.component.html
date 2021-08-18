@@ -4,7 +4,7 @@
   bgsOpacity="1"
   overlayColor="rgba(40,40,40,0.1)"
 ></ngx-ui-loader>
-<div class="body_content pt-4">
+<div class="body_content pt-4" *ngIf="!isFourthTab">
   <div class="container product-container">
     <div class="row justify-content-start m-0">
       <div class="col-12">
@@ -183,12 +183,12 @@
           </div>
           <div class="col-lg-4 mt-2 mb-2">
             <div class="invoice-box">
-              <img src="../../../../../assets/img/product1.png" alt="" />
+              <img src="./assets/img/product1.png" alt="" />
             </div>
           </div>
           <div class="col-lg-4 mt-2 mb-2">
             <div class="invoice-box">
-              <img src="../../../../../assets/img/product3.png" alt="" />
+              <img src="./assets/img/product3.png" alt="" />
             </div>
           </div>
           <div class="col-lg-12">
@@ -211,22 +211,23 @@
           </div>
         </div>
       </div>
-      <div class="body_content" *ngIf="isFourthTab">
-        <div class="container">
-            <div class="row m-0">
-                <div class="col-12 thank-you text-center">
-                    <img src="../../../../../assets/img/tick3.png">
-                    <h1>Thank You!</h1>
-                    <p class="b-bottom">Please check your email for further instructions on how to complete your account step.</p>
-
-                    <p>Having trouble? <a href="">Contact Us</a></p>
-                    <a routerLink="/user/dashboard" class="continue-btn">CONTINUE TO HOME PAGE</a>
-                </div>
-            </div>
-        </div>
-    </div>
+      
     <app-extended-warranty (addExtendedWarranty)="addExtendedWarranty($event)" *ngIf="isExtendenWarranty"></app-extended-warranty>
     <app-amc-details *ngIf="isAmcDetails" (addAmcDetails)="addAmcDetails($event)"></app-amc-details>
     </div>
+  </div>
+</div>
+<div class="body_content" *ngIf="isFourthTab">
+  <div class="container">
+      <div class="row m-0">
+          <div class="col-12 thank-you text-center">
+              <img src="./assets/img/tick3.png">
+              <h1>Thank You!</h1>
+              <p class="b-bottom">Please check your email for further instructions on how to complete your account step.</p>
+
+              <p>Having trouble? <a href="">Contact Us</a></p>
+              <a routerLink="/user/dashboard" class="continue-btn">CONTINUE TO HOME PAGE</a>
+          </div>
+      </div>
   </div>
 </div>
