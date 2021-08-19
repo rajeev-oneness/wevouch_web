@@ -81,7 +81,7 @@
             <div class="col-lg-8">
               <div class="row">
                 <div class="col-lg-6">
-                  <label for="name">Product Date<span>*</span></label>
+                  <label for="name">Purchase Date<span>*</span></label>
                   <input
                     type="date"
                     #purchaseDate [ngModel]="purchaseDateTime" name="purchaseDate" id="purchaseDate"
@@ -93,7 +93,7 @@
                   <label for="warranty">Warranty Period <span>*</span></label>
                   <div class="row">
                     <div class="col-lg-6">
-                      <select #warrantyPeriod="ngModel" [ngModel]="'one'" name="warrantyPeriod" id="warrantyPeriod" class="form-control">
+                      <select #warrantyPeriod="ngModel" [ngModel]="'1'" name="warrantyPeriod" id="warrantyPeriod" class="form-control">
                         <option value="1">one</option>
                         <option value="2">two</option>
                         <option value="3">three</option>

@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
 import { ActivatedRoute } from "@angular/router";
+import { getDateFormat } from 'src/app/service/globalFunction';
+
 @Component({
   selector: 'app-extended-warranty',
   templateUrl: './extended-warranty.component.html',
@@ -22,8 +24,8 @@ export class ExtendedWarrantyComponent implements OnInit {
     this._api.getProductDetailsById(this.productId).subscribe(
       res => {
         this.productExtWarDetail = res.extendedWarranty;
-        this.startDateTime = new Date(res.extendedWarranty.startDate).toLocaleDateString();
-        this.endDateTime = new Date(res.extendedWarranty.endDate).toLocaleDateString();
+        this.startDateTime = getDateFormat(res.extendedWarranty.startDate);
+        this.endDateTime = getDateFormat(res.extendedWarranty.endDate);
         console.log(this.startDateTime);
         console.log(this.endDateTime);
         

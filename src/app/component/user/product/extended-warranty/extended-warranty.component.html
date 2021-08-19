@@ -39,11 +39,11 @@
           </div>
           <div class="col-lg-6">
             <label for="start">Start Date<span>*</span></label>
-            <input required type="date" id="startDate" #startDate="ngModel" ngModel name="startDate" class="form-control" required />
+            <input required type="date" id="startDate" #startDate [ngModel]="startDateTime" name="startDate" class="form-control" required data-date-format="dd-mm-yyyy"/>
           </div>
           <div class="col-lg-6">
             <label for="end">End Date<span>*</span></label>
-            <input required type="date" id="endDate" #endDate="ngModel" ngModel name="endDate" class="form-control" />
+            <input required type="date" id="endDate" #endDate [ngModel]="endDateTime" name="endDate" class="form-control" data-date-format="dd-mm-yyyy"/>
           </div>
           <div class="col-lg-6">
             <label for="invoiceNo">Policy Number<span>*</span></label>
