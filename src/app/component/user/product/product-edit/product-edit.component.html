@@ -8,7 +8,7 @@
   <div class="container product-container">
     <div class="row justify-content-start m-0">
       <div class="col-12">
-        <h1 class="hedaing mb-3" *ngIf="isExtendenWarranty === false && isAmcDetails === false">Add Products</h1>
+        <h1 class="hedaing mb-3" *ngIf="isExtendenWarranty === false && isAmcDetails === false">Edit Product - {{productDetail.name}}</h1>
         <h1 class="hedaing mb-3" *ngIf="isExtendenWarranty">Add Extended Warranty</h1>
         <h1 class="hedaing mb-3" *ngIf="isAmcDetails">Add AMC Details</h1>
         <ul class="progressbar">
@@ -22,12 +22,11 @@
           <div class="row">
             <div class="col-lg-6">
               <label for="name">Name<span>*</span></label>
-              <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="product_name" placeholder="Product name" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
+              <input class="form-control" #name="ngModel" [(ngModel)]="productDetail.name" type="text" name="name" id="product_name" placeholder="Product name" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
             </div>
             <div class="col-lg-6">
               <label for="brandId">Brand Name <span>*</span></label>
-              <select class="form-control" name="brandId" id="brandId" [(ngModel)]="brandId" 
-              >
+              <select class="form-control" name="brandId" id="brandId" [(ngModel)]="productDetail.brands._id" >
                 <option *ngFor="let option of brandList" [value]="option._id" >{{option.name}}</option>
               </select>
             </div>
@@ -47,7 +46,7 @@
             </div>
             <div class="col-lg-6">
               <label for="name">Model No <span>*</span></label>
-              <input class="form-control" #modelNo="ngModel" ngModel type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" required [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
+              <input class="form-control" #modelNo="ngModel" [(ngModel)]="productDetail.modelNo" type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" required [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
             </div>
             <div class="col-lg-6">
                 <span class="text-danger">{{errorMessage}}</span>
@@ -55,7 +54,7 @@
             <div class="col-lg-6">
              
               <button class="addButton"  type="submit">
-                Add 
+                CONTINUE 
               </button>
             </div>
           </div>
@@ -67,8 +66,8 @@
             <div class="col-lg-4">
               <div class="brand-container">
                 <div class="brand-wrapper">
-                  <input type="file" class="brand-file" (change)="onSelectFile($event)" />
-                  <img src="{{uploadedFile}}" alt="">
+                  <input type="file" (change)="onSelectFile($event)" class="brand-file" />
+                  <img src="{{uploadedFile}}" width="100">
                 </div>
                 <h6>Upload Invoice Photo</h6>
                 <p class="text-muted text-center">
@@ -85,9 +84,9 @@
                   <label for="name">Product Date<span>*</span></label>
                   <input
                     type="date"
-                    #purchaseDate="ngModel" ngModel name="purchaseDate" id="purchaseDate"
+                    #purchaseDate [ngModel]="purchaseDateTime" name="purchaseDate" id="purchaseDate"
                     placeholder="LG"
-                    class="form-control"
+                    class="form-control" data-date-format="dd-mm-yyyy"
                   />
                 </div>
                 <div class="col-lg-6">
@@ -112,8 +111,7 @@
                   <label for="sno">Serial No.<span>*</span></label>
                   <input
                     type="number"
-                    #serialNo="ngModel" ngModel name="serialNo" id="serialNo"
-                    placeholder="2"
+                    #serialNo="ngModel" [(ngModel)]="productDetail.serialNo" name="serialNo" id="serialNo"
                     class="form-control"
                   />
                 </div>
@@ -123,7 +121,7 @@
                   >
                   <input
                     type="number"
-                    #registeredMobileNo="ngModel" ngModel name="registeredMobileNo"
+                    #registeredMobileNo="ngModel" [(ngModel)]="productDetail.registeredMobileNo" name="registeredMobileNo"
                     id="registeredMobileNo"
                     placeholder="+91"
                     class="form-control"
@@ -178,7 +176,7 @@
           <div class="col-lg-4 mt-2 mb-2">
             <form action="" class="addProductStepThree">
               <div class="brand-wrapper">
-                <input type="file" class="brand-file" (change)="onSelectFile($event)" />
+                <input type="file" (change)="onSelectFile($event)" class="brand-file" />
               </div>
             </form>
           </div>
@@ -223,11 +221,11 @@
       <div class="row m-0">
           <div class="col-12 thank-you text-center">
               <img src="./assets/img/tick3.png">
-              <h1>Thank You!</h1>
-              <p class="b-bottom">Please check your email for further instructions on how to complete your account step.</p>
+              <h1>Product Updated!</h1>
+              <p class="b-bottom">Product updated successfully.</p>
 
-              <p>Having trouble? <a href="">Contact Us</a></p>
-              <a routerLink="/user/dashboard" class="continue-btn">CONTINUE TO HOME PAGE</a>
+              <p>Having trouble? <a href="javascript:void(0);">Contact Us</a></p>
+              <a routerLink="/user/product/list" class="continue-btn">GO TO PRODUCT LIST</a>
           </div>
       </div>
   </div>

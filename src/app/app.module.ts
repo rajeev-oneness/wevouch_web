@@ -27,10 +27,11 @@ import { HttpClientModule } from '@angular/common/http';
 import {DpDatePickerModule} from 'ng2-date-picker';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { PackageListComponent } from './component/user/package/package-list/package-list.component';
+import { ProductEditComponent } from './component/user/product/product-edit/product-edit.component';
 
 @NgModule({
   declarations: [
-    AppComponent,HeaderComponent,SidebarComponent,DashboardComponent,ProductAddComponent,ProductListComponent,ProductDetailComponent,LoginComponent,TicketAddComponent,TicketListComponent,TicketDetailComponent,RegistrationComponent,ForgetComponent,ChangeComponent,ExtendedWarrantyComponent,AmcDetailsComponent,ProfileComponent,ProductCategoryComponent,PackageListComponent
+    AppComponent,HeaderComponent,SidebarComponent,DashboardComponent,ProductAddComponent,ProductListComponent,ProductDetailComponent,LoginComponent,TicketAddComponent,TicketListComponent,TicketDetailComponent,RegistrationComponent,ForgetComponent,ChangeComponent,ExtendedWarrantyComponent,AmcDetailsComponent,ProfileComponent,ProductCategoryComponent,PackageListComponent, ProductEditComponent
   ],
   imports: [
     BrowserModule,BrowserAnimationsModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,DpDatePickerModule,CarouselModule

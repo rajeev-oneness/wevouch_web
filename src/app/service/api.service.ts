@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Router } from '@angular/router';
 
 var originalURL = environment.apiUrl;
+var fileUploadURL = environment.file_upload_url;
 var _apiUrl = originalURL;
 
 @Injectable({
@@ -15,7 +16,7 @@ export class ApiService {
 
   constructor(private _http : HttpClient,private _router : Router) { 
     this.header = new HttpHeaders()
-        .set("Authorization", 'Bearer ')
+        // .set("Authorization", 'Bearer ')
         .set("Accept","application/json");
   }
   // How to send the data + Header Example is below
@@ -50,6 +51,10 @@ export class ApiService {
   getUserDetailsFromStorage(){
     let user = localStorage.getItem('we_vouch_user');
     return JSON.parse(user || '{}');
+  }
+
+  storeFile(file) {
+    return this._http.post<any>(fileUploadURL, file, {headers: this.header})
   }
 
   userLoginAPI(formData){
@@ -99,6 +104,9 @@ export class ApiService {
   }
   getProductDetailsById(productId){
     return this._http.get<any>(_apiUrl+'product/get/'+productId);
+  }
+  updateProdcut(productId, formData){
+    return this._http.patch<any>(_apiUrl+'product/update/'+productId, formData);
   }
   getTicketDetailsById(productId){
     return this._http.get<any>(_apiUrl+'ticket/get/'+productId);

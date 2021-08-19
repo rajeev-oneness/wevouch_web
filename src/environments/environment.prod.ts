@@ -5,5 +5,6 @@ export const environment = {
   projectPath : '/dev/wevouchweb/login',
   apiUrl : 'https://boiling-dawn-74925.herokuapp.com/api/',
   rzp_key_id: 'rzp_test_3y2EfpyvWXWhg3',
-  rzp_key_secret: 'WH3KAIawNotIN7fhYCrtcZdp'
+  rzp_key_secret: 'WH3KAIawNotIN7fhYCrtcZdp',
+  file_upload_url: 'http://cp-33.hostgator.tempwebhost.net/~a1627unp/wevouch/upload.php'
 };

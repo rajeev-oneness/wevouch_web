@@ -4,6 +4,7 @@ import { DashboardComponent } from "./component/user/dashboard/dashboard.compone
 import { ProductListComponent } from "./component/user/product/product-list/product-list.component";
 import { ProductAddComponent } from "./component/user/product/product-add/product-add.component";
 import { ProductDetailComponent } from "./component/user/product/product-detail/product-detail.component";
+import { ProductEditComponent } from "./component/user/product/product-edit/product-edit.component";
 import { TicketAddComponent } from "./component/user/ticket/ticket-add/ticket-add.component";
 import { TicketListComponent } from "./component/user/ticket/ticket-list/ticket-list.component";
 import { LoginComponent } from "./component/auth/login/login.component";
@@ -29,6 +30,7 @@ const routes: Routes = [
     {path: 'product', children: [
       {path: 'list', component: ProductListComponent},
       {path:"add", component:ProductAddComponent},
+      {path: 'edit/:productId', component: ProductEditComponent},
       {path: 'detail/:productId', component: ProductDetailComponent},
     ]},
     {path: 'ticket', children: [
