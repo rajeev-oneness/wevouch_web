@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ApiService } from 'src/app/service/api.service';
 @Component({
@@ -7,6 +8,34 @@ import { ApiService } from 'src/app/service/api.service';
   styleUrls: ['./product-category.component.css'],
 })
 export class ProductCategoryComponent implements OnInit {
+  title = 'ng-carousel-demo';
+   
+  customOptions: OwlOptions = {
+    loop: false,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    navText:["P<br>R<br>E<br>V","N<br>E<br>X<br>T"],
+    dots: false,
+    navSpeed: 700,
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 2
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 4
+      }
+    },
+    nav: true
+  }
+
+
   public categoryList: any = [];
   public productList: any = [];
   public allProductList: any = [];

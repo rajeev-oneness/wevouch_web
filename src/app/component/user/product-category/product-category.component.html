@@ -32,13 +32,26 @@
   </ul>
   <div class="tab-content" id="myTabContent">
     <div
-      class="tab-pane fade show active"
+      class="tab-pane fade show active pl-0 pr-0"
       id="all-slider"
       role="tabpanel"
       aria-labelledby="all-tab"
       
     >
-    <owl-carousel-o class="product-slider" id="first-slider">
+    <owl-carousel-o [options]="customOptions">
+      <ng-container>
+        <ng-template *ngFor="let product of productList; let i = index" carouselSlide>
+          <div routerLink="/user/product/detail/{{product._id}}" style="cursor: pointer;">
+            <div class="image-wrapper">
+              <img [src]="product.productImagesUrl[0]" alt="" />
+            </div>
+            <h6 class="product-name">{{product.name}}</h6>
+            <p class="text-muted text-center mb-3">Expires on {{product.expiryDate}}</p>
+          </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+    <!--<owl-carousel-o class="product-slider" id="first-slider">
         <ng-template *ngFor="let product of productList; let i = index" carouselSlide>
             <div routerLink="/user/product/detail/{{product._id}}" style="cursor: pointer;">
                 <div class="image-wrapper">
@@ -48,7 +61,7 @@
                 <p class="text-muted text-center mb-3">Expires on {{product.expiryDate}}</p>
               </div>
         </ng-template>  
-      </owl-carousel-o>
+      </owl-carousel-o>-->
       <a routerLink="/user/product/list" class="viewbutton mx-auto">View All</a>
     </div>
   </div>

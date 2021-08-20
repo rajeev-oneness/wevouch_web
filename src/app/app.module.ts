@@ -30,9 +30,11 @@ import { PackageListComponent } from './component/user/package/package-list/pack
 import { ProductEditComponent } from './component/user/product/product-edit/product-edit.component';
 import { FeatherModule } from 'angular-feather';
 import { allIcons } from 'angular-feather/icons';
+import { NotificationSettingsComponent } from './component/user/notification-settings/notification-settings.component';
+import { ProductsComponent } from './component/user/product/products/products.component';
 @NgModule({
   declarations: [
-    AppComponent,HeaderComponent,SidebarComponent,DashboardComponent,ProductAddComponent,ProductListComponent,ProductDetailComponent,LoginComponent,TicketAddComponent,TicketListComponent,TicketDetailComponent,RegistrationComponent,ForgetComponent,ChangeComponent,ExtendedWarrantyComponent,AmcDetailsComponent,ProfileComponent,ProductCategoryComponent,PackageListComponent, ProductEditComponent
+    AppComponent,HeaderComponent,SidebarComponent,DashboardComponent,ProductAddComponent,ProductListComponent,ProductDetailComponent,LoginComponent,TicketAddComponent,TicketListComponent,TicketDetailComponent,RegistrationComponent,ForgetComponent,ChangeComponent,ExtendedWarrantyComponent,AmcDetailsComponent,ProfileComponent,ProductCategoryComponent,PackageListComponent, ProductEditComponent, NotificationSettingsComponent, ProductsComponent
   ],
   imports: [
     BrowserModule,FeatherModule.pick(allIcons),BrowserAnimationsModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,DpDatePickerModule,CarouselModule
