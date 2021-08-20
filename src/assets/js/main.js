@@ -55,8 +55,12 @@
             });
         });
 
-        /*-------------For feather icon-----------*/
-	
-  	    feather.replace()
+        /*-------------Right-part-------------*/
+
+        $(document).on('click', '.schedthis', function(){
+            var show =  $(this).val() === 'Show';
+                        $(this).val(show ? 'Hide' : 'Show');
+            $('#schedbox').toggle('slide',{ direction: 'right' }, 1500);
+        });
 
 })(jQuery, window);

@@ -1,0 +1,44 @@
+.c-color-swatch {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    max-width: 100%;
+
+  }
+  .c-color-swatch label{
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .c-color-swatch__item {
+    /*display: table-cell;
+    height: 76px;*/
+    /*background-color: #202c40;*/
+    line-height: 16px;
+    text-align: center;
+    user-select: none;
+    position: relative;
+    transition: transform 0.25s;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+  .c-color-swatch__item img{
+    margin: 0 auto;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 20px;
+  }
+  .c-color-swatch [type=radio]:checked + label:after {
+    content: "";
+    vertical-align: top;
+    background: rgba(0, 194, 203, 0.25);
+    height: 150px;
+    width: 100%;
+    position: absolute;
+    top: -27px;
+    left: 0;
+  }
+  .warranty-two .col-lg-4 .warranty-box{
+      padding: 0 !important;
+  }
