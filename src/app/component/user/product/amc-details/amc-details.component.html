@@ -25,7 +25,7 @@
             <input
               type="text"
               #serviceProvider="ngModel"
-              [(ngModel)]="productAmcDetail.serviceProvider"
+              [ngModel]="productAmcDetail.serviceProvider"
               placeholder="LG"
               class="form-control"
               required
@@ -36,10 +36,8 @@
             <label for="vendorNo">Vendors No. <span>(optional)</span></label>
             <input
               type="text"
-              #vendorNo="ngModel" [(ngModel)]="productAmcDetail.vendorNo"
-              placeholder="+91"
+              #vendorNo="ngModel" [ngModel]="productAmcDetail.vendorNo"
               class="form-control"
-              
               name="vendorNo"
             />
           </div>
@@ -49,7 +47,7 @@
           </div>
           <div class="col-lg-6">
             <label for="duration">Duration<span>*</span></label>
-            <select name="duration" id="duration" #duration="ngModel" [(ngModel)]="productAmcDetail.duration" class="form-control" required>
+            <select name="duration" id="duration" #duration="ngModel" [ngModel]="productAmcDetail.duration" class="form-control" required>
               <option value="quaterly">Quaterly</option>
               <option value="monthly">Monthly</option>
               <option value="yearly">Yearly</option>
@@ -57,7 +55,7 @@
           </div>
           <div class="col-lg-6">
             <label for="mobileNo">Contact No<span>*</span></label>
-            <input type="text" id="mobileNo" name="mobileNo" #mobileNo="ngModel" [(ngModel)]="productAmcDetail.mobileNo" class="form-control" />
+            <input type="text" id="mobileNo" name="mobileNo" #mobileNo="ngModel" [ngModel]="productAmcDetail.mobileNo" class="form-control" />
           </div>
           <div class="col-lg-12">
             <div class="button-container">

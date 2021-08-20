@@ -34,7 +34,8 @@ export class ProductEditComponent implements OnInit {
   public invoiceImgUrl: any = '';
   public productImgUrl: any = '';
   public purchaseDateTime: any = '';
-
+  public uploadedFile1;
+  public uploadedFile2;
 
   constructor(private _api: ApiService, private _loader: NgxUiLoaderService, private _activated:ActivatedRoute) {
     this._loader.startLoader('loader');
@@ -51,13 +52,10 @@ export class ProductEditComponent implements OnInit {
         this.subCategory = res.subCategory._id;
         this.purchaseDateTime = getDateFormat(res.purchaseDate);
         this.fetchSubCategory();
-        // if(res.warrantyPeriod < 12){
-        //   this.warrantyType = 'month';
-        //   this.warrantyPeriod = res.warrantyPeriod;
-        // } else {
-        //   this.warrantyPeriod = res.warrantyPeriod;
-        //   this.warrantyType = 'year';
-        // }
+        this.invoiceImgUrl = res.invoicePhotoUrl; 
+        this.uploadedFile1 = res.invoicePhotoUrl;
+        this.productImgUrl = res.productImagesUrl[0]; 
+        this.uploadedFile2 = res.productImagesUrl[0];
         console.log(this.purchaseDateTime);
         
       }, err => {}
@@ -70,8 +68,6 @@ export class ProductEditComponent implements OnInit {
       this.brandList = res.filter((t) => t.status === 'active');
     });
   }
-
-
 
   addExtendedWarranty(value)
   {
@@ -101,11 +97,10 @@ export class ProductEditComponent implements OnInit {
     });
   }
   
-  public uploadedFile;
+  
   public fileFormatError = '';
   public selectedFile : File;public hasFile : boolean;
-  onSelectFile(event) {
-    this.uploadedFile = '';
+  onSelectFile1(event) {
     this.fileFormatError = '';this.hasFile = false;
     this.selectedFile = event.target.files[0];
     if(this.selectedFile != undefined && this.selectedFile != null){
@@ -116,8 +111,16 @@ export class ProductEditComponent implements OnInit {
           var reader = new FileReader();
           reader.readAsDataURL(event.target.files[0]); // read file as data url
           reader.onload = (event) => { // called once readAsDataURL is completed
-            this.uploadedFile = event.target.result;this.hasFile = true;
-            this.storeFile(this.selectedFile);
+            this.uploadedFile1 = event.target.result;this.hasFile = true;
+            const mainForm = new FormData();
+            mainForm.append('file',this.selectedFile);
+            console.log(this.selectedFile);
+            this._api.storeFile(mainForm).subscribe(
+              res => {
+                console.log(res);
+                this.invoiceImgUrl = res.file_link;
+              }
+            )
           }
           return true;
         }
@@ -125,22 +128,35 @@ export class ProductEditComponent implements OnInit {
     }
     return false;
   }
-  storeFile(file) {
-    const mainForm = new FormData();
-    mainForm.append('file',file);
-    console.log(file);
-    let fileData = file;
-    this._api.storeFile(mainForm).subscribe(
-      res => {
-        console.log(res);
-        if(this.isSecondTab === true) {
-          this.invoiceImgUrl = res.file_link;
+  
+  onSelectFile2(event) {
+    this.fileFormatError = '';this.hasFile = false;
+    this.selectedFile = event.target.files[0];
+    if(this.selectedFile != undefined && this.selectedFile != null){
+        let validFormat = ['png','jpeg','jpg'];
+        let fileName = this.selectedFile.name.split('.').pop();
+        let data = validFormat.find(ob => ob === fileName);
+        if(data != null || data != undefined){
+          var reader = new FileReader();
+          reader.readAsDataURL(event.target.files[0]); // read file as data url
+          reader.onload = (event) => { // called once readAsDataURL is completed
+            this.uploadedFile2 = event.target.result;this.hasFile = true;
+            const mainForm = new FormData();
+            mainForm.append('file',this.selectedFile);
+            console.log(this.selectedFile);
+            this._api.storeFile(mainForm).subscribe(
+              res => {
+                console.log(res);
+
+                this.productImgUrl = res.file_link;
+              }
+            )
+          }
+          return true;
         }
-        if(this.isThirdTab === true) {
-          this.productImgUrl = res.file_link;
-        }
-      }
-    )
+        this.fileFormatError = 'This File Format is not accepted';
+    }
+    return false;
   }
 
   showSecondTab(formData) {

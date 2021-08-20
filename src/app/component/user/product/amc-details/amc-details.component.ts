@@ -19,14 +19,16 @@ export class AmcDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.productId = this._activated.snapshot.paramMap.get('productId');
-    this._api.getProductDetailsById(this.productId).subscribe(
-      res => {
-        this.productAmcDetail = res.amcDetails;
-        this.startDateTime = getDateFormat(res.amcDetails.startDate);
-        console.log(this.startDateTime);
-        
-      }, err => {}
-    );
+    if(this.productId) {
+      this._api.getProductDetailsById(this.productId).subscribe(
+        res => {
+          this.productAmcDetail = res.amcDetails;
+          this.startDateTime = getDateFormat(res.amcDetails.startDate);
+          console.log(this.startDateTime);
+          
+        }, err => {}
+      );
+    }
   }
 
   addAmc(formData) {

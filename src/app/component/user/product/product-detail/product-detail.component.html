@@ -52,7 +52,7 @@
                     <div class="col-lg-6">
                       <p class="text-muted">Expires on</p>
                       <h6>30 th March</h6>
-                      <p class="text-red">350 days left</p>
+                      <!-- <p class="text-red">350 days left</p> -->
                     </div>
                   </div>
                 </div>
@@ -70,14 +70,14 @@
                       <p class="text-muted">Service Provider</p>
                       <h6>{{productDetails.extendedWarranty?.serviceProvider || 'N/A'}}</h6>
                       <p class="text-muted">Validity</p>
-                      <h6>18 Months</h6>
+                      <h6>{{productDetails.extendedWarranty?.startDate | date:'dd/MM/yyyy'}} - {{productDetails.extendedWarranty?.endDate | date:'dd/MM/yyyy'}}</h6>
                     </div>
                     <div class="col-lg-6">
                       <div class="image-wrapper">
                         <img src="assets/img/phone.png" alt="" />
                       </div>
-                      <p class="text-muted">Policy No</p>
-                      <h6>AHGHSJDJO</h6>
+                      <p class="text-muted">Vendor No</p>
+                      <h6>{{productDetails.extendedWarranty?.mobileNo}}</h6>
                     </div>
                   </div>
                 </div>
@@ -95,12 +95,14 @@
                       <p class="text-muted">Service Provider</p>
                       <h6>{{productDetails?.amcDetails?.serviceProvider || 'N/A'}}</h6>
                       <p class="text-muted">Validity</p>
-                      <h6>18 Months</h6>
+                      <h6>{{productDetails?.amcDetails?.duration}}</h6>
                     </div>
                     <div class="col-lg-6">
                       <div class="image-wrapper">
                         <img src="assets/img/phone.png" alt="" />
                       </div>
+                      <p class="text-muted">Vendor No</p>
+                      <h6>{{productDetails.extendedWarranty?.vendorNo}}</h6>
                     </div>
                   </div>
                 </div>

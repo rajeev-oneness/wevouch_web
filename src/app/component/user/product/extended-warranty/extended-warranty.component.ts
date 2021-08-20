@@ -21,16 +21,18 @@ export class ExtendedWarrantyComponent implements OnInit {
 
   ngOnInit(): void {
     this.productId = this._activated.snapshot.paramMap.get('productId');
-    this._api.getProductDetailsById(this.productId).subscribe(
-      res => {
-        this.productExtWarDetail = res.extendedWarranty;
-        this.startDateTime = getDateFormat(res.extendedWarranty.startDate);
-        this.endDateTime = getDateFormat(res.extendedWarranty.endDate);
-        console.log(this.startDateTime);
-        console.log(this.endDateTime);
-        
-      }, err => {}
-    );
+    if(this.productId) {
+      this._api.getProductDetailsById(this.productId).subscribe(
+        res => {
+          this.productExtWarDetail = res.extendedWarranty;
+          this.startDateTime = getDateFormat(res.extendedWarranty.startDate);
+          this.endDateTime = getDateFormat(res.extendedWarranty.endDate);
+          console.log(this.startDateTime);
+          console.log(this.endDateTime);
+          
+        }, err => {}
+      );
+    }
   }
 
   addWarranty(formData) {
