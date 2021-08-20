@@ -1357,11 +1357,12 @@ body .fixed .fix-p {
   border: none;
 }
 .account-container .col-lg-6 .input-group .form-control, .account-container .col-lg-6 .form-group .form-control, .account-container .col-lg-12 .input-group .form-control, .account-container .col-lg-12 .form-group .form-control {
-  height: 28px;
+  height: 45px;
   padding: 0 0.75rem;
   font-size: 0.8rem;
   font-weight: 500;
   color: #354c65;
+  background: rgba(33, 58, 86, 0.12);
 }
 .account-container .col-lg-6 .input-group .input-group-text, .account-container .col-lg-6 .form-group .input-group-text, .account-container .col-lg-12 .input-group .input-group-text, .account-container .col-lg-12 .form-group .input-group-text {
   padding: 0 0.35rem;
