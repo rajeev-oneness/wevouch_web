@@ -1461,6 +1461,7 @@ body .fixed .fix-p {
   width: 50px;
   height: 50px;
   line-height: 36px;
+  margin:0 2px;
 }
 .login-sec .login-R .form-section .social_icon a:hover {
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
@@ -1837,6 +1838,7 @@ body .fixed .fix-p {
   cursor: pointer;
   font-size: 15px;
   color: #fff;
+  z-index: 1;
 }
 .progressbar li:before {
   content: "";
@@ -3158,3 +3160,9 @@ textarea.form-control {
   font-weight: 400;
   text-align: right;
 }/*# sourceMappingURL=style.css.map */
+
+.error_message{
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+}

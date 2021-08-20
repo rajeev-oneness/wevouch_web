@@ -49,8 +49,8 @@
               <label for="name">Model No <span>*</span></label>
               <input class="form-control" #modelNo="ngModel" ngModel type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" required [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
             </div>
-            <div class="col-lg-6">
-                <span class="text-danger">{{errorMessage}}</span>
+            <div class="col-lg-12">
+                <span class="text-danger error_message">{{errorMessage}}</span>
             </div>
             <div class="col-lg-6">
              
@@ -143,16 +143,15 @@
                 </div>
                 <div class="col-12 col-md-12 tex-tright add_warrenty">
                   <a href="javascript:void(0)" class="mr-0 mr-md-3" (click)="showExtendenWarranty()"
-                    ><i data-feather="plus-circle" width="18" class="mr-1"></i
-                    >Add extended warranty</a
+                    ><i-feather name="plus-circle" width="18" class="mr-1"></i-feather>Add extended warranty</a
                   >
                   <a href="javascript:void(0)" (click)="showAmcDetails()"
-                    ><i data-feather="plus-circle" width="18" class="mr-1"></i
-                    >Add AMC details</a
+                    ><i-feather name="plus-circle" width="18" class="mr-1"></i-feather>
+                    Add AMC details</a
                   >
                 </div>
-                <div class="col-lg-6">
-                  <span class="text-danger">{{errorMessage}}</span>
+                <div class="col-lg-12">
+                  <span class="text-danger error_message">{{errorMessage}}</span>
               </div>
                 <div class="col-lg-12">
                   <div class="button-container">

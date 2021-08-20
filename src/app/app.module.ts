@@ -28,13 +28,17 @@ import {DpDatePickerModule} from 'ng2-date-picker';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { PackageListComponent } from './component/user/package/package-list/package-list.component';
 import { ProductEditComponent } from './component/user/product/product-edit/product-edit.component';
-
+import { FeatherModule } from 'angular-feather';
+import { allIcons } from 'angular-feather/icons';
 @NgModule({
   declarations: [
     AppComponent,HeaderComponent,SidebarComponent,DashboardComponent,ProductAddComponent,ProductListComponent,ProductDetailComponent,LoginComponent,TicketAddComponent,TicketListComponent,TicketDetailComponent,RegistrationComponent,ForgetComponent,ChangeComponent,ExtendedWarrantyComponent,AmcDetailsComponent,ProfileComponent,ProductCategoryComponent,PackageListComponent, ProductEditComponent
   ],
   imports: [
-    BrowserModule,BrowserAnimationsModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,DpDatePickerModule,CarouselModule
+    BrowserModule,FeatherModule.pick(allIcons),BrowserAnimationsModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,DpDatePickerModule,CarouselModule
+  ],
+  exports: [
+    FeatherModule
   ],
   providers: [],
   bootstrap: [AppComponent],

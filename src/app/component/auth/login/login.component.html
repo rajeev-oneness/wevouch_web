@@ -4,12 +4,12 @@
   bgsOpacity="1"
   overlayColor="rgba(40,40,40,0.1)"
 ></ngx-ui-loader>
-<div class="container-fluid login-body">
+<div class="container-fluid login-body p-0">
   <section class="login-sec pt-5">
     <div class="container">
       <div class="row h-100 m-0 justify-content-center align-items-center">
         <div class="col-md-6 login-L pr-0 pr-md-5">
-          <img src="../../../../assets/img/login-logo.png" />
+          <img src="./assets/img/login-logo.png" />
           <div class="login_con">
             <h3>Log In Your Account</h3>
             <p>
@@ -18,7 +18,7 @@
             </p>
           </div>
           <div class="login-it1">
-            <img src="../../../../assets/img/login_it1.png" />
+            <img src="./assets/img/login_it1.png" />
           </div>
         </div>
         <div class="col-12 col-md-5 pl-md-3 pr-md-3">
@@ -26,24 +26,22 @@
             <h5>Log In to Dashboard</h5>
             <div class="p-4 form-section">
               <div class="text-center social_icon">
-                <a href="" class="gs"><img src="../../../../assets/img/g+logo.png" /></a>
-                <a href="" class="fs"><i data-feather="facebook"></i></a>
-                <a href="" class="tw"><i data-feather="twitter"></i></a>
-                <a href="get_otp.html" class="sm"
-                  ><i data-feather="smartphone"></i
-                ></a>
+                <a href="" class="gs"><img src="./assets/img/g+logo.png" /></a>
+                <a href="" class="fs"><i-feather name="facebook"></i-feather></a>
+                <a href="" class="tw"><i-feather name="twitter"></i-feather></a>
+                <a href="get_otp.html" class="sm"><i-feather name="smartphone"></i-feather></a>
               </div>
               <!-- <button class="btn btn-secondary btn-lg btn-block g-login"><img src="./img/g+logo.png">Login with Google</button> -->
               <span class="or-sec"><small>Or</small></span>
               <form id="login-form" #userLoginForm="ngForm" (ngSubmit)="userLoginSubmit(userLoginForm)">
                 <div class="form-group">
                   <label
-                    ><i data-feather="mail" class="mr-1"></i> Email
+                    ><i-feather name="mail" class="mr-1"></i-feather> Email
                     Address</label
                   >
                   <input class="form-control" #email="ngModel" ngModel type="email" autocomplete="email" name="email" id="your_name" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
                   <label
-                    ><i data-feather="lock" class="mr-1"></i> Password
+                    ><i-feather name="lock" class="mr-1"></i-feather> Password
                     <a href="javascript:void(0);">(Forgot)</a></label
                   >
                   <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" id="your_pass" placeholder="Password" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">

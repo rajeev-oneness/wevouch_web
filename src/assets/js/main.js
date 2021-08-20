@@ -55,4 +55,8 @@
             });
         });
 
+        /*-------------For feather icon-----------*/
+	
+  	    feather.replace()
+
 })(jQuery, window);

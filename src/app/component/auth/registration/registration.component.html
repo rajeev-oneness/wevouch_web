@@ -8,7 +8,7 @@
   <div class="container">
     <div class="row h-100 m-0 justify-content-center align-items-center">
       <div class="col-md-6 login-L pr-0 pr-md-5">
-        <img src="../../../../assets/img/login-logo.png" />
+        <img src="./assets/img/login-logo.png" />
         <div class="login_con">
           <h3>Sign Up Your Account</h3>
           <p>
@@ -17,7 +17,7 @@
           </p>
         </div>
         <div class="login-it1">
-          <img src="../../../../assets/img/login_it1.png" />
+          <img src="./assets/img/login_it1.png" />
         </div>
       </div>
       <div class="col-12 col-md-5 pl-md-3 pr-md-3">
@@ -25,14 +25,10 @@
           <h5>Sign Up for Dashboard</h5>
           <div class="p-4 form-section">
             <div class="text-center social_icon">
-              <a href="" class="gs"
-                ><img src="../../../../assets/img/g+logo.png"
-              /></a>
-              <a href="" class="fs"><i data-feather="facebook"></i></a>
-              <a href="" class="tw"><i data-feather="twitter"></i></a>
-              <a href="javascript:void(0)" class="sm"
-                ><i data-feather="smartphone"></i
-              ></a>
+              <a href="" class="gs"><img src="./assets/img/g+logo.png" /></a>
+              <a href="" class="fs"><i-feather name="facebook"></i-feather></a>
+              <a href="" class="tw"><i-feather name="twitter"></i-feather></a>
+              <a href="get_otp.html" class="sm"><i-feather name="smartphone"></i-feather></a>
             </div>
             <span class="or-sec"><small>Or</small></span>
             <form
@@ -41,7 +37,7 @@
               (ngSubmit)="userSignupSubmit(userSignupForm)"
             >
               <div class="form-group">
-                <label><i data-feather="user" class="mr-1"></i> Name</label>
+                <label><i-feather name="user" class="mr-1"></i-feather> Name</label>
                 <input
                   class="form-control"
                   #name="ngModel"
@@ -54,7 +50,7 @@
                   [ngClass]="{ 'is-invalid': name?.invalid && name?.touched }"
                 />
                 <label
-                  ><i data-feather="mail" class="mr-1"></i> Email Address</label
+                  ><i-feather name="mail" class="mr-1"></i-feather> Email Address</label
                 >
                 <input
                   class="form-control"
@@ -68,7 +64,7 @@
                   required
                   [ngClass]="{ 'is-invalid': email?.invalid && email?.touched }"
                 />
-                <label><i data-feather="lock" class="mr-1"></i> Password</label>
+                <label><i-feather name="lock" class="mr-1"></i-feather> Password</label>
                 <input
                   class="form-control"
                   tabindex="2"
@@ -84,7 +80,7 @@
                   }"
                 />
                 <label
-                  ><i data-feather="lock" class="mr-1"></i> CONFIRM
+                  ><i-feather name="lock" class="mr-1"></i-feather> CONFIRM
                   PASSWORD</label
                 >
                 <input
