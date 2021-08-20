@@ -127,6 +127,10 @@ export class ApiService {
   packageDetail(subscriptionId :any) {
     return this._http.get<any>( _apiUrl + 'sub/get/' + subscriptionId );
   }
+  addTransaction(formData) {
+    return this._http.post<any>( _apiUrl + 'transaction/add' , formData );
+
+  }
 
   //notification list
   notificationList(userId : any) {

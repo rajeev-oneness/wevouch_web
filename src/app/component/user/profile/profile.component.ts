@@ -3,7 +3,8 @@ import { ApiService } from 'src/app/service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
 import  Swal  from "sweetalert2";
-
+import { Location } from "@angular/common";
+import { environment } from "src/environments/environment";
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -31,15 +32,67 @@ export class ProfileComponent implements OnInit {
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   });
+  public uploadedFile;
+  public profilePicUrl;
+
 
   constructor(
     private _api: ApiService,
     private _loader: NgxUiLoaderService,
-    private _router: Router
+    private _router: Router,
+    private _location: Location
   ) {}
   ngOnInit(): void {
     this.userDetails = JSON.parse(localStorage.getItem('we_vouch_user'));
+    this.uploadedFile = this.userDetails.image;
   }
+
+  public fileFormatError = '';
+  public selectedFile : File;public hasFile : boolean;
+  onSelectFile(event) {
+    this.fileFormatError = '';this.hasFile = false;
+    this.selectedFile = event.target.files[0];
+    if(this.selectedFile != undefined && this.selectedFile != null){
+        let validFormat = ['png','jpeg','jpg'];
+        let fileName = this.selectedFile.name.split('.').pop();
+        let data = validFormat.find(ob => ob === fileName);
+        if(data != null || data != undefined){
+          var reader = new FileReader();
+          reader.readAsDataURL(event.target.files[0]); // read file as data url
+          reader.onload = (event) => { // called once readAsDataURL is completed
+            this.uploadedFile = event.target.result;this.hasFile = true;
+            const mainForm = new FormData();
+            mainForm.append('file',this.selectedFile);
+            console.log(this.selectedFile);
+            this._api.storeFile(mainForm).subscribe(
+              res => {
+                console.log(res);
+                this.profilePicUrl = res.file_link;
+                this._api.updateUserDetails({'_id': this.userDetails._id,'image':this.profilePicUrl}).subscribe(
+                  (res) => {
+                    this._api.updateUserLocally(res);
+                    this._loader.stopLoader('loader');
+                    this.Toast.fire({
+                      icon: 'success',
+                      title: 'Profile picture updated successfully!'
+                    })
+                    this.gotToProfile();
+                  },
+                  (err) => {
+                    this.errorMessage = err.error.message;
+                    this._loader.stopLoader('loader');
+                  }
+                );
+              }
+            )
+          }
+          return true;
+        }
+        this.fileFormatError = 'This File Format is not accepted';
+    }
+    return false;
+  }
+
   togglePasswordType() {
     this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
   }
@@ -99,6 +152,7 @@ export class ProfileComponent implements OnInit {
               icon: 'success',
               title: 'Profile updated successfully!'
             })
+            this.gotToProfile();
           },
           (err) => {
             this.errorMessage = err.error.message;
@@ -110,4 +164,9 @@ export class ProfileComponent implements OnInit {
       }
     }
   }
+
+  gotToProfile() {
+    window.location.href = environment.basePath+'user/profile'
+  }
+
 }

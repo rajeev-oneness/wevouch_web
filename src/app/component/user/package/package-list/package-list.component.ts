@@ -53,12 +53,19 @@ export class PackageListComponent implements OnInit {
           "currency": "INR",
           "name": "WeVouch",
           "description": res.name + " Subscription",
-          "image": "../assets/images/logo-icon.png",
+          "image": "./assets/img/logo.png",
           "handler": (response : any) => {
             console.log(response, userId);
             this._api.updateUserDetails({'_id': userId,'subscriptionId': subscriptionId}).subscribe(
               res => {
                 console.log(res);
+                const formData = {
+                  "userId" : userId, 
+                  "subscriptionId" : subscriptionId, 
+                  "transactionId" : response.razorpay_payment_id, 
+                  "transactionAmount" : res.subscription.amount
+                }
+                this._api.addTransaction(formData).subscribe(res => {});
                 this._api.updateUserLocally(res);
                 Swal.fire({
                   title: 'Purchased!',

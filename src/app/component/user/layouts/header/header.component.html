@@ -36,10 +36,10 @@
         <a routerLink="/user/profile">
           <div class="d-flex align-items-start pl-2 user-part">
             <p class="user-name">
-              Hi, {{userDetails?.name}}<span>Member Since: 2019</span>
+              Hi, {{userDetails?.name}}<span>Member Since: {{userDetails?.createdAt | date:'yyyy'}}</span>
             </p>
             <diV class="img-user">
-              <img src="./assets/img/user-pic.png" class="rounded-circle" />
+              <img src="{{userDetails?.image}}" class="rounded-circle" />
             </diV>
           </div>
         </a>
