@@ -382,16 +382,17 @@ body #content .header .user-part .img-user {
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background: #ffffff;
+  background: transparent;
   position: relative;
   text-align: center;
   margin-left: 10px;
   overflow: hidden;
 }
 body #content .header .user-part .img-user img {
-  width: 45px;
-  height: 45px;
+  width: 100%;
+  height: auto;
   vertical-align: top;
+  object-fit: cover;
 }
 body #content .header .bg-black {
   background: #000;
@@ -739,9 +740,9 @@ body .fixed .fix-p {
   right: -25px !important;
   top: 50% !important;
   transform: translate(-50%, -65%);
-  padding: 10px;
-  height: 30%;
-  width: 35px;
+  padding: 10px 7px !important;
+  height: 28%;
+  width: 30px;
   color: #fff !important;
   font-size: 30px !important;
   background-color: #253e59 !important;
@@ -757,12 +758,13 @@ body .fixed .fix-p {
   padding: 20px 0px;
 }
 .filter-button button {
-  border: 1px solid #464646;
+  border: 1px solid #354c65;
   background: #354c65;
   color: #fff;
   font-size: 15px;
   padding: 10px 20px;
   border-radius: 7px;
+  margin-right: 5px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -841,20 +843,20 @@ body .fixed .fix-p {
 .ticket-container::before {
   position: absolute;
   content: "";
-  top: 40%;
+  top: 36%;
   left: -81px;
-  height: 20%;
-  width: 70px;
+  height: 85px;
+  width: 73px;
   border-radius: 50%;
   background: #ffffff;
 }
 .ticket-container::after {
   position: absolute;
   content: "";
-  top: 40%;
+  top: 36%;
   right: -81px;
-  height: 20%;
-  width: 70px;
+  height: 85px;
+  width: 73px;
   border-radius: 50%;
   background: #ffffff;
 }
@@ -871,11 +873,14 @@ body .fixed .fix-p {
   align-items: center;
   padding: 50px 100px;
   position: relative;
+  height: 195px;
 }
 .ticket-container .ticket-image .first-image {
-  margin-right: -50px;
-  width: 70px;
-  z-index: 9999;
+    /* margin-right: -50px; */
+    width: 126px;
+    z-index: 9999;
+    position: absolute;
+    top: 20px;
 }
 .ticket-container .ticket-image::before {
   position: absolute;
@@ -1352,11 +1357,12 @@ body .fixed .fix-p {
   border: none;
 }
 .account-container .col-lg-6 .input-group .form-control, .account-container .col-lg-6 .form-group .form-control, .account-container .col-lg-12 .input-group .form-control, .account-container .col-lg-12 .form-group .form-control {
-  height: 28px;
+  height: 45px;
   padding: 0 0.75rem;
   font-size: 0.8rem;
   font-weight: 500;
   color: #354c65;
+  background: rgba(33, 58, 86, 0.12);
 }
 .account-container .col-lg-6 .input-group .input-group-text, .account-container .col-lg-6 .form-group .input-group-text, .account-container .col-lg-12 .input-group .input-group-text, .account-container .col-lg-12 .form-group .input-group-text {
   padding: 0 0.35rem;
@@ -2688,7 +2694,7 @@ textarea.form-control {
   margin: 10px 0px;
 }
 .product-body .card .tab-content .tab-pane .product-box .expires {
-  font-size: 18px;
+  font-size: 13px;
   color: #acacac;
 }
 

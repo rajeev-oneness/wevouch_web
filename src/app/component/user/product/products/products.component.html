@@ -1,0 +1,41 @@
+<ngx-ui-loader
+  loaderId="loader"
+  fgsColor="#FFFFFF"
+  bgsOpacity="1"
+  overlayColor="rgba(40,40,40,0.1)"
+></ngx-ui-loader>
+<div class="body_content pt-4 product-body">
+  <div class="container">
+    <div class="row m-0 mb-3">
+      <div class="col-lg-4">
+        <h1 class="text-blue">Welcome</h1>
+        <p class="text-muted">You have 15 products listed yet</p>
+      </div>
+      <div class="col-lg-3 ml-auto">
+        <select name="filter" id="filter" class="form-control">
+          <option value="category">Filter By Category</option>
+          <option value="alphabet">Filter By Alphabet</option>
+          <option value="price">Filter By Price</option>
+        </select>
+      </div>
+      <div class="col-lg-3">
+        <a routerLink="/user/product/add" class="addButton"
+          ><i class="fa fa-plus"></i>Add Product</a
+        >
+      </div>
+    </div>
+    <div class="row justify-content-start m-0">
+      <div class="col-12 col-md-11 card shadow-none border-0 p-0">
+        <app-product-category></app-product-category>
+        <h1 class="mb-2 mt-2 heading">Filters</h1>
+        <p class="text-muted">You have 3 options available</p>
+        <div class="filter-button">
+            <button>Active Warranty</button>
+            <button>Out of Warranty</button>
+            <button>AMC</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

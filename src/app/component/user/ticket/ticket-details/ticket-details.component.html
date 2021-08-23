@@ -7,12 +7,11 @@
 <div class="body_content p-4">
     <div class="container ticket-container">
         <div class="row">
+            <a href="javascript:void(0);" (click)="deleteTicket()" class="del_ticket"><i-feather name="trash-2"></i-feather></a>
             <div class="col-lg-6">
                 <p class="text-muted">Ticket No.<span> {{ticketDetails.uniqueId}}</span></p>
-                <a href="javascript:void(0);" (click)="deleteTicket()" class="text-danger">Delte Ticket</a>
                 <div class="ticket-image ticket-details-image" *ngIf="ticketDetails.products && ticketDetails.products.productImagesUrl">
                     <img src={{prodImg}} alt="" class="first-image" *ngFor="let prodImg of ticketDetails.products.productImagesUrl; let i = index">
-                    
                 </div>
             </div>
             <div class="col-lg-4 ticket-text">

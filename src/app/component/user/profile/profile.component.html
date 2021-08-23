@@ -44,7 +44,7 @@
             <div class="input-group">
               <input
                 type="text"
-                class="form-control border-0 pl-0"
+                class="form-control border-0"
                 placeholder="Youe Name"
                 [disabled]="!isEdit"
                 name="name" id="name" [(ngModel)]="userDetails.name" 
@@ -56,7 +56,7 @@
             <div class="input-group">
               <input
                 type="number"
-                class="form-control border-0 pl-0"
+                class="form-control border-0"
                 [disabled]="!isEdit"
                 name="mobile" id="mobile" [(ngModel)]="userDetails.mobile" 
               />
@@ -67,7 +67,7 @@
             <div class="input-group">
               <input
                 type="email"
-                class="form-control border-0 pl-0"
+                class="form-control border-0"
                 readonly
                 name="email" id="email" [(ngModel)]="userDetails.email" 
               />
@@ -75,11 +75,11 @@
           </div>
           <div class="col-lg-6 p-0">
             <div class="form-row">
-              <div class="form-group col-md-7 pl-md-3 pl-0">
+              <div class="form-group col-md-7 pl-md-3">
                 <label for="inputEmail4">Age</label>
                 <input
                 type="number"
-                class="form-control border-0 pl-0"
+                class="form-control border-0"
                 placeholder="27"
                 
                 name="age" id="age" [(ngModel)]="userDetails.age" 
@@ -100,7 +100,7 @@
             <div class="input-group">
               <input
                 type="text"
-                class="form-control border-0 pl-0"
+                class="form-control border-0"
                 placeholder="Address"
                 [disabled]="!isEdit"
                 id="address"
@@ -118,7 +118,7 @@
               <div class="input-group">
                 <input
                   type={{passwordType}}
-                  class="form-control border-0 pl-0"
+                  class="form-control border-0"
                   [disabled]="!isEdit"
                   id="password"
                   name="password"
@@ -137,7 +137,7 @@
               <div class="input-group">
                 <input
                 type={{newPasswordType}}
-                  class="form-control border-0 pl-0"
+                  class="form-control border-0"
                   [disabled]="!isEdit"
                   id="newPassword"
                   name="newPassword"

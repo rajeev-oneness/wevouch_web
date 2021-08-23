@@ -7,8 +7,36 @@
         <div class="row card-wrapper">
           <div class="col-lg-6 product-imgs">
             <div class="img-display mb-0">
-              <div class="img-showcase">
+              <!-- <div class="img-showcase">
                 <img src="{{productDetails.productImagesUrl}}"/>
+              </div> -->
+              <div class = "img-showcase p-4 bg-light">
+                <img src="{{productDetails.productImagesUrl}}"/>
+                <img src="{{productDetails.productImagesUrl}}"/>
+                <img src="{{productDetails.productImagesUrl}}"/>
+                <img src="{{productDetails.productImagesUrl}}"/>
+              </div>
+              <div class = "img-select mt-0">
+                  <div class="img-item bg-light p-2">
+                      <a href="javascript:void(0);" data-id="1">
+                        <img src="{{productDetails.productImagesUrl}}"/>
+                      </a>
+                  </div>
+                  <div class="img-item bg-light p-2">
+                      <a href="javascript:void(0);" data-id="2">
+                        <img src="{{productDetails.productImagesUrl}}"/>
+                      </a>
+                  </div>
+                  <div class="img-item bg-light p-2">
+                      <a href="javascript:void(0);" data-id="3">
+                        <img src="{{productDetails.productImagesUrl}}"/>
+                      </a>
+                  </div>
+                  <div class="img-item bg-light p-2">
+                      <a href="javascript:void(0);" data-id="4">
+                        <img src="{{productDetails.productImagesUrl}}"/>
+                      </a>
+                  </div>
               </div>
             </div>
             <!-- <div class="img-select mt-0" *ngIf="productDetails && productDetails.productImagesUrl">

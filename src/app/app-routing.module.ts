@@ -15,6 +15,8 @@ import { TicketDetailComponent } from './component/user/ticket/ticket-details/ti
 import { ProfileComponent } from './component/user/profile/profile.component';
 import { PackageListComponent } from "./component/user/package/package-list/package-list.component";
 import { AuthGuardService } from "./service/auth-guard.service";
+import { NotificationSettingsComponent } from './component/user/notification-settings/notification-settings.component';
+import { ProductsComponent } from './component/user/product/products/products.component';
 
 const routes: Routes = [
   {path : '', component : DashboardComponent, pathMatch:'full', canActivate: [AuthGuardService]},
@@ -32,6 +34,7 @@ const routes: Routes = [
       {path:"add", component:ProductAddComponent},
       {path: 'edit/:productId', component: ProductEditComponent},
       {path: 'detail/:productId', component: ProductDetailComponent},
+      {path:"products", component:ProductsComponent},
     ]},
     {path: 'ticket', children: [
       {path:"add/:productId", component:TicketAddComponent},
@@ -41,6 +44,7 @@ const routes: Routes = [
     {path: 'package', children: [
       {path:"list", component:PackageListComponent},
     ]},
+    {path: 'notification-settings', component:NotificationSettingsComponent},
   ]},
   {path : '**', component : DashboardComponent, pathMatch:'full',canActivate: [AuthGuardService]},
 ];

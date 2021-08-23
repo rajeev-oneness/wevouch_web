@@ -1,35 +1,5 @@
 (function ($, window, Typist) {
-    	// let click = document.querySelector('.dropdown-button');
-
-        //     let list = document.querySelector('.list');
-
-        //     click.addEventListener("click",()=>{
-
-        //         list.classList.toggle('toggle-list');
-
-        //     });
-
-        //     let click2 = document.querySelector('.dropdown-button-second');
-
-        //     let list2 = document.querySelector('.list2');
-
-        //     click2.addEventListener("click",()=>{
-
-        //         list2.classList.toggle('toggle-list');
-
-        //     });
-        //     let mobMenuButton = document.querySelector('.toggle-mob-menu');
-
-        //     let mobMenu = document.querySelector('.menu');
-        //     let menuButton = document.querySelector('.menu-button');
-
-        //     mobMenuButton.addEventListener("click",()=>{
-
-        //         mobMenu.classList.toggle('mob-menu');
-        //         menuButton.classList.toggle('fa-chevron-down');
-
-        //     });
-
+    	
         /*--------------left_panel_colaps----------------*/
 
         $(document).ready(function () {
@@ -62,5 +32,29 @@
                         $(this).val(show ? 'Hide' : 'Show');
             $('#schedbox').toggle('slide',{ direction: 'right' }, 1500);
         });
+
+        /**********product_detail************/
+
+        const imgs = document.querySelectorAll('.img-select a');
+        const imgBtns = [...imgs];
+        let imgId = 1;
+
+        imgBtns.forEach((imgItem) => {
+            imgItem.addEventListener('click', (event) => {
+                event.preventDefault();
+                imgId = imgItem.dataset.id;
+                slideImage();
+            });
+        });
+
+        function slideImage(){
+            const displayWidth = document.querySelector('.img-showcase img:first-child').clientWidth;
+
+            document.querySelector('.img-showcase').style.transform = `translateX(${- (imgId - 1) * displayWidth}px)`;
+        }
+
+        window.addEventListener('resize', slideImage);
+    
+
 
 })(jQuery, window);

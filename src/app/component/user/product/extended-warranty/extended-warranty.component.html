@@ -50,7 +50,7 @@
             <input type="number" id="invoiceNo" class="form-control" required #invoiceNo="ngModel" [ngModel]="productExtWarDetail.invoiceNo" name="invoiceNo"/>
           </div>
           <div class="col-lg-12">
-            <span class="text-danger">{{errorMessage}}</span>
+            <span class="text-danger error_message">{{errorMessage}}</span>
             <div class="button-container">
               <button class="product-button skip-button" (click)="skipWarranty()">Skip</button>
               <button class="product-button continue-button" type="submit">continue</button>
