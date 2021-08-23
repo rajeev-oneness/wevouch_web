@@ -15,6 +15,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this._loader.startLoader('loader');
     this.userDetails = JSON.parse(localStorage.getItem('we_vouch_user'));
+    console.log(this.userDetails._id);
+    
     this._api.productList(this.userDetails._id).subscribe((res) => {
       this.productCount = res.length;
       this._loader.stopLoader('loader');

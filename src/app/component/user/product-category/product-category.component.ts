@@ -11,13 +11,18 @@ export class ProductCategoryComponent implements OnInit {
   public productList: any = [];
   public allProductList: any = [];
   public selectedCategory: string = 'all';
+  public userDetails: any = '';
   constructor(private _loader: NgxUiLoaderService, private _api: ApiService) {}
 
   ngOnInit(): void {
+
+    this.userDetails = JSON.parse(localStorage.getItem('we_vouch_user'));
+    
     this._api.categoryList().subscribe((res) => {
       this.categoryList = res.filter((t) => t.status === 'active');
     });
-    this._api.allProductList().subscribe((res) => {
+
+    this._api.productList(this.userDetails._id).subscribe((res) => {
       const dDate = new Date();
       res.map((item) => {
         item.differenceInTime =
@@ -29,6 +34,7 @@ export class ProductCategoryComponent implements OnInit {
       });
       this.productList = res.filter((t) => t.status === 'active');
       this.allProductList = this.productList;
+      this._loader.stopLoader('loader');
     });
   }
 
