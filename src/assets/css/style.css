@@ -8,7 +8,7 @@
 body, html {
   height: 100%;
   width: 100%;
-  font-size: 1.4rem;
+  font-size: 1rem;
   margin: 0 auto;
   font-family: "Montserrat", sans-serif;
   background: #354c65;
@@ -3173,3 +3173,4 @@ textarea.form-control {
   font-weight: 500;
   text-align: left;
 }
+

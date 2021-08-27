@@ -24,12 +24,12 @@
         <div class="col-12 col-md-5 pl-md-3 pr-md-3">
           <div class="login-R">
             <h5>Log In to Dashboard</h5>
-            <div class="p-4 form-section">
+            <div class="p-4 form-section" *ngIf="mainLogin">
               <div class="text-center social_icon">
                 <a href="" class="gs"><img src="./assets/img/g+logo.png" /></a>
                 <a href="" class="fs"><i-feather name="facebook"></i-feather></a>
                 <a href="" class="tw"><i-feather name="twitter"></i-feather></a>
-                <a href="get_otp.html" class="sm"><i-feather name="smartphone"></i-feather></a>
+                <a href="javascript:void(0);" (click)="loginWithOtp()" class="sm"><i-feather name="smartphone"></i-feather></a>
               </div>
               <!-- <button class="btn btn-secondary btn-lg btn-block g-login"><img src="./img/g+logo.png">Login with Google</button> -->
               <span class="or-sec"><small>Or</small></span>
@@ -76,6 +76,44 @@
                   </p>
                 </div>
               </form>
+            </div>
+            <div class="p-4 form-section" *ngIf="otpStep1">
+                <div class="form-group">
+                  <label
+                    ><i-feather name="mail" class="mr-1"></i-feather>Registered Mobile No</label
+                  >
+                  <input class="form-control" #mobile="ngModel" [(ngModel)]="otpMobile" type="number" name="mobile" id="your_name" placeholder="Your Mobile">
+                  <button type="button" class="btn btn-secondary btn-lg btn-block login-btn mt-2" (click)="enterOtp()"> Get Otp </button>
+                  <p>
+                    Protected by recaptcha. Google
+                    <a href="javascript:void(0);">Privacy Policy</a> &
+                    <a href="javascript:void(0);">Terms of Service</a> apply.
+                  </p>
+                </div>
+            </div>
+            <div class="p-4 form-section" *ngIf="otpStep2">
+              <div class="digit"><img src="./assets/img/777.png" alt=""><h6>Enter 4 digit <span>Otp</span> send to <a href=""><span>xxxxxxx2345</span></a></h6></div>
+                <div class="form-group my-3">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <input type="text" id="otp" name="otp1" [(ngModel)]="otp1" class="form-control text-center" maxlength="1">
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" id="otp" name="otp2" [(ngModel)]="otp2" class="form-control text-center" maxlength="1">
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" id="otp" name="otp3" [(ngModel)]="otp3" class="form-control text-center" maxlength="1">
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" id="otp" name="otp4" [(ngModel)]="otp4" class="form-control text-center" maxlength="1">
+                        </div>                       
+                    </div>
+                    <button class="text-muted resend-button">Request to resend ?</button>
+                  <button class="btn btn-secondary btn-lg btn-block login-btn" (click)="submitOtp()">Log in</button>
+                  <p>
+                    Protected by recaptcha. Google <a href="javascript:void(0);">Privacy Policy</a> & <a href="javascript:void(0);">Terms of Service</a> apply.
+                  </p>
+                </div>
             </div>
           </div>
         </div>

@@ -18,6 +18,8 @@ import { AuthGuardService } from "./service/auth-guard.service";
 import { NotificationSettingsComponent } from './component/user/notification-settings/notification-settings.component';
 import { ProductsComponent } from './component/user/product/products/products.component';
 
+import { AddressListComponent } from "./component/user/address/address-list/address-list.component";
+
 const routes: Routes = [
   {path : '', component : DashboardComponent, pathMatch:'full', canActivate: [AuthGuardService]},
   {path: 'login', component: LoginComponent},
@@ -40,6 +42,9 @@ const routes: Routes = [
       {path:"add/:productId", component:TicketAddComponent},
       {path:"list", component:TicketListComponent},
       {path:"detail/:ticketId", component:TicketDetailComponent}
+    ]},
+    {path: 'address', children: [
+      {path:"list", component:AddressListComponent}
     ]},
     {path: 'package', children: [
       {path:"list", component:PackageListComponent},

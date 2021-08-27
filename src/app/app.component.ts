@@ -29,8 +29,6 @@ export class AppComponent {
   }
 
   ngOnInit(){
-    console.log('hello 2');
-    
     if (!localStorage.getItem('we_vouch_user')) {
       this._router.navigate(['/login']);
     }
@@ -38,7 +36,7 @@ export class AppComponent {
     this._api.notificationList(this.userDetails._id).subscribe (
       res => {
         this.notifications = res;
-        console.log(res);
+        // console.log(res);
       }
     )
   }

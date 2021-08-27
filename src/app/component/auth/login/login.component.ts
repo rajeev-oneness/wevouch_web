@@ -9,6 +9,15 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  public mainLogin: any = true;
+  public otpStep1: any = false;
+  public otpStep2: any = false;
+  public otpMobile: any = '';
+  public otp1: any = '';
+  public otp2: any = '';
+  public otp3: any = '';
+  public otp4: any = '';
+
   constructor(private _api:ApiService,private _loader : NgxUiLoaderService,private _router:Router) {
     this._loader.startLoader('loader');
   }
@@ -45,4 +54,34 @@ export class LoginComponent implements OnInit {
     // console.log('Form Data SUbmitted');
   }
 
+  loginWithOtp() {
+    this.mainLogin = false;
+    this.otpStep1 = true;
+    this.otpStep2 = false;
+  }
+  
+  enterOtp() {
+    console.log(this.otpMobile);
+     
+    this.mainLogin = false;
+    this.otpStep1 = false;
+    this.otpStep2 = true;
+  }
+
+  submitOtp() {
+    const mainOtp = this.otp1+this.otp2+this.otp3+this.otp4
+    const mainForm = {
+      "mobile" : this.otpMobile,
+      "otp" : mainOtp.toString()
+    }
+    this._api.loginWithOtp(mainForm).subscribe(
+      res => {
+        this._loader.startLoader('loader');
+        console.log(res);
+        this._api.storeUserLocally(res);
+        this._loader.stopLoader('loader');
+        this._router.navigate(["/user/dashboard"]);
+      }, err => {}
+    )
+  }
 }

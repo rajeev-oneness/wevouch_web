@@ -4,7 +4,7 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ApiService } from "src/app/service/api.service";
 import Swal from "sweetalert2";
 import { Router } from "@angular/router";
-
+import { dateDiffInDays } from "src/app/service/globalFunction";
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -13,25 +13,48 @@ import { Router } from "@angular/router";
 
 export class ProductDetailComponent implements OnInit {
 
-  public _id: string;
+  public productId: string;
   public productDetails: any= {};
+  public warrantyValidTill : any = ''
+  public amcValidTill : any = ''
+  public amcLeftDays : any = ''
+  public dateNow : any = Date.now(); 
+  public tickets : any = []
+  public newTickets : any = []
+  public ongoingTickets : any = []
+
   constructor(private route: ActivatedRoute, private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router) { 
     this._loader.startLoader('loader');
   }
 
   ngOnInit(): void {
-    this._id = this.route.snapshot.paramMap.get('productId');
-    if(this._id)
+    this.productId = this.route.snapshot.paramMap.get('productId');
+    if(this.productId)
     {
       this._loader.startLoader('loader');
-      this._api.getProductDetailsById(this._id).subscribe(
+      this._api.getProductDetailsById(this.productId).subscribe(
         res => {
-          res.purchaseDate = new Date(res.purchaseDate).toDateString();
           this.productDetails = res;
+          // res.purchaseDate = new Date(res.purchaseDate).toDateString();
+          let purchaseDate = new Date(res.purchaseDate);
+          this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
+          if(res.amcDetails?.noOfYears) {
+            let amcSrtartDate = new Date(res.amcDetails.startDate);
+            this.amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res.amcDetails.noOfYears*12));
+            this.amcLeftDays = dateDiffInDays(this.dateNow, this.amcValidTill);
+          }
           console.log(this.productDetails);
           
           this._loader.stopLoader('loader');
         }
+      )
+      this._api.ticketListByProduct(this.productId).subscribe(
+        res => {
+          console.log(res);
+          this.tickets = res;
+          this.newTickets = res.filter((t: any) => t.status === 'new');
+          this.ongoingTickets = res.filter((t: any) => t.status === 'ongoing');
+        }, err => {}
       )
     }
   }
@@ -47,7 +70,7 @@ export class ProductDetailComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this._loader.startLoader('loader');
-        this._api.deleteProduct(this._id).subscribe(
+        this._api.deleteProduct(this.productId).subscribe(
           res => {
             console.log(res);
             this._router.navigate(['/user/product/list']);

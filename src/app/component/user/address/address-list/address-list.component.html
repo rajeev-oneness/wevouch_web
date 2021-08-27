@@ -1,0 +1,82 @@
+<ngx-ui-loader
+  loaderId="loader"
+  fgsColor="#FFFFFF"
+  bgsOpacity="1"
+  overlayColor="rgba(40,40,40,0.1)"
+></ngx-ui-loader>
+<div class="body_content pt-4">
+    <div class="container">
+        <div class="d-flex justify-content-between">
+            <h1 class="heading mb-3">
+                Manage Address
+            </h1>
+            <a href="javascript:void(0);" class="custom-btn mt-0" data-toggle="modal" data-target="#exampleModal" (click)="emptyModal()">Add</a>
+        </div>
+        <div class="row" *ngIf="userAddresses.length > 0; else noAddressBlock">
+            <div class="col-lg-4 py-2" *ngFor="let address of userAddresses">
+                <div class="package-container recommend">
+                    <h6 class="mb-2"><span>{{address.addressLine1}}</span></h6>
+                    <h6>{{address.addressLine2}}</h6>
+                    <p class="m-0">{{address.location}}</p>
+                    <p class="m-0">{{address.city}}, {{address.state}}, {{address.country}}</p>
+                    <p class="m-0">{{address.pin}}</p>
+                    <div class="d-flex justify-content-end">
+                        <a href="javascript:void(0);" class="custom-btn" (click)="fetchAddressData(address._id)" data-toggle="modal" data-target="#exampleModal">Edit</a>
+                        <a href="javascript:void(0);" class="custom-btn ml-1" (click)="delteAddress(address._id)">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #noAddressBlock>
+            <div class="row">
+              <div class="col-lg-4 py-2">
+                <div class="package-container position-relative recommend">
+                  <h6 class="mb-2"><span>No address found !</span></h6>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form  #addressForm="ngForm" (ngSubmit)="saveAddress(addressForm)">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closebutton>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="">Address Line 1 <span class="text-danger">*</span></label>
+                <input type="text" name="addressLine1" id="addressLine1" class="form-control" placeholder="Address line 1" #addressLine1="ngModel" [ngModel]="addressData.addressLine1" required [ngClass]="{'is-invalid': addressLine1?.invalid && addressLine1?.touched}">
+                
+                <label for="">Address Line 2 <span class="text-danger">*</span></label>
+                <input type="text" name="addressLine2" id="addressLine2" class="form-control" placeholder="Address line 2" #addressLine2="ngModel" [ngModel]="addressData.addressLine2" required [ngClass]="{'is-invalid': addressLine2?.invalid && addressLine2?.touched}">
+                
+                <label for="">Location <span class="text-danger">*</span></label>
+                <input type="text" name="location" id="location" class="form-control" placeholder="Location" #location="ngModel" [ngModel]="addressData.location" required [ngClass]="{'is-invalid': location?.invalid && location?.touched}">
+                
+                <label for="">City <span class="text-danger">*</span></label>
+                <input type="text" name="city" id="city" class="form-control" placeholder="City" #city="ngModel" [ngModel]="addressData.city" required [ngClass]="{'is-invalid': city?.invalid && city?.touched}">
+                
+                <label for="">State <span class="text-danger">*</span></label>
+                <input type="text" name="state" id="state" class="form-control" placeholder="State" #state="ngModel" [ngModel]="addressData.state" required [ngClass]="{'is-invalid': state?.invalid && state?.touched}">
+                
+                <label for="">Country <span class="text-danger">*</span></label>
+                <input type="text" name="country" id="country" class="form-control" placeholder="Country" #country="ngModel" [ngModel]="addressData.country" required [ngClass]="{'is-invalid': country?.invalid && country?.touched}">
+                
+                <label for="">pin <span class="text-danger">*</span></label>
+                <input type="number" name="pin" id="pin" class="form-control" placeholder="Pin" #pin="ngModel" [ngModel]="addressData.pin" required [ngClass]="{'is-invalid': pin?.invalid && pin?.touched}">
+                <span class="text-danger">{{errorMessage}}</span>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="save-button">Save Address</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>

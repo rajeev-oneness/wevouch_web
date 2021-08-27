@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import {ActivatedRoute, Router} from "@angular/router";
@@ -11,6 +11,8 @@ import  Swal  from "sweetalert2";
 })
 
 export class TicketAddComponent implements OnInit {
+  @ViewChild('closebutton') closebutton;
+  @ViewChild('addressForm') addressForm;
 
   public issueType: string = '';
   public functionType: string = '';
@@ -18,7 +20,8 @@ export class TicketAddComponent implements OnInit {
   public errorMessage: string = '';
   public isFirstTab: boolean = true;
   public isSecondTab: boolean = false;
-  public address: string = "";
+  public transportationType: string = "On Site";
+  public addressId: string = "";
   public isThirdTab: boolean = false;
   public selectedDate: string = "";
   public selectedTime: string = "";
@@ -33,10 +36,28 @@ export class TicketAddComponent implements OnInit {
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   });
+  public user : any = JSON.parse(localStorage.getItem('we_vouch_user') || '{}');
+  public userAddresses : any = []
+  public addressData : any = {}
+  public addressErrorMessage : any = ''
 
   constructor(private _api: ApiService, private _loader: NgxUiLoaderService, private route: ActivatedRoute, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAddressData();
+  }
+  
+  getAddressData() {
+    this._api.getAddressListByUser(this.user._id).subscribe(
+      res => {
+        this._loader.startLoader('loader');
+        console.log('address :',res);        
+        this.userAddresses = res;
+        this._loader.stopLoader('loader');
+      }, err => {}
+    )
+  }
+
   secondTab() {
     if (this.issueType && this.functionType && this.description) {
       this.errorMessage="";
@@ -49,7 +70,7 @@ export class TicketAddComponent implements OnInit {
 
   goToLast()
   {
-    if(this.address)
+    if(this.addressId && this.transportationType)
     {
       this.isSecondTab = false;
       this.isThirdTab= true;
@@ -75,7 +96,8 @@ export class TicketAddComponent implements OnInit {
               issueType: this.issueType,
               functionType: this.functionType,
               description: this.description,
-              address: this.address,
+              transportationType: this.transportationType,
+              addressId: this.addressId,
               selectedDate: this.selectedDate,
               selectedTime: this.selectedTime,
               userId,
@@ -85,6 +107,8 @@ export class TicketAddComponent implements OnInit {
             };
             this._api.addTicket(tosendData).subscribe(
               res=>{
+                console.log(res);
+                
                 this.Toast.fire({
                   icon: 'success',
                   title: 'Tcket raised successfully!'
@@ -101,5 +125,43 @@ export class TicketAddComponent implements OnInit {
     {
       this.errorMessage=" Please give all the details.";
     }
+  }
+
+  saveAddress(formData: any) {
+    for (let i in formData.controls) {
+      formData.controls[i].markAsTouched();
+    }
+    if (formData?.valid) {
+      const mainForm = formData.value;
+      mainForm.userId = this.user._id;
+      mainForm.latitude = '';
+      mainForm.longitude = '';
+        this._api.addAddress(mainForm).subscribe(
+          res => {
+            this.closeModal();
+            this._loader.startLoader('loader');
+            this.Toast.fire({
+              icon: 'success',
+              title: 'Address added successfully!'
+            })
+            this.getAddressData();
+            this.emptyModal();
+            this._loader.stopLoader('loader');
+          }, err => {
+            this.addressErrorMessage = 'Something went wrong!';
+          }
+        )
+    } else {
+      this.addressErrorMessage = 'Please fill out all the details';
+    }
+  }
+
+  emptyModal() {
+    this.addressForm.reset();
+  }
+
+  closeModal() {
+    this.emptyModal();
+    this.closebutton.nativeElement.click();
   }
 }

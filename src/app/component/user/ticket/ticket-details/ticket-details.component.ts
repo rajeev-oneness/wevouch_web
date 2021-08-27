@@ -24,6 +24,7 @@ export class TicketDetailComponent implements OnInit {
       this._loader.startLoader('loader');
       this._api.getTicketDetailsById(this._id).subscribe(
         res => {
+          console.log(res);
           this.ticketDetails = res;
           this._loader.stopLoader('loader');
         }

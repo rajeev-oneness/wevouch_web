@@ -42,3 +42,41 @@
   .warranty-two .col-lg-4 .warranty-box{
       padding: 0 !important;
   }
+
+  .custom-btn {
+    background: #00c1cb;
+    width: 90px;
+    display: block;
+    line-height: 40px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    color: #ffffff !important;
+    font-size: 14px;
+    margin-top: 20px;
+}
+.custom-btn:hover {
+    background: #185867;
+}
+.custom-btn .feather {
+    width: 18px;
+}
+.package-container {
+  width: 100%;
+  height: 100%;
+}
+
+.address-radio{
+  position: absolute;
+  top: 10px;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+.address-radio input{
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 0px;
+  right: 11px;
+}

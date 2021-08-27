@@ -75,18 +75,28 @@ export class ProductCategoryComponent implements OnInit {
     //   document.getElementById('other-slider').classList.add('active');
     //   document.getElementById('all-slider').classList.remove('active');
       this.selectedCategory = value.name;
-      this._api.productListByCategory(value._id).subscribe((res) => {
-        const dDate = new Date();
-        res.map((item) => {
-          item.differenceInTime =
-            dDate.getTime() - new Date(item.purchaseDate).getTime();
-          item.differenceInDays = item.differenceInTime / (1000 * 3600 * 24);
-          item.expiryDate = new Date(
-            dDate.setDate(dDate.getDate() + item.differenceInDays)
-          ).toDateString();
-        });
-        this.productList = res.filter((t) => t.status === 'active');
-      });
+      const formData = {
+        "categoryId": value._id, 
+        "userId": this.userDetails._id
+      };
+      console.log(formData);
+      this._api.productListByUserAndCategory(formData).subscribe(
+        res => {
+          console.log(res);
+          
+          // const dDate = new Date();
+          // res.map((item) => {
+          //   item.differenceInTime =
+          //     dDate.getTime() - new Date(item.purchaseDate).getTime();
+          //   item.differenceInDays = item.differenceInTime / (1000 * 3600 * 24);
+          //   item.expiryDate = new Date(
+          //     dDate.setDate(dDate.getDate() + item.differenceInDays)
+          //   ).toDateString();
+          // });
+          // this.productList = res.filter((t) => t.status === 'active');
+          this.productList = res;
+        }
+      );
     }
   }
 }

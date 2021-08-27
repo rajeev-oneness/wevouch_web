@@ -7,7 +7,10 @@
 <div class="body_content pt-4">
   <div class="container account-container">
     <div class="row m-0 mb-3 justify-content-between">
-      <h1 class="heading mb-3">My Account</h1>
+      <h1 class="heading mb-3 flex-grow-1">My Account</h1>
+      <a href="javascript:void(0)" routerLink="/user/address/list" class="address-btn mt-0 mr-1">
+        <i data-feather="edit-3" class="mr-1"></i> Manage Address</a
+      >
       <a href="javascript:void(0)" (click)="toggleEdit()"class="pedit_btn mt-0">
         <i data-feather="edit-3" class="mr-1"></i> Edit</a
       >
@@ -73,19 +76,19 @@
               />
             </div>
           </div>
-          <div class="col-lg-6 p-0">
+          <div class="col-lg-12 p-0">
             <div class="form-row">
-              <div class="form-group col-md-7 pl-md-3">
+              <div class="form-group col-md-6 pl-md-3">
                 <label for="inputEmail4">Age</label>
                 <input
                 type="number"
                 class="form-control border-0"
                 placeholder="27"
-                
+                [disabled]="!isEdit"
                 name="age" id="age" [(ngModel)]="userDetails.age" 
               />
               </div>
-              <div class="form-group col-md-5 pr-md-3 pr-0">
+              <div class="form-group col-md-6 pr-md-3 pr-0">
                 <label for="gender">Gender</label>
                 <select id="gender" class="form-control mt-0" [disabled]="!isEdit" name="gender" [(ngModel)]="userDetails.gender" >
                   <option value="Male">Male</option>
@@ -95,20 +98,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
-            <label for="address">Address</label>
-            <div class="input-group">
-              <input
-                type="text"
-                class="form-control border-0"
-                placeholder="Address"
-                [disabled]="!isEdit"
-                id="address"
-                name="address"
-                [(ngModel)]="userDetails.address" 
-              />
-            </div>
-          </div>
+          
           <div class="row m-0">
             <h6 class="text-muted mt-2 mb-2 pl-2 pr-2 w-100">
               Update Passsword

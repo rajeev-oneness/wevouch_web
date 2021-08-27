@@ -74,12 +74,12 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <p class="text-muted">Purchase Date</p>
-                      <h6>{{productDetails.purchaseDate}}</h6>
+                      <h6>{{productDetails?.purchaseDate | date:'dd MMM yyyy'}}</h6>
                       <p class="text-blue">{{productDetails.warrantyPeriod}} Months</p>
                     </div>
                     <div class="col-lg-6">
                       <p class="text-muted">Expires on</p>
-                      <h6>30 th March</h6>
+                      <h6>{{warrantyValidTill | date: 'dd MMM yyyy'}}</h6>
                       <!-- <p class="text-red">350 days left</p> -->
                     </div>
                   </div>
@@ -98,14 +98,14 @@
                       <p class="text-muted">Service Provider</p>
                       <h6>{{productDetails.extendedWarranty?.serviceProvider || 'N/A'}}</h6>
                       <p class="text-muted mb-1">Validity</p>
-                      <p class="text-dark mt-0" style="font-size: 13px;">{{productDetails.extendedWarranty?.startDate | date:'dd/MM/yyyy'}} - {{productDetails.extendedWarranty?.endDate | date:'dd/MM/yyyy'}}</p>
+                      <p class="text-dark mt-0" style="font-size: 13px;">{{productDetails?.extendedWarranty?.noOfYears || 'N/A'}} years</p>
                     </div>
                     <div class="col-lg-6">
                       <div class="image-wrapper">
                         <img src="assets/img/phone.png" alt="" />
                       </div>
-                      <p class="text-muted">Vendor No</p>
-                      <h6>{{productDetails.extendedWarranty?.mobileNo}}</h6>
+                      <p class="text-muted">Mobile No</p>
+                      <h6>{{productDetails?.extendedWarranty?.mobileNo || 'N/A'}}</h6>
                     </div>
                   </div>
                 </div>
@@ -123,22 +123,29 @@
                       <p class="text-muted">Service Provider</p>
                       <h6>{{productDetails?.amcDetails?.serviceProvider || 'N/A'}}</h6>
                       <p class="text-muted">Validity</p>
-                      <h6>{{productDetails?.amcDetails?.duration}}</h6>
+                      <h6>{{amcValidTill | date: 'dd MMM yyyy'}}</h6>
+                      <p class="daysLeft text-danger">{{(amcLeftDays == '')? 'N/A': amcLeftDays}} Days Left</p>
                     </div>
                     <div class="col-lg-6">
                       <div class="image-wrapper">
                         <img src="assets/img/phone.png" alt="" />
                       </div>
-                      <p class="text-muted">Vendor No</p>
-                      <h6>{{productDetails.extendedWarranty?.vendorNo}}</h6>
+                      <p class="text-muted">Vendor Agreement No</p>
+                      <h6>{{productDetails?.amcDetails?.vendorNo || 'N/A'}}</h6>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="mt-4 mb-3">
+              <div class="mt-4 mb-3"  *ngIf="(newTickets.length === 0) && (ongoingTickets.length === 0)">
                 <a [routerLink]="['/user/ticket/add', productDetails._id]" class="save-button">Claim Warranty</a>
+                <span *ngIf="dateNow < warrantyValidTill;">
+                  Claim Warranty
+                </span>
+                <span *ngIf="dateNow > warrantyValidTill;">
+                  Raise service Ticket
+                </span>
               </div>
               <div class="mt-4 mb-3 ml-1">
                 <a href="javascript:void(0);" class="save-button btn-danger" (click)="deleteProduct()">Delete</a>
@@ -150,6 +157,38 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="body_content p-4" *ngIf="tickets.length > 0">
+  <div class="container">
+    <h1 class="heading mb-3">Tickets</h1>
+    <p class="text-muted">{{tickets.length}} tickets</p>
+
+    <div class="col-12 row m-0 p-0 mt-4">
+      <div class="col-12 col-md-4 mb-2 ticket-list" *ngFor="let ticket of tickets; let i = index">
+        <a [routerLink]="['/user/ticket/detail', ticket._id]">
+          <div class="card">
+            <div class="card-body d-flex p-2">
+              <div class="image">
+                <img src="{{ticket.products?.productImagesUrl[0]}}" />
+              </div>
+              <h1>
+                {{ticket?.products?.name}}
+                <!-- <span class="mt-2"><small>Expires on :</small> 20 Feb 2023</span> -->
+                <span><small>Status :</small> {{ticket?.status}}</span>
+              </h1>
+            </div>
+            <div class="card-footer text-center">
+              <h1>
+                <span>Your wevouch ticket no.</span>
+                {{ticket.uniqueId}}
+              </h1>
+            </div>
+          </div>
+        </a>
+      </div>
+   
     </div>
   </div>
 </div>

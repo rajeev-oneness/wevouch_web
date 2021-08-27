@@ -1,11 +1,6 @@
-.form-control:disabled{
-    background-color: #f3f9ff !important;
-    opacity: 1;
-}
-
-.address-btn {
+.custom-btn {
     background: #00c1cb;
-    width: 175px;
+    width: 90px;
     display: block;
     line-height: 40px;
     height: 40px;
@@ -15,9 +10,9 @@
     font-size: 14px;
     margin-top: 20px;
 }
-.address-btn:hover {
+.custom-btn:hover {
     background: #185867;
 }
-.address-btn .feather {
+.custom-btn .feather {
     width: 18px;
 }
