@@ -11,8 +11,11 @@ import { Router } from "@angular/router";
   styleUrls: ['./ticket-details.component.css']
 })
 export class TicketDetailComponent implements OnInit {
+  
   public _id: string;
   public ticketDetails: any= {};
+  public ticketLogs: any= [];
+
   constructor(private route: ActivatedRoute, private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router) { 
     this._loader.startLoader('loader');
   }
@@ -28,6 +31,13 @@ export class TicketDetailComponent implements OnInit {
           this.ticketDetails = res;
           this._loader.stopLoader('loader');
         }
+      )
+      this._api.getTicketLog(this._id).subscribe(
+        res => {
+          // console.log('Logs :',res);
+          this.ticketLogs = res.filter((t) => t.logType === "Go To Customer");
+          console.log('Logs :',this.ticketLogs);
+        }, err => {}
       )
     }
   }

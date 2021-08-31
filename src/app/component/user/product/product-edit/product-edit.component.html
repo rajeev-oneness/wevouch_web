@@ -44,9 +44,21 @@
                 <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
               </select>
             </div>
+            
             <div class="col-lg-6">
-              <label for="name">Model No <span>*</span></label>
-              <input class="form-control" #modelNo="ngModel" [(ngModel)]="productDetail.modelNo" type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" required [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
+              <label for="mobile"
+                >Registered Mobile No.<span>*</span></label
+              >
+              <input
+                type="number"
+                #registeredMobileNo="ngModel" [(ngModel)]="productDetail.registeredMobileNo" name="registeredMobileNo"
+                id="registeredMobileNo"
+                placeholder="+91"
+                class="form-control" 
+                required 
+                pattern="(?=.*\d).{10,}" 
+                [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}"
+              />
             </div>
             <div class="col-lg-6">
                 <span class="text-danger">{{errorMessage}}</span>
@@ -94,9 +106,9 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <select #warrantyPeriod="ngModel" [ngModel]="'1'" name="warrantyPeriod" id="warrantyPeriod" class="form-control">
-                        <option value="1">one</option>
-                        <option value="2">two</option>
-                        <option value="3">three</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                       </select>
                     </div>
                     <div class="col-lg-6">
@@ -110,22 +122,15 @@
                 <div class="col-lg-6">
                   <label for="sno">Serial No.<span>*</span></label>
                   <input
-                    type="number"
+                    type="text"
                     #serialNo="ngModel" [(ngModel)]="productDetail.serialNo" name="serialNo" id="serialNo"
-                    class="form-control"
+                    class="form-control" 
+                    pattern="(?=.*\d)" [ngClass]="{'is-invalid':serialNo?.invalid && serialNo?.touched}"
                   />
                 </div>
                 <div class="col-lg-6">
-                  <label for="mobile"
-                    >Registered Mobile No.<span>*</span></label
-                  >
-                  <input
-                    type="number"
-                    #registeredMobileNo="ngModel" [(ngModel)]="productDetail.registeredMobileNo" name="registeredMobileNo"
-                    id="registeredMobileNo"
-                    placeholder="+91"
-                    class="form-control"
-                  />
+                  <label for="name">Model No <span>*</span></label>
+                  <input class="form-control" #modelNo="ngModel" [(ngModel)]="productDetail.modelNo" type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" >
                 </div>
                 <div
                   class="form-check col-lg-6 d-flex pl-0 pl-md-4 ml-0 ml-2 mt-2 mb-2 custop_check"
@@ -225,7 +230,7 @@
               <p class="b-bottom">Product updated successfully.</p>
 
               <p>Having trouble? <a href="javascript:void(0);">Contact Us</a></p>
-              <a routerLink="/user/product/list" class="continue-btn">GO TO PRODUCT LIST</a>
+              <a routerLink="/user/product/products" class="continue-btn">GO TO PRODUCT LIST</a>
           </div>
       </div>
   </div>

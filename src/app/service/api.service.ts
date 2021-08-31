@@ -168,5 +168,18 @@ export class ApiService {
   deleteAddressByID(addressId : any) {
     return this._http.delete<any>(_apiUrl+'address/delete/'+addressId);
   }
+
+  //ticket log
+  getTicketLog(ticketId : any) {
+    return this._http.get<any>(_apiUrl+'ticket-log/get-by-ticket/'+ticketId);
+  }
+
+  //forgot password
+  forgotPasswordReqSend(formData : any) {
+    return this._http.post<any>(_apiUrl+'user/forgot-password', formData);
+  }
+  setNewPassword(formData : any) {
+    return this._http.post<any>(_apiUrl+'user/set-new-password', formData);
+  }
   
 }

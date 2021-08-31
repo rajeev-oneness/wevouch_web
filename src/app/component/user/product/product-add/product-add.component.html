@@ -21,8 +21,8 @@
         <form class="addProductStepOne" id="product-first-form" #productFirstForm="ngForm" (ngSubmit)="showSecondTab(productFirstForm)">
           <div class="row">
             <div class="col-lg-6">
-              <label for="name">Name<span>*</span></label>
-              <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="product_name" placeholder="Product name" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
+              <label for="name">Nickname<span>*</span></label>
+              <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="product_name" placeholder="Product nickname" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
             </div>
             <div class="col-lg-6">
               <label for="brandId">Brand Name <span>*</span></label>
@@ -45,9 +45,20 @@
                 <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
               </select>
             </div>
+            
             <div class="col-lg-6">
-              <label for="name">Model No <span>*</span></label>
-              <input class="form-control" #modelNo="ngModel" ngModel type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" required [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
+              <label for="mobile"
+                >Registered Mobile No.<span>*</span></label
+              >
+              <input
+                type="text"
+                #registeredMobileNo="ngModel" [ngModel]="user.mobile" name="registeredMobileNo"
+                id="registeredMobileNo"
+                placeholder="+91"
+                class="form-control" required 
+                pattern="(?=.*\d).{10,}" 
+                [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}"
+              />
             </div>
             <div class="col-lg-12">
                 <span class="text-danger error_message">{{errorMessage}}</span>
@@ -82,7 +93,7 @@
             <div class="col-lg-8">
               <div class="row">
                 <div class="col-lg-6">
-                  <label for="name">Product Date<span>*</span></label>
+                  <label for="name">Purchase Date<span>*</span></label>
                   <input
                     type="date"
                     #purchaseDate="ngModel" ngModel name="purchaseDate" id="purchaseDate"
@@ -95,9 +106,9 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <select #warrantyPeriod="ngModel" [ngModel]="'1'" name="warrantyPeriod" id="warrantyPeriod" class="form-control">
-                        <option value="1">one</option>
-                        <option value="2">two</option>
-                        <option value="3">three</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                       </select>
                     </div>
                     <div class="col-lg-6">
@@ -111,23 +122,16 @@
                 <div class="col-lg-6">
                   <label for="sno">Serial No.<span>*</span></label>
                   <input
-                    type="number"
+                    type="text"
                     #serialNo="ngModel" ngModel name="serialNo" id="serialNo"
                     placeholder="2"
                     class="form-control"
+                    pattern="(?=.*\d)" [ngClass]="{'is-invalid':serialNo?.invalid && serialNo?.touched}"
                   />
                 </div>
                 <div class="col-lg-6">
-                  <label for="mobile"
-                    >Registered Mobile No.<span>*</span></label
-                  >
-                  <input
-                    type="number"
-                    #registeredMobileNo="ngModel" ngModel name="registeredMobileNo"
-                    id="registeredMobileNo"
-                    placeholder="+91"
-                    class="form-control"
-                  />
+                  <label for="name">Model No <span>*</span></label>
+                  <input class="form-control" #modelNo="ngModel" ngModel type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
                 </div>
                 <div
                   class="form-check col-lg-6 d-flex pl-0 pl-md-4 ml-0 ml-2 mt-2 mb-2 custop_check"
@@ -226,7 +230,7 @@
               <p class="b-bottom">Please check your email for further instructions on how to complete your account step.</p>
 
               <p>Having trouble? <a href="">Contact Us</a></p>
-              <a routerLink="/user/dashboard" class="continue-btn">CONTINUE TO HOME PAGE</a>
+              <a routerLink="/user/product/products" class="continue-btn">CONTINUE TO HOME PAGE</a>
           </div>
       </div>
   </div>

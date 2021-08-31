@@ -1,11 +1,11 @@
 <a id="sidebarCollapse" href="javascript:void(0);" class="shadow-lg">
   <!-- <i class="fas fa-bars"></i> -->
-  <aside>Hide</aside>
+  <aside id="hideShowText">hide</aside>
 </a>
 <div class="header">
   <div class="container-fluid">
     <div class="row">
-      <div class="navbar-container content align-items-center col-12 col-md-5 p-0 ml-auto bg-black d-flex">
+      <div class="navbar-container content align-items-center col-12 col-md-4 p-0 ml-auto bg-black d-flex">
         <ul class="align-items-center mb-0 bg-grayblue pb-2 fix-p py-2">
           <li class="nav-item position-relative">
             <a routerLink="user/notification-settings" class="nav-link"
@@ -16,7 +16,7 @@
               ><i-feather name="bell"></i-feather></a>
             <span class="noti-count">5</span>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a
               href=""
               class="nav-link text-white border-l"
@@ -26,7 +26,7 @@
               <i-feather name="search" class="mr-1"></i-feather>
               <span class="re-hide">Search</span>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="javascript:void(0);" class="nav-link text-white border-l" (click)="logOutUser()">
               <span class="re-hide"><i-feather name="log-out"></i-feather> Log out</span>

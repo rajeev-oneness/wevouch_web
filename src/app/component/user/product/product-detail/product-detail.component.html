@@ -67,7 +67,7 @@
             <div class="invoice-details-box">
               <div class="row">
                 <div class="col-lg-3">
-                  <img src="assets/img/invoice.png" alt="" />
+                  <img src="{{productDetails?.invoicePhotoUrl}}" alt="Invoice Image" />
                 </div>
                 <div class="col-lg-9">
                   <h5 class="mb-3">Warranty Details</h5>
@@ -139,13 +139,14 @@
             </div>
             <div class="row">
               <div class="mt-4 mb-3"  *ngIf="(newTickets.length === 0) && (ongoingTickets.length === 0)">
-                <a [routerLink]="['/user/ticket/add', productDetails._id]" class="save-button">Claim Warranty</a>
-                <span *ngIf="dateNow < warrantyValidTill;">
-                  Claim Warranty
-                </span>
-                <span *ngIf="dateNow > warrantyValidTill;">
-                  Raise service Ticket
-                </span>
+                <a [routerLink]="['/user/ticket/add', productDetails._id]" class="save-button">
+                  <span *ngIf="dateNow < warrantyValidTill;">
+                    Claim Warranty
+                  </span>
+                  <span *ngIf="dateNow > warrantyValidTill;">
+                    Raise service Ticket
+                  </span>
+                </a>
               </div>
               <div class="mt-4 mb-3 ml-1">
                 <a href="javascript:void(0);" class="save-button btn-danger" (click)="deleteProduct()">Delete</a>

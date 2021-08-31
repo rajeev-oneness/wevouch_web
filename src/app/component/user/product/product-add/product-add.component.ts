@@ -23,15 +23,19 @@ export class ProductAddComponent implements OnInit {
   public isAmcDetails: boolean = false;
   public invoiceImgUrl: any = '';
   public productImgUrl: any = '';
+  public user: any = {};
 
   constructor(private _api: ApiService, private _loader: NgxUiLoaderService) {
     this._loader.startLoader('loader');
   }
 
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('we_vouch_user') || '{}');
     this._loader.startLoader('loader');
     this._api.categoryList().subscribe((res) => {
       this.categoriesList = res.filter((t) => t.status === 'active');
+      this.category = this.categoriesList[0]._id;
+      this.fetchSubCategory();
       this._loader.stopLoader('loader');
     });
     this._api.brandList().subscribe((res) => {
@@ -124,6 +128,7 @@ export class ProductAddComponent implements OnInit {
   fetchSubCategory() {
     this._api.subCategoryListByCategoryId(this.category).subscribe((res) => {
       this.subCategoriesList = res.filter((t) => t.status === 'active');
+      this.subCategory = this.subCategoriesList[0]._id
     });
   }
   
@@ -169,11 +174,11 @@ export class ProductAddComponent implements OnInit {
   }
 
   showThirdTab(formData) {
-    if (formData.value && formData.value.purchaseDate && formData.value.serialNo && formData.value.registeredMobileNo && formData.value.warrantyPeriod && formData.value.warrantyType) {
+    if (formData.value && formData.value.purchaseDate && formData.value.serialNo && formData.value.warrantyPeriod && formData.value.warrantyType) {
       this.addProductValue.purchaseDate = formData.value.purchaseDate;
       this.addProductValue.serialNo = formData.value.serialNo;
-      this.addProductValue.registeredMobileNo =
-        formData.value.registeredMobileNo;
+      this.addProductValue.modelNo =
+        formData.value.modelNo;
       if (formData.value.warrantyType === 'year') {
         this.addProductValue.warrantyPeriod =
           Number(formData.value.warrantyPeriod) * 12;

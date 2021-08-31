@@ -42,7 +42,7 @@
                   <input class="form-control" #email="ngModel" ngModel type="email" autocomplete="email" name="email" id="your_name" placeholder="Your Email" required [ngClass]="{'is-invalid':email?.invalid && email?.touched}">
                   <label
                     ><i-feather name="lock" class="mr-1"></i-feather> Password
-                    <a href="javascript:void(0);">(Forgot)</a></label
+                    <a href="javascript:void(0);" (click)="forgotPassword()">(Forgot)</a></label
                   >
                   <input class="form-control" tabindex="2" #password="ngModel" ngModel type="password" name="password" id="your_pass" placeholder="Password" required [ngClass]="{'is-invalid':password?.invalid && password?.touched}">
                   <div class="d-flex justify-content-between re_dflex">
@@ -60,9 +60,12 @@
                     <p>
                       Don’t have an account? <a routerLink="/registration">Sign up</a>
                     </p>
+                  </div>
+                  <div>
                     <span class="text-danger">{{errorMessage}}</span>
                   </div>
                   <button type="submit" class="btn btn-secondary btn-lg btn-block login-btn mt-2"> Log In </button>
+                  
                   <!-- <a
                     class="btn btn-secondary btn-lg btn-block login-btn mt-2"
                     href="dashboard_home_sl1.html"
@@ -77,43 +80,98 @@
                 </div>
               </form>
             </div>
-            <div class="p-4 form-section" *ngIf="otpStep1">
+            <div class="p-4 form-section" *ngIf="forgotEmailStep1">
+              <form>
                 <div class="form-group">
                   <label
-                    ><i-feather name="mail" class="mr-1"></i-feather>Registered Mobile No</label
+                    ><i-feather name="mail" class="mr-1"></i-feather>Registered Email Address</label
                   >
-                  <input class="form-control" #mobile="ngModel" [(ngModel)]="otpMobile" type="number" name="mobile" id="your_name" placeholder="Your Mobile">
-                  <button type="button" class="btn btn-secondary btn-lg btn-block login-btn mt-2" (click)="enterOtp()"> Get Otp </button>
+                  <input class="form-control" #forgotEmailId="ngModel" [(ngModel)]="forgotEmail" type="email" name="forgotEmailId" id="forgotEmailId" placeholder="Your Email Address">
+                  <div>
+                    <span class="text-danger">{{errorMessage}}</span>
+                  </div>
+                  <button type="button" class="btn btn-secondary btn-lg btn-block login-btn mt-2" (click)="enterForgetPassEmail()"> Get Otp </button>
                   <p>
                     Protected by recaptcha. Google
                     <a href="javascript:void(0);">Privacy Policy</a> &
                     <a href="javascript:void(0);">Terms of Service</a> apply.
                   </p>
                 </div>
+              </form>
             </div>
-            <div class="p-4 form-section" *ngIf="otpStep2">
-              <div class="digit"><img src="./assets/img/777.png" alt=""><h6>Enter 4 digit <span>Otp</span> send to <a href=""><span>xxxxxxx2345</span></a></h6></div>
-                <div class="form-group my-3">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <input type="text" id="otp" name="otp1" [(ngModel)]="otp1" class="form-control text-center" maxlength="1">
-                        </div>
-                        <div class="col-lg-3">
-                            <input type="text" id="otp" name="otp2" [(ngModel)]="otp2" class="form-control text-center" maxlength="1">
-                        </div>
-                        <div class="col-lg-3">
-                            <input type="text" id="otp" name="otp3" [(ngModel)]="otp3" class="form-control text-center" maxlength="1">
-                        </div>
-                        <div class="col-lg-3">
-                            <input type="text" id="otp" name="otp4" [(ngModel)]="otp4" class="form-control text-center" maxlength="1">
-                        </div>                       
-                    </div>
-                    <button class="text-muted resend-button">Request to resend ?</button>
-                  <button class="btn btn-secondary btn-lg btn-block login-btn" (click)="submitOtp()">Log in</button>
+            <div class="p-4 form-section" *ngIf="forgotEmailStep2">
+              <form>
+                <div class="form-group">
+                  <label
+                    ><img src="./assets/img/777.png" alt="">OTP</label
+                  >
+                  <input class="form-control" #forgetPassEmailOtpId="ngModel" [(ngModel)]="forgetPassEmailOtp" type="text" name="forgetPassEmailOtpId" id="forgetPassEmailOtpId" placeholder="Enter OTP">
+                  <label
+                    ><i-feather name="lock" class="mr-1"></i-feather>New Password</label
+                  >
+                  <input class="form-control" #newPassword="ngModel" [(ngModel)]="newForgetPassword" type="password" name="newPassword" id="newPassword" placeholder="New Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
+                  <div>
+                    <span class="text-danger">{{errorMessage}}</span>
+                  </div>
+                  <div class="mt-2" *ngIf="newPassword?.invalid && newPassword?.touched">
+                    <span class="text-danger">Password Must contain at least one number, one uppercase, lowercase letter, and at least 6 characters</span>
+                  </div>
+                  <button type="button" class="btn btn-secondary btn-lg btn-block login-btn mt-2" (click)="resetPassword()"> Reset Password </button>
                   <p>
-                    Protected by recaptcha. Google <a href="javascript:void(0);">Privacy Policy</a> & <a href="javascript:void(0);">Terms of Service</a> apply.
+                    Protected by recaptcha. Google
+                    <a href="javascript:void(0);">Privacy Policy</a> &
+                    <a href="javascript:void(0);">Terms of Service</a> apply.
                   </p>
                 </div>
+              </form>
+            </div>
+            <div class="p-4 form-section" *ngIf="otpStep1">
+                <form>
+                  <div class="form-group">
+                    <label
+                      ><i-feather name="phone" class="mr-1"></i-feather>Registered Mobile No</label
+                    >
+                    <input class="form-control" #mobile="ngModel" [(ngModel)]="otpMobile" type="number" name="mobile" id="your_name" placeholder="Your Mobile">
+                    <div>
+                      <span class="text-danger">{{errorMessage}}</span>
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-lg btn-block login-btn mt-2" (click)="enterOtp()"> Get Otp </button>
+                    <p>
+                      Protected by recaptcha. Google
+                      <a href="javascript:void(0);">Privacy Policy</a> &
+                      <a href="javascript:void(0);">Terms of Service</a> apply.
+                    </p>
+                  </div>
+                </form>
+            </div>
+            <div class="p-4 form-section" *ngIf="otpStep2">
+              <div class="digit"><img src="./assets/img/777.png" alt=""><h6>Enter 4 digit <span>Otp</span> send to <a href="javascript:void(0);"><span>{{removedNumber}}</span></a></h6></div>
+              <form>
+                <div class="form-group my-3">
+                  <div class="row">
+                      <div class="col-lg-3">
+                          <input type="text" id="otp" name="otp1" [(ngModel)]="otp1" class="form-control text-center" maxlength="1">
+                      </div>
+                      <div class="col-lg-3">
+                          <input type="text" id="otp" name="otp2" [(ngModel)]="otp2" class="form-control text-center" maxlength="1">
+                      </div>
+                      <div class="col-lg-3">
+                          <input type="text" id="otp" name="otp3" [(ngModel)]="otp3" class="form-control text-center" maxlength="1">
+                      </div>
+                      <div class="col-lg-3">
+                          <input type="text" id="otp" name="otp4" [(ngModel)]="otp4" class="form-control text-center" maxlength="1">
+                      </div>                       
+                  </div>
+                  <div>
+                    <span class="text-danger">{{errorMessage}}</span>
+                  </div>
+                  <button class="text-muted resend-button">Request to resend ?</button>
+                <button class="btn btn-secondary btn-lg btn-block login-btn" (click)="submitOtp()">Log in</button>
+                <p>
+                  Protected by recaptcha. Google <a href="javascript:void(0);">Privacy Policy</a> & <a href="javascript:void(0);">Terms of Service</a> apply.
+                </p>
+              </div>
+              </form>
             </div>
           </div>
         </div>

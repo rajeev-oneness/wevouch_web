@@ -2,7 +2,7 @@
   <h2 class="subheading">Extend Warranty</h2>
   <form class="Extended-warranty" id="extended-form" #extendedWarrantyForm="ngForm" (ngSubmit)="addWarranty(extendedWarrantyForm)">
     <div class="row">
-      <div class="col-lg-4">
+      <!-- <div class="col-lg-4">
         <div class="brand-container">
           <div class="brand-wrapper">
             <input type="file" class="brand-file" />
@@ -12,8 +12,8 @@
             Image of invoice recieved on the day of purchase
           </p>
         </div>
-      </div>
-      <div class="col-lg-8">
+      </div> -->
+      <div class="col-lg-12">
         <div class="row">
           <div class="col-lg-6">
             <label for="provider">Service Provider<span>*</span></label>
@@ -27,7 +27,7 @@
             />
           </div>
           <div class="col-lg-6">
-            <label for="vendor">Vendors No. <span>(optional)</span></label>
+            <label for="vendor">Vendor Contact No. <span>(optional)</span></label>
             <input
               type="number"
               id="mobileNo"
@@ -42,13 +42,18 @@
             <input required type="date" id="startDate" #startDate [ngModel]="startDateTime" name="startDate" class="form-control" required data-date-format="dd-mm-yyyy"/>
           </div>
           <div class="col-lg-6">
-            <label for="end">End Date<span>*</span></label>
-            <input required type="date" id="endDate" #endDate [ngModel]="endDateTime" name="endDate" class="form-control" data-date-format="dd-mm-yyyy"/>
+            <label for="end">Warranty Period<span>*</span></label>
+            <select name="noOfYears" id="noOfYears" #noOfYears [ngModel]="'1'" class="form-control" required>
+              <option value="1">1 year</option>
+              <option value="2">2 years</option>
+              <option value="3">3 years</option>
+            </select>
           </div>
-          <div class="col-lg-6">
+
+          <!-- <div class="col-lg-6">
             <label for="invoiceNo">Policy Number<span>*</span></label>
             <input type="number" id="invoiceNo" class="form-control" required #invoiceNo="ngModel" [ngModel]="productExtWarDetail.invoiceNo" name="invoiceNo"/>
-          </div>
+          </div> -->
           <div class="col-lg-12">
             <span class="text-danger error_message">{{errorMessage}}</span>
             <div class="button-container">

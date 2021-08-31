@@ -38,32 +38,22 @@
             >
               <div class="form-group">
                 <label><i-feather name="user" class="mr-1"></i-feather> Name</label>
-                <input
-                  class="form-control"
-                  #name="ngModel"
-                  ngModel
-                  type="text"
-                  name="name"
-                  id="your_name"
-                  placeholder="Your Name"
-                  required
-                  [ngClass]="{ 'is-invalid': name?.invalid && name?.touched }"
-                />
-                <label
-                  ><i-feather name="mail" class="mr-1"></i-feather> Email Address</label
-                >
-                <input
-                  class="form-control"
-                  #email="ngModel"
-                  ngModel
-                  type="email"
-                  autocomplete="email"
-                  name="email"
-                  id="your_email"
-                  placeholder="Your Email"
-                  required
-                  [ngClass]="{ 'is-invalid': email?.invalid && email?.touched }"
-                />
+                <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="your_name" placeholder="Your Name" required [ngClass]="{ 'is-invalid': name?.invalid && name?.touched }"/>
+                
+                <label><i-feather name="mail" class="mr-1"></i-feather> Email Address</label>
+                <input class="form-control" #email="ngModel" ngModel type="email" autocomplete="email" name="email" id="your_email" placeholder="Your Email" required [ngClass]="{ 'is-invalid': email?.invalid && email?.touched }"/>
+                
+                <div>
+                  <label><i-feather name="phone" class="mr-1"></i-feather> Mobile</label>
+                  <input class="form-control" #mobile="ngModel" ngModel type="text" name="mobile" placeholder="Your Mobile" pattern="(?=.*\d).{10}" required [ngClass]="{ 'is-invalid': mobile?.invalid && mobile?.touched }"/>
+                  <span class="mb-1 text-danger" *ngIf="mobile?.invalid && mobile?.touched">
+                    <small>
+                      Mobile number must be of 10 digit.
+                    </small>
+                  </span>
+                </div>
+
+               <div>
                 <label><i-feather name="lock" class="mr-1"></i-feather> Password</label>
                 <input
                   class="form-control"
@@ -74,34 +64,34 @@
                   name="password"
                   id="your_pass"
                   placeholder="Password"
-                  required
-                  [ngClass]="{
-                    'is-invalid': password?.invalid && password?.touched
-                  }"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" 
+                  required 
+                  [ngClass]="{'is-invalid':password?.invalid && password?.touched}"
                 />
-                <label
-                  ><i-feather name="lock" class="mr-1"></i-feather> CONFIRM
-                  PASSWORD</label
-                >
-                <input
-                  class="form-control"
-                  tabindex="2"
-                  #conPassword="ngModel"
-                  ngModel
-                  type="password"
-                  name="conPassword"
-                  id="your_conPassword"
-                  placeholder="Confirm Password"
-                  required
-                  [ngClass]="{
-                    'is-invalid': conPassword?.invalid && conPassword?.touched
-                  }"
-                />
+                <span class="mb-1 text-danger" *ngIf="password?.invalid && password?.touched">
+                  <small>
+                    Must contain at least one number, one uppercase, lowercase letter, and at least 6 characters
+                  </small>
+                </span>
+               </div>
+
+                <label><i-feather name="calendar" class="mr-1"></i-feather>Age</label>
+                <input class="form-control" tabindex="2" #age="ngModel" ngModel type="age" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" required [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
+                
+                <label><i-feather name="users" class="mr-1"></i-feather>Gender</label>
+                <select class="form-control" tabindex="2" #gender="ngModel" [ngModel]="'Male'" type="gender" name="gender" placeholder="gender" required [ngClass]="{'is-invalid':gender?.invalid && gender?.touched}">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Others">Others</option>
+                </select>
                 <div class="d-flex justify-content-between re_dflex mb-3">
                   <p>
                     Already have an account?
                     <a routerLink="/login">(Sign In)</a>
                   </p>
+                  
+                </div>
+                <div>
                   <span class="text-danger">{{errorMessage}}</span>
                 </div>
                 <button

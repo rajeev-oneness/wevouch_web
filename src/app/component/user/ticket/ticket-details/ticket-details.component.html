@@ -29,11 +29,14 @@
         </div>
     </div>
     <div class="container ticket-progress-container mt-3">
-        <ul class="progressbar progressbar-ticket">
-            <li class="active">WeVouch get in touch with<br> the {{ticketDetails.brand?.name}} Service team</li>
-            <li class="active">Service request No<br>(SRN) SRN123456</li>
-            <li>{{ticketDetails.brand?.name}} team got in <br> touch with you</li>
-          </ul>
+        <ul class="progressbar progressbar-ticket" *ngIf="ticketLogs.length < 0; else noLogsBlock;">
+            <li *ngFor="let log of ticketLogs; let i=index" [ngClass]="{'active' : i < (ticketLogs.length-1)}">
+                {{log.comment}}<br>({{log.createdAt | date: 'dd MMM, yyyy'}})
+            </li>
+        </ul>
+        <ng-template #noLogsBlock>
+            <h4>No logs yet!</h4>
+        </ng-template>
     </div>
     <div class="ticket-question">
         <h6>Has the {{ticketDetails.brand?.name}} team reach out to you yet?</h6>

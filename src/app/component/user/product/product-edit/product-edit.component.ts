@@ -200,11 +200,11 @@ export class ProductEditComponent implements OnInit {
   }
 
   showThirdTab(formData) {
-    if (formData.value && formData.value.purchaseDate && formData.value.serialNo && formData.value.registeredMobileNo && formData.value.warrantyPeriod && formData.value.warrantyType) {
+    if (formData.value && formData.value.purchaseDate && formData.value.serialNo && formData.value.warrantyPeriod && formData.value.warrantyType) {
       this.addProductValue.purchaseDate = formData.value.purchaseDate;
       this.addProductValue.serialNo = formData.value.serialNo;
-      this.addProductValue.registeredMobileNo =
-        formData.value.registeredMobileNo;
+      this.addProductValue.modelNo =
+        formData.value.modelNo;
       if (formData.value.warrantyType === 'year') {
         this.addProductValue.warrantyPeriod =
           Number(formData.value.warrantyPeriod) * 12;
