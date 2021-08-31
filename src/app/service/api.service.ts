@@ -4,7 +4,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Router } from '@angular/router';
 
 var originalURL = environment.apiUrl;
-var fileUploadURL = environment.file_upload_url;
+var fileUploadURL = environment.hosted_api_url+"upload.php";
+var productAssets = environment.hosted_api_url+"Api.php";
 var _apiUrl = originalURL;
 
 @Injectable({
@@ -182,4 +183,18 @@ export class ApiService {
     return this._http.post<any>(_apiUrl+'user/set-new-password', formData);
   }
   
+  //get product assets
+  getProductBrands() {
+    return this._http.get<any>(productAssets+'?action=fetchBrands');
+  }
+  getProductCategories(brandId : any) {
+    return this._http.get<any>(productAssets+'?action=fetchCategories&brand='+brandId);
+  }
+  getProductSubCategories(categoryName : any) {
+    return this._http.get<any>(productAssets+'?action=fetchSubcategories&category='+categoryName);
+  }
+  getProductModels(subCategoryName : any) {
+    return this._http.get<any>(productAssets+'?action=fetchModels&sub_category='+subCategoryName);
+  }
+
 }

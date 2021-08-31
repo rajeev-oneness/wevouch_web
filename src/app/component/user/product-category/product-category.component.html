@@ -1,5 +1,5 @@
 <div class="product-slider shadow-sm">
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <a
         class="nav-link"
@@ -29,7 +29,7 @@
       >
     </li>
     
-  </ul>
+  </ul> -->
   <div class="tab-content" id="myTabContent">
     <div
       class="tab-pane fade show active pl-0 pr-0"
@@ -38,12 +38,12 @@
       aria-labelledby="all-tab"
       
     >
-    <owl-carousel-o [options]="customOptions">
+    <owl-carousel-o [options]="customOptions" *ngIf="productList.length > 0; else noProductsBlock;">
       <ng-container>
         <ng-template *ngFor="let product of productList; let i = index" carouselSlide>
           <div routerLink="/user/product/detail/{{product._id}}" style="cursor: pointer;">
             <div class="image-wrapper">
-              <img [src]="product.productImagesUrl[0]" alt="" />
+              <img [src]="product.productImagesUrl[0]" class="carousel-image" alt="" />
             </div>
             <h6 class="product-name">{{product.name}}</h6>
             <p class="text-muted text-center mb-3">Expires on {{product.expiryDate}}</p>
@@ -51,18 +51,29 @@
         </ng-template>
       </ng-container>
     </owl-carousel-o>
-    <!--<owl-carousel-o class="product-slider" id="first-slider">
-        <ng-template *ngFor="let product of productList; let i = index" carouselSlide>
-            <div routerLink="/user/product/detail/{{product._id}}" style="cursor: pointer;">
-                <div class="image-wrapper">
-                  <img [src]="product.productImagesUrl[0]" alt="" />
-                </div>
-                <h6 class="product-name">{{product.name}}</h6>
-                <p class="text-muted text-center mb-3">Expires on {{product.expiryDate}}</p>
+    
+    <ng-template #noProductsBlock>
+      <owl-carousel-o [options]="customOptions" >
+        <ng-container>
+          <ng-template carouselSlide>
+            <div>
+              <div class="image-wrapper">
+                <h1 class="mb-0 heading">No Products Found!</h1>
               </div>
-        </ng-template>  
-      </owl-carousel-o>-->
-      <a routerLink="/user/product/products" class="viewbutton mx-auto">View All</a>
+            </div>
+          </ng-template>
+        </ng-container>
+        
+      </owl-carousel-o>
+    </ng-template>
+
+      <span *ngIf="productList.length > 0; else addProductBlock;">
+        <a routerLink="/user/product/products" class="viewbutton mx-auto">View All</a>
+      </span>
+      <ng-template #addProductBlock>
+        <a routerLink="/user/product/add" class="more_btn mx-auto">
+          <i data-feather="plus"></i> Add Product</a>
+      </ng-template>
     </div>
   </div>
 </div>

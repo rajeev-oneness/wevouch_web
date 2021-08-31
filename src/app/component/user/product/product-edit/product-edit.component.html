@@ -13,8 +13,8 @@
         <h1 class="hedaing mb-3" *ngIf="isAmcDetails">Add AMC Details</h1>
         <ul class="progressbar">
           <li class="active">PRODUCT</li>
-          <li [ngClass]="{ active: isSecondTab === true }">WARRANTY</li>
-          <li>FINISH</li>
+          <li [ngClass]="{ active: isSecondTab === true || isThirdTab === true }">WARRANTY</li>
+          <li [ngClass]="{ active: isThirdTab === true }">FINISH</li>
         </ul>
       </div>
       <div class="col-lg-12" *ngIf="isFirstTab">
@@ -26,29 +26,25 @@
             </div>
             <div class="col-lg-6">
               <label for="brandId">Brand Name <span>*</span></label>
-              <select class="form-control" name="brandId" id="brandId" [(ngModel)]="productDetail.brands._id" >
-                <option *ngFor="let option of brandList" [value]="option._id" >{{option.name}}</option>
+              <select class="form-control" name="brandId" id="brandId" [(ngModel)]="brandId" (change)="fetchCategory()">
+                <option *ngFor="let option of brandList" [value]="option.id" >{{option.name}}</option>
               </select>
             </div>
             <div class="col-lg-6">
               <label for="category">Category<span>*</span></label>
-              <select class="form-control" name="category" id="category" [(ngModel)]="category" 
-              (change)='fetchSubCategory()'>
-                <option *ngFor="let option of categoriesList" [value]="option._id" >{{option.name}}</option>
+              <select class="form-control" name="category" id="category" [(ngModel)]="category" (change)='fetchSubCategory()'>
+                <option *ngFor="let option of categoriesList" [value]="option.category" >{{option.category}}</option>
               </select>
             </div>
             <div class="col-lg-6">
               <label for="subCategory">Sub Category <span>*</span></label>
-              <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="subCategory" 
-              >
-                <option *ngFor="let option of subCategoriesList" [value]="option._id" >{{option.name}}</option>
+              <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="subCategory" (change)="fetchModel()">
+                <option *ngFor="let option of subCategoriesList" [value]="option.sub_category" >{{option.sub_category}}</option>
               </select>
             </div>
             
             <div class="col-lg-6">
-              <label for="mobile"
-                >Registered Mobile No.<span>*</span></label
-              >
+              <label for="mobile">Registered Mobile No.<span>*</span></label>
               <input
                 type="number"
                 #registeredMobileNo="ngModel" [(ngModel)]="productDetail.registeredMobileNo" name="registeredMobileNo"
@@ -81,6 +77,7 @@
                   <input type="file" (change)="onSelectFile1($event)" class="brand-file" />
                   <img src="{{uploadedFile1}}" width="100">
                 </div>
+                <span class="text-danger">{{fileFormatError}}</span>
                 <h6>Upload Invoice Photo</h6>
                 <p class="text-muted text-center">
                   Image of invoice recieved on the day of purchase
@@ -130,7 +127,9 @@
                 </div>
                 <div class="col-lg-6">
                   <label for="name">Model No <span>*</span></label>
-                  <input class="form-control" #modelNo="ngModel" [(ngModel)]="productDetail.modelNo" type="text" name="modelNo" id="product_model_no" placeholder="Product Model No" >
+                  <select class="form-control" #modelNo="ngModel" [ngModel]="modelId" name="modelNo" id="product_model_no"  [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
+                    <option *ngFor="let model of modelList" value="{{model.model_no}}">{{model.model_no}}</option>
+                  </select>
                 </div>
                 <div
                   class="form-check col-lg-6 d-flex pl-0 pl-md-4 ml-0 ml-2 mt-2 mb-2 custop_check"
@@ -159,9 +158,9 @@
               </div>
                 <div class="col-lg-12">
                   <div class="button-container">
-                    <button class="product-button skip-button" (click)="showThirdTab()">
+                    <!-- <button class="product-button skip-button" (click)="showThirdTab()">
                         Skip
-                       </button>
+                       </button> -->
                      <button  type="submit" class="product-button continue-button">
                       Continue
                      </button>
@@ -195,6 +194,9 @@
               <img src="./assets/img/product3.png" alt="" />
             </div>
           </div> -->
+          <div class="col-12">
+            <span class="text-danger">{{fileFormatError}}</span>
+          </div>
           <div class="col-lg-12">
             <h2 class="subheading">Uploading Pictures....</h2>
             <div class="progress">
@@ -205,11 +207,11 @@
           </div>
           <div class="col-lg-12">
             <div class="button-container">
-              <button class="product-button skip-button" (click)="showThankYou()">
+              <!-- <button class="product-button skip-button" (click)="showThankYou()">
                 Skip
-            </button>
+            </button> -->
              <button class="product-button continue-button" (click)="showThankYou()">
-                 Continue
+                 UPDATE
              </button>
             </div>
           </div>

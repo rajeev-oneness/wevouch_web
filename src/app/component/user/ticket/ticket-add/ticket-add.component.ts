@@ -102,8 +102,8 @@ export class TicketAddComponent implements OnInit {
               selectedTime: this.selectedTime,
               userId,
               productId: productDetails._id,
-              category: productDetails.category?._id,
-              brandId: productDetails.brands?._id
+              category: productDetails.category,
+              brandId: productDetails.brands
             };
             this._api.addTicket(tosendData).subscribe(
               res=>{

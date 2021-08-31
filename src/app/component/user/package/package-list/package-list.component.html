@@ -18,12 +18,10 @@
                     <h6 class="text-center mb-2"><span>{{package.name}}</span> Plan</h6>
                     <h6 class="text-center mb-2">&#8377;{{package.amount}}</h6>
                     <p class="text-muted text-center">365 days validity</p>
-                    <p class="text-center">{{package.description}}</p>
-                    <!-- <ul class="package-list">
-                        <li><img src="assets/img/tick.png" alt=""><h6>Pick up update</h6></li>
-                        <li><img src="assets/img/tick.png" alt=""><h6>Pick up update</h6></li>
-                        <li><img src="assets/img/tick.png" alt=""><h6>Pick up update</h6></li>
-                    </ul> -->
+                    <!-- <p class="text-center">{{package.description}}</p> -->
+                    <ul class="package-list">
+                        <li *ngFor="let description of package.description"><img src="assets/img/tick.png" alt=""><h6>{{description}}</h6></li>
+                    </ul>
                     
                     <div *ngIf="package.amount == 0" class="text-sm text-center">
                         <span class="text-danger">Free Plan!</span>

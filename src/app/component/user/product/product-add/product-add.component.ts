@@ -14,6 +14,9 @@ export class ProductAddComponent implements OnInit {
   public category: string = '';
   public subCategory: string = '';
   public brandId: string = '';
+  public brandName: string = '';
+  public modelList: string = '';
+  public modelId: string = '';
   public categoriesList: any = [];
   public brandList: any = [];
   public subCategoriesList: any = [];
@@ -24,6 +27,10 @@ export class ProductAddComponent implements OnInit {
   public invoiceImgUrl: any = '';
   public productImgUrl: any = '';
   public user: any = {};
+  public amcDetailsFill : boolean = false;
+  public extWarrantyFill : boolean = false;
+  public purchaseDateField : any = '';
+  public serialNoField : any = '';
 
   constructor(private _api: ApiService, private _loader: NgxUiLoaderService) {
     this._loader.startLoader('loader');
@@ -32,15 +39,63 @@ export class ProductAddComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('we_vouch_user') || '{}');
     this._loader.startLoader('loader');
-    this._api.categoryList().subscribe((res) => {
-      this.categoriesList = res.filter((t) => t.status === 'active');
-      this.category = this.categoriesList[0]._id;
-      this.fetchSubCategory();
-      this._loader.stopLoader('loader');
-    });
-    this._api.brandList().subscribe((res) => {
-      this.brandList = res.filter((t) => t.status === 'active');
-    });
+    this.fetchBrands();
+  }
+
+  fetchBrands() {
+    this._api.getProductBrands().subscribe(
+      res => {
+        this._loader.startLoader('loader');
+        // console.log('brands :', res.brands);
+        this.brandList = res.brands;
+        this.brandId = res.brands[0].id;
+        // console.log(this.brandId);
+        this.fetchCategory();
+      }, err => {}
+    )
+  }
+
+  fetchCategory() {
+    console.log(this.brandId);
+    this.brandName = this.brandList.filter( (t:any) => t.id === this.brandId )[0].name;
+    console.log(this.brandName);
+    
+    this._api.getProductCategories(this.brandId).subscribe(
+      res => {
+        this._loader.startLoader('loader');
+        this.categoriesList = res.categories;
+        // console.log(this.categoriesList);
+        this.category = this.categoriesList[0].category;
+        this.fetchSubCategory();
+        this._loader.stopLoader('loader');
+      }, err => {}
+    )
+  }
+  
+  fetchSubCategory() {
+    console.log(this.category);
+    
+    this._api.getProductSubCategories(this.category).subscribe(
+      res => {
+        this._loader.startLoader('loader');
+        this.subCategoriesList = res.sub_categories;
+        // console.log(this.subCategoriesList);
+        this.subCategory = this.subCategoriesList[0].sub_category
+        this.fetchModel();
+      }, err => {}
+    )
+  }
+
+  fetchModel() {
+    this._api.getProductModels(this.subCategory).subscribe(
+      res => {
+        this._loader.startLoader('loader');
+        this.modelList = res.models;
+        this.modelId = res.models[0].model_no;
+        // console.log(this.modelList);
+        this._loader.stopLoader('loader');
+      }
+    )
   }
 
   public uploadedFile1;
@@ -48,6 +103,7 @@ export class ProductAddComponent implements OnInit {
   public fileFormatError = '';
   public selectedFile : File;public hasFile : boolean;
   onSelectFile1(event) {
+    this._loader.startLoader('loader');
     this.fileFormatError = '';this.hasFile = false;
     this.selectedFile = event.target.files[0];
     if(this.selectedFile != undefined && this.selectedFile != null){
@@ -65,17 +121,20 @@ export class ProductAddComponent implements OnInit {
             this._api.storeFile(mainForm).subscribe(
               res => {
                 this.invoiceImgUrl = res.file_link;
+                this._loader.stopLoader('loader');
               }
             )
           }
           return true;
         }
         this.fileFormatError = 'This File Format is not accepted';
+        this._loader.stopLoader('loader');
     }
     return false;
   }
   
   onSelectFile2(event) {
+    this._loader.startLoader('loader');
     this.fileFormatError = '';this.hasFile = false;
     this.selectedFile = event.target.files[0];
     if(this.selectedFile != undefined && this.selectedFile != null){
@@ -93,12 +152,14 @@ export class ProductAddComponent implements OnInit {
             this._api.storeFile(mainForm).subscribe(
               res => {
                 this.productImgUrl = res.file_link;
+                this._loader.stopLoader('loader');
               }
             )
           }
           return true;
         }
         this.fileFormatError = 'This File Format is not accepted';
+        this._loader.stopLoader('loader');
     }
     return false;
   }
@@ -107,6 +168,7 @@ export class ProductAddComponent implements OnInit {
   {
     if(value)
     {
+      this.extWarrantyFill = true
       this.addProductValue.extendedWarranty = value;
       console.log(this.addProductValue);
 
@@ -118,6 +180,7 @@ export class ProductAddComponent implements OnInit {
   {
     if(value)
     {
+      this.amcDetailsFill = true;
       this.addProductValue.amcDetails = value;
       console.log(this.addProductValue);
 
@@ -125,20 +188,22 @@ export class ProductAddComponent implements OnInit {
     this.isAmcDetails = false;
     this.isSecondTab= true;
   }
-  fetchSubCategory() {
-    this._api.subCategoryListByCategoryId(this.category).subscribe((res) => {
-      this.subCategoriesList = res.filter((t) => t.status === 'active');
-      this.subCategory = this.subCategoriesList[0]._id
-    });
-  }
+  // fetchSubCategory() {
+  //   this._api.subCategoryListByCategoryId(this.category).subscribe((res) => {
+  //     this.subCategoriesList = res.filter((t) => t.status === 'active');
+  //     this.subCategory = this.subCategoriesList[0]._id
+  //   });
+  // }
   
 
   showSecondTab(formData) {
+    this.errorMessage = '';
     for (let i in formData.controls) {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
       if (this.category && this.brandId && this.subCategory) {
+        formData.value.brandId = this.brandName;
         this.addProductValue = formData.value;
         this.isFirstTab = false;
         this.isSecondTab = true;
@@ -154,6 +219,8 @@ export class ProductAddComponent implements OnInit {
   }
   showExtendenWarranty()
   {
+    this.errorMessage = '';
+
     this.isExtendenWarranty = true;
     this.isFirstTab = false;
     this.isSecondTab = false;
@@ -164,6 +231,8 @@ export class ProductAddComponent implements OnInit {
   }
   showAmcDetails()
   {
+    this.errorMessage = '';
+
     this.isExtendenWarranty = false;
     this.isFirstTab = false;
     this.isSecondTab = false;
@@ -174,6 +243,7 @@ export class ProductAddComponent implements OnInit {
   }
 
   showThirdTab(formData) {
+    this.errorMessage = '';
     if (formData.value && formData.value.purchaseDate && formData.value.serialNo && formData.value.warrantyPeriod && formData.value.warrantyType) {
       this.addProductValue.purchaseDate = formData.value.purchaseDate;
       this.addProductValue.serialNo = formData.value.serialNo;
@@ -186,16 +256,21 @@ export class ProductAddComponent implements OnInit {
         this.addProductValue.warrantyPeriod =
           formData.value.warrantyPeriod || 0;
       }
-      console.log(this.addProductValue);
-
-      this.isSecondTab = false;
-      this.isThirdTab = true;
-      this.errorMessage = "";
+      
+      if (this.extWarrantyFill === true && this.amcDetailsFill === true) {
+        console.log(this.addProductValue);
+        this.isSecondTab = false;
+        this.isThirdTab = true;
+        this.errorMessage = "";
+      } else {
+        this.errorMessage = "AMC details and Extended Warranty details required";
+      }
     }
     else
     {
       this.errorMessage = "All fields are required.";
     }
+    
   }
 
   showThankYou() {

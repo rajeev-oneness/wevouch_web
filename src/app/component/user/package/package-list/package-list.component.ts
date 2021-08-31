@@ -29,8 +29,11 @@ export class PackageListComponent implements OnInit {
     this._api.packageList().subscribe(
       res => {
         this._loader.startLoader('loader');
-        console.log(res);
+        res.forEach((element :any) => {
+          element.description = element.description.split(".");
+        });
         this.packages = res;
+        console.log(res);
         this._loader.stopLoader('loader');
       }, err => {}
     )
