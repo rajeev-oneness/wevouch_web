@@ -45,8 +45,10 @@
             <div class="image-wrapper">
               <img [src]="product.productImagesUrl[0]" class="carousel-image" alt="" />
             </div>
-            <h6 class="product-name">{{product.name}}</h6>
-            <p class="text-muted text-center mb-3">Expires on {{product.expiryDate}}</p>
+            <div class="slider-bottom">
+              <h6 class="product-name">{{product.name}}</h6>
+              <p class="text-muted text-center mb-3">Expires on {{product.expiryDate}}</p>
+            </div>
           </div>
         </ng-template>
       </ng-container>

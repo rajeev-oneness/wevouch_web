@@ -1,3 +1,11 @@
 .image-wrapper .carousel-image {
-  width: 30%;
+  width: 310px;
 }
+
+.product-slider .tab-pane .image-wrapper {
+  margin-top: 50px;
+}
+.slider-bottom {
+  margin-top: 70px;
+}
+
