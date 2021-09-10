@@ -54,12 +54,8 @@ export class ProductCategoryComponent implements OnInit {
     this._api.productList(this.userDetails._id).subscribe((res) => {
       const dDate = new Date();
       res.map((item) => {
-        item.differenceInTime =
-          dDate.getTime() - new Date(item.purchaseDate).getTime();
-        item.differenceInDays = item.differenceInTime / (1000 * 3600 * 24);
-        item.expiryDate = new Date(
-          dDate.setDate(dDate.getDate() + item.differenceInDays)
-        ).toDateString();
+        let purchaseDate = new Date(item.purchaseDate);
+        item.expiryDate = purchaseDate.setMonth(purchaseDate.getMonth()+item.warrantyPeriod);
       });
       this.productList = res.filter((t) => t.status === 'active');
       this.allProductList = this.productList;

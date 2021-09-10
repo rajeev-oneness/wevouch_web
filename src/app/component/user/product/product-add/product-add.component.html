@@ -122,7 +122,7 @@
                     #serialNo="ngModel" [(ngModel)]="serialNoField" name="serialNo" id="serialNo"
                     placeholder="eg:123456"
                     class="form-control"
-                    pattern="(?=.*\d)" [ngClass]="{'is-invalid':serialNo?.invalid && serialNo?.touched}"
+                    pattern="(?=.*\d)" required [ngClass]="{'is-invalid':serialNo?.invalid && serialNo?.touched}"
                   />
                 </div>
                 <div class="col-lg-6">

@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
   public errorMessage : any = '';
   public forgetPassEmailOtp : any = ''
   public newForgetPassword : any = ''
+  public rememberMe : boolean = false
 
   constructor(private _api:ApiService,private _loader : NgxUiLoaderService,private _router:Router) {
     this._loader.startLoader('loader');
@@ -47,6 +48,10 @@ export class LoginComponent implements OnInit {
     //   this._router.navigate(['/dashboard']);
     // }
     this._loader.stopLoader('loader');
+  }
+
+  rememberMeFunc() {
+    this.rememberMe = !this.rememberMe;
   }
 
   userLoginSubmit(formData){
@@ -59,6 +64,9 @@ export class LoginComponent implements OnInit {
       this._api.userLoginAPI(formData.value).subscribe(
         res => {
           this._api.storeUserLocally(res.user);
+          if(this.rememberMe === true) {
+            this._api.storeUserCookie(JSON.stringify(res.user));
+          }
           this._loader.stopLoader('loader');
           this._router.navigate(["/user/dashboard"]);
         },

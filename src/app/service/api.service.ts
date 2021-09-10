@@ -33,6 +33,13 @@ export class ApiService {
     // this._router.navigate([(routeIntended) ? routeIntended : '/admin/dashboard']);
   }
 
+  storeUserCookie(data, exdays = 7) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires="+d.toUTCString();
+    document.cookie = "wevouchUser=" + data + ";" + expires + ";path=/";
+  }
+
   updateUserLocally(data : any){
     localStorage.removeItem('we_vouch_user');
     localStorage.setItem('we_vouch_user',JSON.stringify(data));
@@ -42,6 +49,7 @@ export class ApiService {
   logoutUser():void{
     localStorage.clear();
     window.location.href = environment.projectPath;
+    document.cookie = "wevouchUser=; expires=; path=/;";
   }
 
   // Checking the Authentication for User
