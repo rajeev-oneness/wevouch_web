@@ -14,6 +14,7 @@ import { dateDiffInDays } from "src/app/service/globalFunction";
 export class ProductDetailComponent implements OnInit {
 
   public productId: string;
+  public user: any= {};
   public productDetails: any= {};
   public warrantyValidTill : any = ''
   public amcValidTill : any = ''
@@ -28,6 +29,12 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const userData = JSON.parse(localStorage.getItem('we_vouch_user') || '{}')
+    this._api.userDetails(userData._id).subscribe(
+      res => {
+        this.user = res;
+      }
+    )
     this.productId = this.route.snapshot.paramMap.get('productId');
     if(this.productId)
     {

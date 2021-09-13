@@ -65,6 +65,8 @@ export class LoginComponent implements OnInit {
         res => {
           this._api.storeUserLocally(res.user);
           if(this.rememberMe === true) {
+            console.log('remeber me selected');
+            
             this._api.storeUserCookie(JSON.stringify(res.user));
           }
           this._loader.stopLoader('loader');

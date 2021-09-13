@@ -204,5 +204,13 @@ export class ApiService {
   getProductModels(subCategoryName : any) {
     return this._http.get<any>(productAssets+'?action=fetchModels&sub_category='+subCategoryName);
   }
+  
+  //send mail api
+  sendMailApi(formData : any) {
+    return this._http.post<any>(_apiUrl+'user/send-email',formData);
+  }
 
+  userDetails(userId : any) {
+    return this._http.get<any>(_apiUrl+'user/get/'+userId);
+  }
 }

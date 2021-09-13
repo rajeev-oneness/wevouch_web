@@ -138,7 +138,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="mt-4 mb-3"  *ngIf="(newTickets.length === 0) && (ongoingTickets.length === 0)">
+              <div class="mt-4 mb-3"  *ngIf="(user.remainingTicketCount > 0) && (newTickets.length === 0) && (ongoingTickets.length === 0)">
                 <a [routerLink]="['/user/ticket/add', productDetails._id]" class="save-button">
                   <span *ngIf="dateNow < warrantyValidTill;">
                     Claim Warranty
@@ -146,6 +146,11 @@
                   <span *ngIf="dateNow > warrantyValidTill;">
                     Raise service Ticket
                   </span>
+                </a>
+              </div>
+              <div class="mt-4 mb-3" *ngIf="(user.remainingTicketCount <= 0) &&(newTickets.length === 0) && (ongoingTickets.length === 0)">
+                <a class="save-button">
+                  Not enough ticket!
                 </a>
               </div>
               <div class="mt-4 mb-3 ml-1">

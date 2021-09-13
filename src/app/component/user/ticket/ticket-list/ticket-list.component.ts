@@ -14,15 +14,18 @@ export class TicketListComponent implements OnInit {
   constructor(private _api: ApiService, private _loader: NgxUiLoaderService) {}
 
   ngOnInit(): void {
-    if (localStorage.getItem('we_vouch_user')) {
-      this.userDetails = JSON.parse(localStorage.getItem('we_vouch_user'));
-      this._api.ticketList(this.userDetails._id).subscribe((res) => {
-        this._loader.startLoader('loader');
-        this.ticketList = res;
-        console.log(res);
-        this._loader.stopLoader('loader');
-      });
-    }
+    const user = JSON.parse(localStorage.getItem('we_vouch_user'));
+    this._api.ticketList(user._id).subscribe((res) => {
+      this._loader.startLoader('loader');
+      this.ticketList = res;
+      console.log(res);
+      this._loader.stopLoader('loader');
+    });
+    this._api.userDetails(user._id).subscribe(
+      res => {
+        this.userDetails = res;
+      }
+    )
   }
 
 }

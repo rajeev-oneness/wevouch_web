@@ -45,6 +45,11 @@ export class TicketAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAddressData();
+    this._api.userDetails(this.user._id).subscribe(
+      res => {
+        this.user = res;
+      }
+    )
   }
   
   getAddressData() {
@@ -108,7 +113,7 @@ export class TicketAddComponent implements OnInit {
             this._api.addTicket(tosendData).subscribe(
               res=>{
                 console.log(res);
-                
+                this._api.updateUserLocally(this.user);
                 this.Toast.fire({
                   icon: 'success',
                   title: 'Tcket raised successfully!'
