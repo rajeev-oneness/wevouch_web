@@ -80,6 +80,14 @@ export class ProductDetailComponent implements OnInit {
         this._api.deleteProduct(this.productId).subscribe(
           res => {
             console.log(res);
+            const notificationForm = {
+              "title": "Product deleted", 
+              "userId": this.user._id, 
+              "description": "Product "+this.productDetails.name+" has deleted."
+            }
+            this._api.addNotification(notificationForm).subscribe(
+              res=> {console.log(res);}
+            );
             this._router.navigate(['/user/product/list']);
             this._loader.stopLoader('loader');
           }, err => {}

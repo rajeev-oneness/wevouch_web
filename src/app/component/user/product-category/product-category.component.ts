@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ApiService } from 'src/app/service/api.service';
+import { dateDiffInDays } from "src/app/service/globalFunction";
+
 @Component({
   selector: 'app-product-category',
   templateUrl: './product-category.component.html',
@@ -41,58 +43,92 @@ export class ProductCategoryComponent implements OnInit {
   public allProductList: any = [];
   public selectedCategory: string = 'all';
   public userDetails: any = '';
+  public dateNow : any = Date.now(); 
+
   constructor(private _loader: NgxUiLoaderService, private _api: ApiService) {}
 
   ngOnInit(): void {
 
     this.userDetails = JSON.parse(localStorage.getItem('we_vouch_user'));
-    
-    this._api.categoryList().subscribe((res) => {
-      this.categoryList = res.filter((t) => t.status === 'active');
-    });
 
     this._api.productList(this.userDetails._id).subscribe((res) => {
-      const dDate = new Date();
       res.map((item) => {
         let purchaseDate = new Date(item.purchaseDate);
         item.expiryDate = purchaseDate.setMonth(purchaseDate.getMonth()+item.warrantyPeriod);
       });
       this.productList = res.filter((t) => t.status === 'active');
-      this.allProductList = this.productList;
+      this.checkingNotification();
       this._loader.stopLoader('loader');
     });
   }
 
-  getProductsByCategory(value) {
-    if (value === 'all') {
-      this.productList = this.allProductList;
-      this.selectedCategory = 'all';
-    } else {
-    //   document.getElementById('other-slider').classList.add('active');
-    //   document.getElementById('all-slider').classList.remove('active');
-      this.selectedCategory = value.name;
-      const formData = {
-        "categoryId": value._id, 
-        "userId": this.userDetails._id
-      };
-      console.log(formData);
-      this._api.productListByUserAndCategory(formData).subscribe(
-        res => {
-          console.log(res);
-          
-          // const dDate = new Date();
-          // res.map((item) => {
-          //   item.differenceInTime =
-          //     dDate.getTime() - new Date(item.purchaseDate).getTime();
-          //   item.differenceInDays = item.differenceInTime / (1000 * 3600 * 24);
-          //   item.expiryDate = new Date(
-          //     dDate.setDate(dDate.getDate() + item.differenceInDays)
-          //   ).toDateString();
-          // });
-          // this.productList = res.filter((t) => t.status === 'active');
-          this.productList = res;
+  checkingNotification() {
+    for (let index = 0; index < this.productList.length; index++) {
+      let purchaseDate = new Date(this.productList[index].purchaseDate);
+      this.productList[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+this.productList[index].warrantyPeriod);
+      let warrantyDaysLeft = dateDiffInDays(this.dateNow, this.productList[index].expiresOn);
+      console.log(warrantyDaysLeft+" days left");
+      if(warrantyDaysLeft == 30 || warrantyDaysLeft == 15 || warrantyDaysLeft == 3 || warrantyDaysLeft == 0) {
+        let title = '';
+        let text = '';
+        if(warrantyDaysLeft <= 0 ) {
+          title = "Warranty expired";
+          text = "Warranty of Product "+this.productList[index].name+" has expired.";
+        } else {
+          title = "Warranty Expiry in "+warrantyDaysLeft+" days";
+          text = "Warranty of Product "+this.productList[index].name+" will expire within "+warrantyDaysLeft+" days";
         }
-      );
+        this.sendNotification(title, text);
+      } else {}
+      if(this.productList[index].amcDetails?.noOfYears) {
+        let amcSrtartDate = new Date(this.productList[index].amcDetails.startDate);
+        let amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(this.productList[index].amcDetails.noOfYears*12));
+        let amcLeftDays = dateDiffInDays(this.dateNow, amcValidTill);
+        console.log(amcLeftDays+" days left of amc");
+        if(amcLeftDays == 7 || amcLeftDays == 5 || amcLeftDays == 0) {
+          let title = '';
+          let text = '';
+          if(amcLeftDays == 0 ) {
+            title = "AMC service expired";
+            text = "AMC service of Product "+this.productList[index].name+" has expired.";
+          } else {
+            title = "AMC service Expiry in "+amcLeftDays+" days";
+            text = "AMC service of Product "+this.productList[index].name+" will expire within "+amcLeftDays+" days";
+          }
+          this.sendNotification(title, text);
+        } else {}
+      }
+      if(this.productList[index].extendedWarranty?.noOfYears) {
+        let extdWarrantyStart = new Date(this.productList[index].extendedWarranty.startDate);
+        let extdWarrantyValidTill = extdWarrantyStart.setMonth(extdWarrantyStart.getMonth()+(this.productList[index].extendedWarranty.noOfYears*12));
+        let extdwarrantyLeftDays = dateDiffInDays(this.dateNow, extdWarrantyValidTill);
+        console.log(extdwarrantyLeftDays+" days left of Extended warranty");
+        if(extdwarrantyLeftDays == 7 || extdwarrantyLeftDays == 0) {
+          let title = '';
+          let text = '';
+          if(extdwarrantyLeftDays == 0 ) {
+            title = "Extended warranty expired";
+            text = "Extended warranty of Product "+this.productList[index].name+" has expired.";
+          } else {
+            title = "Extended warranty Expiry in "+extdwarrantyLeftDays+" days";
+            text = "Extended warranty of Product "+this.productList[index].name+" will expire within "+extdwarrantyLeftDays+" days";
+          }
+          this.sendNotification(title, text);
+        } else {}
+      }
     }
   }
+
+
+  sendNotification(title : any, description : any){
+    const notificationForm = {
+      "title": title, 
+      "userId": this.userDetails._id, 
+      "description": description
+    }
+    this._api.addNotification(notificationForm).subscribe(
+      res=> {console.log(res);}
+    );
+  }
+
 }

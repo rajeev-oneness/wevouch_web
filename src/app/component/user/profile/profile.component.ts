@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   public userDetails: any = {};
   public errorMessage: string = '';
   public successMessage: string = '';
+  public passwordErrorMessage: string = '';
   public password: string = '';
   public newPassword: string = '';
   public passwordType: string = 'password';
@@ -50,6 +51,7 @@ export class ProfileComponent implements OnInit {
   public fileFormatError = '';
   public selectedFile : File;public hasFile : boolean;
   onSelectFile(event) {
+    this._loader.startLoader('loader');
     this.fileFormatError = '';this.hasFile = false;
     this.selectedFile = event.target.files[0];
     if(this.selectedFile != undefined && this.selectedFile != null){
@@ -71,11 +73,11 @@ export class ProfileComponent implements OnInit {
                 this._api.updateUserDetails({'_id': this.userDetails._id,'image':this.profilePicUrl}).subscribe(
                   (res) => {
                     this._api.updateUserLocally(res);
-                    this._loader.stopLoader('loader');
                     this.Toast.fire({
                       icon: 'success',
                       title: 'Profile picture updated successfully!'
                     })
+                    this._loader.stopLoader('loader');
                     this.gotToProfile();
                   },
                   (err) => {
@@ -109,9 +111,9 @@ export class ProfileComponent implements OnInit {
     if (this.isEdit) {
       if (this.password && this.newPassword) {
         if (this.password === this.newPassword) {
-          this.errorMessage = 'Both passwords cannot be same.';
+          this.passwordErrorMessage = 'Both passwords cannot be same.';
         } else {
-          this.errorMessage = '';
+          this.passwordErrorMessage = '';
           this._loader.startLoader('loader');
           const toSendData = {
             email: this.userDetails.email,
@@ -122,19 +124,27 @@ export class ProfileComponent implements OnInit {
             (res) => {
               this._loader.stopLoader('loader');
               this.successMessage = 'Password changed suucessfully.';
+              const notificationForm = {
+                "title": "Password Changed", 
+                "userId": this.userDetails._id, 
+                "description": "Your account password has updated."
+              }
+              this._api.addNotification(notificationForm).subscribe(
+                res=> {console.log(res);}
+              );
               this.Toast.fire({
                 icon: 'success',
                 title: 'Password changed successfully!'
               })
             },
             (err) => {
-              this.errorMessage = err.error.message;
+              this.passwordErrorMessage = err.error.message;
               this._loader.stopLoader('loader');
             }
           );
         }
       } else {
-        this.errorMessage = 'New and Current Password are required';
+        this.passwordErrorMessage = 'New and Current Password are required';
       }
     }
   }

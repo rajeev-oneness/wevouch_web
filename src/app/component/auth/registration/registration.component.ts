@@ -17,6 +17,7 @@ export class RegistrationComponent implements OnInit {
     this._loader.startLoader('loader');
   }
   public errorMessage = '';
+  public confirmPassword : any = '';
   ngOnInit(): void {
     this._loader.stopLoader('loader');
   }
@@ -27,12 +28,21 @@ export class RegistrationComponent implements OnInit {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
-      // if (formData.value.password === formData.value.conPassword) {
+      if (formData.value.password === this.confirmPassword) {
         this._loader.startLoader('loader');
         const mainForm = formData.value;
         mainForm.image = 'http://cp-33.hostgator.tempwebhost.net/~a1627unp/wevouch/images/1629464354_businessman.png';
         this._api.userSignup(mainForm).subscribe(
           (res) => {
+            const notificationForm = {
+              "title": "Free Ticket Earn", 
+              "userId": res.user._id, 
+              "description": "You earn "+res.user.subscription.ticketCount+" tickets."
+            }
+            this._api.addNotification(notificationForm).subscribe(
+              res=> {console.log(res);}
+            );
+            this._api.storeUserLocally(res.user);
             this._loader.stopLoader('loader');
             this._router.navigate(['/login']);
           },
@@ -41,12 +51,16 @@ export class RegistrationComponent implements OnInit {
             this._loader.stopLoader('loader');
           }
         );
-      // } else {
-      //   this.errorMessage = 'Password and Confirm Password does not match';
-      // }
+      } else {
+        this.errorMessage = 'Password and Confirm Password does not match';
+      }
     } else {
       this.errorMessage = 'Please fill out all the details';
     }
     // console.log('Form Data SUbmitted');
+  }
+  
+  confirmPasswordCheck(e :any) {
+    this.confirmPassword = e.target.value;
   }
 }

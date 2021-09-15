@@ -74,9 +74,11 @@
                   </small>
                 </span>
                </div>
+               <label><i-feather name="lock" class="mr-1"></i-feather>Confirm Password</label>
+               <input class="form-control" tabindex="2" [value]="confirmPassword" (blur)="confirmPasswordCheck($event)" type="password" placeholder="Confirm Password">
 
                 <label><i-feather name="calendar" class="mr-1"></i-feather>Age</label>
-                <input class="form-control" tabindex="2" #age="ngModel" ngModel type="age" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" required [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
+                <input class="form-control" tabindex="2" #age="ngModel" ngModel type="text" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" required [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
                 
                 <label><i-feather name="users" class="mr-1"></i-feather>Gender</label>
                 <select class="form-control" tabindex="2" #gender="ngModel" [ngModel]="'Male'" type="gender" name="gender" placeholder="gender" required [ngClass]="{'is-invalid':gender?.invalid && gender?.touched}">

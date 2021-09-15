@@ -155,7 +155,9 @@ export class ApiService {
   //notification list
   notificationList(userId : any) {
     return this._http.get<any>(_apiUrl+'notification/get-by-user/'+userId);
-    // return this._http.get<any>(_apiUrl+'notification/list');
+  }
+  addNotification(formData : any) {
+    return this._http.post<any>(_apiUrl+'notification/add', formData);
   }
 
   //address management section

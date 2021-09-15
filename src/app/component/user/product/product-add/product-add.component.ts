@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+// declare let $: any;
+// import * as $ from "jquery";
+// import "select2";
 @Component({
   selector: 'app-product-add',
   templateUrl: './product-add.component.html',
@@ -27,8 +30,9 @@ export class ProductAddComponent implements OnInit {
   public invoiceImgUrl: any = '';
   public productImgUrl: any = '';
   public user: any = {};
-  public amcDetailsFill : boolean = false;
-  public extWarrantyFill : boolean = false;
+  public amcDetailsFill : boolean = true;
+  public extWarrantyFill : boolean = true;
+  public productImage : boolean = false;
   public purchaseDateField : any = '';
   public serialNoField : any = '';
 
@@ -40,6 +44,7 @@ export class ProductAddComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('we_vouch_user') || '{}');
     this._loader.startLoader('loader');
     this.fetchBrands();
+    // $('#select-2-box').select2();
   }
 
   fetchBrands() {
@@ -245,25 +250,29 @@ export class ProductAddComponent implements OnInit {
   showThirdTab(formData) {
     this.errorMessage = '';
     if (formData.value && formData.value.purchaseDate && formData.value.serialNo && formData.value.warrantyPeriod && formData.value.warrantyType) {
-      this.addProductValue.purchaseDate = formData.value.purchaseDate;
-      this.addProductValue.serialNo = formData.value.serialNo;
-      this.addProductValue.modelNo =
-        formData.value.modelNo;
-      if (formData.value.warrantyType === 'year') {
-        this.addProductValue.warrantyPeriod =
-          Number(formData.value.warrantyPeriod) * 12;
+      if (this.invoiceImgUrl) {
+        this.addProductValue.purchaseDate = formData.value.purchaseDate;
+        this.addProductValue.serialNo = formData.value.serialNo;
+        this.addProductValue.modelNo =
+          formData.value.modelNo;
+        if (formData.value.warrantyType === 'year') {
+          this.addProductValue.warrantyPeriod =
+            Number(formData.value.warrantyPeriod) * 12;
+        } else {
+          this.addProductValue.warrantyPeriod =
+            formData.value.warrantyPeriod || 0;
+        }
+        
+        if (this.extWarrantyFill === true && this.amcDetailsFill === true) {
+          console.log(this.addProductValue);
+          this.isSecondTab = false;
+          this.isThirdTab = true;
+          this.errorMessage = "";
+        } else {
+          this.errorMessage = "AMC details and Extended Warranty details required";
+        }
       } else {
-        this.addProductValue.warrantyPeriod =
-          formData.value.warrantyPeriod || 0;
-      }
-      
-      if (this.extWarrantyFill === true && this.amcDetailsFill === true) {
-        console.log(this.addProductValue);
-        this.isSecondTab = false;
-        this.isThirdTab = true;
-        this.errorMessage = "";
-      } else {
-        this.errorMessage = "AMC details and Extended Warranty details required";
+        this.errorMessage = "Plaese add invoice image";
       }
     }
     else
@@ -274,26 +283,32 @@ export class ProductAddComponent implements OnInit {
   }
 
   showThankYou() {
-    this._loader.startLoader('loader');
-    this.addProductValue.productImagesUrl = [
-      this.productImgUrl,
-    ];
-    this.addProductValue.userId = JSON.parse(
-      localStorage.getItem('we_vouch_user')
-    )._id;
-    this.addProductValue.invoicePhotoUrl = this.invoiceImgUrl;
-    console.log(this.addProductValue);
+    this.errorMessage = "";
+    if (this.productImgUrl) {
+      this._loader.startLoader('loader');
+      this.addProductValue.productImagesUrl = [
+        this.productImgUrl,
+      ];
+      this.addProductValue.userId = JSON.parse(
+        localStorage.getItem('we_vouch_user')
+      )._id;
+      this.addProductValue.invoicePhotoUrl = this.invoiceImgUrl;
+      console.log(this.addProductValue);
 
-    this._api.addProduct(this.addProductValue).subscribe(
-      (res) => {
-        this._loader.stopLoader('loader');
-        this.isThirdTab = false;
-        this.isFourthTab = true;
-      },
-      (err) => {
-        this.errorMessage = err.error.message;
-        this._loader.stopLoader('loader');
-      }
-    );
+      this._api.addProduct(this.addProductValue).subscribe(
+        (res) => {
+          this._loader.stopLoader('loader');
+          this.isThirdTab = false;
+          this.isFourthTab = true;
+        },
+        (err) => {
+          this.errorMessage = err.error.message;
+          this._loader.stopLoader('loader');
+        }
+      );
+    } else {
+      this.errorMessage = "Please add product image";
+      
+    }
   }
 }

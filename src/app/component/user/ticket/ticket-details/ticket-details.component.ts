@@ -15,6 +15,7 @@ export class TicketDetailComponent implements OnInit {
   public _id: string;
   public ticketDetails: any= {};
   public ticketLogs: any= [];
+  public userDetail: any = JSON.parse(localStorage.getItem('we_vouch_user') || '{}');
 
   constructor(private route: ActivatedRoute, private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router) { 
     this._loader.startLoader('loader');
@@ -56,6 +57,14 @@ export class TicketDetailComponent implements OnInit {
         this._api.deleteTicket(this._id).subscribe(
           res => {
             console.log(res);
+            const notificationForm = {
+              "title": "Ticket Deleted", 
+              "userId": this.userDetail._id, 
+              "description": "Ticket "+this.ticketDetails.uniqueId+" has deleted."
+            }
+            this._api.addNotification(notificationForm).subscribe(
+              res=> {console.log(res);}
+            );
             this._router.navigate(['/user/ticket/list']);
             this._loader.stopLoader('loader');
           }, err => {}

@@ -12,6 +12,8 @@
     <link rel="stylesheet" type="text/css" href="./assets/css/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/jquery.datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
   <title>Wevouch</title>
 </head>
 <body>
@@ -22,6 +24,7 @@
   <script src="./assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
   <script src="./assets/js/jquery.datetimepicker.full.min.js"></script>
   <script src="./assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script>
     $(function() {
       // $(".owl-carousel").owlCarousel();
@@ -33,6 +36,9 @@
       $('#picker-end').datetimepicker({
         timepicker:false,
       });
+    });
+    $(document).ready(function() {
+      // $('#select-2-box').select2();
     });
   </script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

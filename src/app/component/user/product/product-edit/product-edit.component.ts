@@ -201,6 +201,7 @@ export class ProductEditComponent implements OnInit {
               res => {
                 console.log(res);
                 this.productImgUrl = res.file_link;
+                this._loader.stopLoader('loader');
               }
             )
           }

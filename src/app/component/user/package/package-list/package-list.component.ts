@@ -18,6 +18,7 @@ export class PackageListComponent implements OnInit {
   public packages : any = ''
   public userInfo: any = JSON.parse(localStorage.getItem('we_vouch_user') || '{}');
   public purchaseOptions: any = {};
+  public packageName: any = '';
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -50,6 +51,8 @@ export class PackageListComponent implements OnInit {
         }
         let userId = this.userInfo._id;
         let subscriptionId = res._id;
+        this.packageName = res.name;
+
         this.purchaseOptions = {
           "key": environment.rzp_key_id,
           "amount": res.amount*100,
@@ -68,7 +71,19 @@ export class PackageListComponent implements OnInit {
                   "transactionId" : response.razorpay_payment_id, 
                   "transactionAmount" : res.subscription.amount
                 }
-                this._api.addTransaction(formData).subscribe(res => {});
+                this._api.addTransaction(formData).subscribe();
+                const notificationForm = {
+                  "title": "Plan subscription", 
+                  "userId": userId, 
+                  "description": this.packageName+" package subscribed."
+                }
+                this._api.addNotification(notificationForm).subscribe();
+                const notificationForm2 = {
+                  "title": "Upgrade subscription", 
+                  "userId": userId, 
+                  "description": "Your subscription is upgraded."
+                }
+                this._api.addNotification(notificationForm2).subscribe();
                 this._api.updateUserLocally(res);
                 Swal.fire({
                   title: 'Purchased!',

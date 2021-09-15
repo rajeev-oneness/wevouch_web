@@ -12,8 +12,7 @@ export class AppComponent {
   public showHeaderFooterSidebar: boolean = false;
   public loginRegistration: boolean = false;
   public userDetails: any = {};
-  public notifications: any = '';
-
+  public notifications: any = []
   constructor(private _router: Router, private _api:ApiService) {
     _router.events.forEach((event) => {
       if (event instanceof NavigationStart) {
@@ -33,11 +32,21 @@ export class AppComponent {
       this._router.navigate(['/login']);
     }
     this.userDetails = JSON.parse(localStorage.getItem('we_vouch_user'));
-    this._api.notificationList(this.userDetails._id).subscribe (
-      res => {
-        this.notifications = res;
-        // console.log(res);
-      }
-    )
+    this.getNotifications();
+  }
+
+  getNotifications() {
+    setInterval(()=>{
+      this._api.notificationList(this.userDetails._id).subscribe (
+        res => {
+          let array = Array()
+          for (let index = (res.length-1); index >= 0; index--) {
+            array.push(res[index]);
+          }
+          this.notifications = array;
+          // console.log(this.notifications);
+        }
+      )
+    }, 5000);
   }
 }

@@ -24,9 +24,16 @@
               <label for="name">Nickname<span>*</span></label>
               <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="product_name" placeholder="Product nickname" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
             </div>
+            <!-- <div class="col-lg-6">
+              <ng-select2 
+                [(ngModel)]="brandId"
+                [data]="brandList"
+                [placeholder]="'Please select a fruit...'">		
+              </ng-select2>
+            </div> -->
             <div class="col-lg-6">
               <label for="brandId">Brand Name <span>*</span></label>
-              <select class="form-control" name="brandId" id="brandId" [(ngModel)]="brandId" (change)='fetchCategory()'>
+              <select class="form-control" name="brandId" id="select-2-box" [(ngModel)]="brandId" (change)='fetchCategory()'>
                 <option *ngFor="let option of brandList" [value]="option.id" >{{option.name}}</option>
               </select>
             </div>
@@ -190,6 +197,9 @@
           </div>
           <div class="col-12">
             <span class="text-danger">{{fileFormatError}}</span>
+          </div>
+          <div class="col-12">
+            <span class="text-danger">{{errorMessage}}</span>
           </div>
           <!-- <div class="col-lg-4 mt-2 mb-2">
             <div class="invoice-box">
