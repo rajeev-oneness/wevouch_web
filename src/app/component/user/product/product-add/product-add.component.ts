@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-// declare let $: any;
-// import * as $ from "jquery";
-// import "select2";
+
 @Component({
   selector: 'app-product-add',
   templateUrl: './product-add.component.html',
@@ -44,7 +42,6 @@ export class ProductAddComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('we_vouch_user') || '{}');
     this._loader.startLoader('loader');
     this.fetchBrands();
-    // $('#select-2-box').select2();
   }
 
   fetchBrands() {

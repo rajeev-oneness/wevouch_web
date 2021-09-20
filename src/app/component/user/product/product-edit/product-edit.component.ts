@@ -30,7 +30,7 @@ export class ProductEditComponent implements OnInit {
   public productId: any = '';
   public productDetail: any = '';
   public warrantyPeriod: any = '';
-  public warrantyType: any = '';
+  public warrantyMode: any = 'year';
   public invoiceImgUrl: any = '';
   public productImgUrl: any = '';
   public purchaseDateTime: any = '';
@@ -39,6 +39,9 @@ export class ProductEditComponent implements OnInit {
   public brandName: any = '';
   public modelList: any = '';
   public modelId: any = '';
+  public secondTimeCall: boolean = false;
+  public warrantyTime: any = '';
+
 
   constructor(private _api: ApiService, private _loader: NgxUiLoaderService, private _activated:ActivatedRoute) {
     this._loader.startLoader('loader');
@@ -46,7 +49,7 @@ export class ProductEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.productId = this._activated.snapshot.paramMap.get('productId');
-    this._loader.startLoader('loader');
+    // this._loader.startLoader('loader');
     this._api.getProductDetailsById(this.productId).subscribe(
       res => {
         console.log(res);
@@ -55,8 +58,15 @@ export class ProductEditComponent implements OnInit {
         this.subCategory = res.subCategory;
         this.modelId = res.modelNo;
         this.purchaseDateTime = getDateFormat(res.purchaseDate);
-        // this.fetchSubCategory();
         this.fetchBrands();
+
+        if(res.warrantyPeriod%12 === 0){
+          this.warrantyTime = res.warrantyPeriod/12
+        } 
+        else {
+          this.warrantyTime = res.warrantyPeriod;
+          this.warrantyMode = 'month';
+        }
         this.invoiceImgUrl = res.invoicePhotoUrl; 
         this.uploadedFile1 = res.invoicePhotoUrl;
         this.productImgUrl = res.productImagesUrl[0]; 
@@ -65,13 +75,6 @@ export class ProductEditComponent implements OnInit {
         
       }, err => {}
     );
-    // this._api.categoryList().subscribe((res) => {
-    //   this.categoriesList = res.filter((t) => t.status === 'active');
-    //   this._loader.stopLoader('loader');
-    // });
-    // this._api.brandList().subscribe((res) => {
-    //   this.brandList = res.filter((t) => t.status === 'active');
-    // });
   }
 
   fetchBrands() {
@@ -81,13 +84,12 @@ export class ProductEditComponent implements OnInit {
         this.brandList = res.brands;
         this.brandId = res.brands.filter((t : any) => t.name === this.productDetail.brands)[0].id;
         console.log(this.brandId);
-        
         this.fetchCategory();
       }, err => {}
     )
   }
   
-  fetchCategory() {
+  fetchCategory(callTime : any = '') {
     console.log(this.brandId);
     this.brandName = this.brandList.filter( (t:any) => t.id === this.brandId )[0].name;
     console.log(this.brandName);
@@ -95,31 +97,41 @@ export class ProductEditComponent implements OnInit {
     this._api.getProductCategories(this.brandId).subscribe(
       res => {
         this.categoriesList = res.categories;
-        console.log(this.categoriesList);
+        if (callTime != '') {
+          console.log('brand 2nd');
+          this.secondTimeCall = true;
+          this.category = this.categoriesList[0].category;
+        }
         this.fetchSubCategory();
         this._loader.stopLoader('loader');
       }, err => {}
     )
   }
   
-  fetchSubCategory() {
-    console.log(this.category);
+  fetchSubCategory(callTime : any = '') {
+    console.log('category: ',this.category);
     this._api.getProductSubCategories(this.category).subscribe(
       res => {
         this.subCategoriesList = res.sub_categories;
-        // console.log(this.subCategoriesList);
+        console.log(this.subCategoriesList);
+        if (callTime != '' || this.secondTimeCall) {
+          console.log('category 2nd');
+          this.subCategory = this.subCategoriesList[0].sub_category
+        }
         this.fetchModel();
       }, err => {}
     )
   }
 
-  fetchModel() {
+  fetchModel(callTime : any = '') {
+    console.log('Sub category: ',this.subCategory);
     this._api.getProductModels(this.subCategory).subscribe(
       res => {
         this.modelList = res.models;
-        this.modelId = res.models[0].model_no;
+        if (callTime != '' || this.secondTimeCall) {
+          this.modelId = res.models[0].model_no;
+        }
         this._loader.stopLoader('loader');
-        // console.log(this.modelList);
       }
     )
   }
@@ -140,7 +152,6 @@ export class ProductEditComponent implements OnInit {
     {
       this.addProductValue.amcDetails = value;
       console.log(this.addProductValue);
-
     }
     this.isAmcDetails = false;
     this.isSecondTab= true;

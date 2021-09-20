@@ -24,30 +24,51 @@
               <label for="name">Nickname<span>*</span></label>
               <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="product_name" placeholder="Product nickname" required [ngClass]="{'is-invalid':name?.invalid && name?.touched}">
             </div>
-            <!-- <div class="col-lg-6">
-              <ng-select2 
-                [(ngModel)]="brandId"
-                [data]="brandList"
-                [placeholder]="'Please select a fruit...'">		
-              </ng-select2>
-            </div> -->
             <div class="col-lg-6">
               <label for="brandId">Brand Name <span>*</span></label>
-              <select class="form-control" name="brandId" id="select-2-box" [(ngModel)]="brandId" (change)='fetchCategory()'>
-                <option *ngFor="let option of brandList" [value]="option.id" >{{option.name}}</option>
-              </select>
+              <ng-select 
+                bindLabel="name"
+                placeholder="Select item"
+                appendTo="body"
+                [searchable]="true"
+                [(ngModel)]="brandId"
+                (change)='fetchCategory()'
+                name="brandId">
+                    <ng-option [value]="item.id" *ngFor="let item of brandList">
+                        {{item.name}}
+                    </ng-option>
+              </ng-select>
             </div>
             <div class="col-lg-6">
               <label for="category">Category<span>*</span></label>
-              <select class="form-control" name="category" id="category" [(ngModel)]="category" (change)='fetchSubCategory()'>
-                <option *ngFor="let option of categoriesList" [value]="option.category" >{{option.category}}</option>
-              </select>
+              <ng-select 
+                bindLabel="category"
+                placeholder="Select item"
+                appendTo="body"
+                [searchable]="true"
+                [(ngModel)]="category"
+                (change)='fetchSubCategory()'
+                name="category">
+                    <ng-option [value]="item.category" *ngFor="let item of categoriesList">
+                        {{item.category}}
+                    </ng-option>
+              </ng-select>
             </div>
             <div class="col-lg-6">
               <label for="subCategory">Sub Category <span>*</span></label>
-              <select class="form-control" name="subCategory" id="subCategory" [(ngModel)]="subCategory" (change)='fetchModel()'>
-                <option *ngFor="let option of subCategoriesList" [value]="option.sub_category" >{{option.sub_category}}</option>
-              </select>
+              
+              <ng-select 
+                bindLabel="sub_category"
+                placeholder="Select item"
+                appendTo="body"
+                [searchable]="true"
+                [(ngModel)]="subCategory"
+                (change)='fetchModel()'
+                name="subCategory">
+                    <ng-option [value]="item.sub_category" *ngFor="let item of subCategoriesList">
+                        {{item.sub_category}}
+                    </ng-option>
+              </ng-select>
             </div>
             
             <div class="col-lg-6">
@@ -108,11 +129,12 @@
                   <label for="warranty">Warranty Period <span>*</span></label>
                   <div class="row">
                     <div class="col-lg-6">
-                      <select #warrantyPeriod="ngModel" [ngModel]="'1'" name="warrantyPeriod" id="warrantyPeriod" class="form-control">
+                      <!-- <select #warrantyPeriod="ngModel" [ngModel]="'1'" name="warrantyPeriod" id="warrantyPeriod" class="form-control">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
-                      </select>
+                      </select> -->
+                      <input type="number" #warrantyPeriod="ngModel" [ngModel]="1" name="warrantyPeriod" id="warrantyPeriod" class="form-control" required [ngClass]="{'is-invalid':warrantyPeriod?.invalid && warrantyPeriod?.touched}">
                     </div>
                     <div class="col-lg-6">
                       <select #warrantyType="ngModel" [ngModel]="'year'" name="warrantyType" id="warrantyType" class="form-control">
@@ -129,14 +151,24 @@
                     #serialNo="ngModel" [(ngModel)]="serialNoField" name="serialNo" id="serialNo"
                     placeholder="eg:123456"
                     class="form-control"
-                    pattern="(?=.*\d)" required [ngClass]="{'is-invalid':serialNo?.invalid && serialNo?.touched}"
+                    pattern="(?=.*\d)" required 
                   />
                 </div>
                 <div class="col-lg-6">
                   <label for="name">Model No <span>*</span></label>
-                  <select class="form-control" #modelNo="ngModel" [ngModel]="modelId" name="modelNo" id="product_model_no"  [ngClass]="{'is-invalid':modelNo?.invalid && modelNo?.touched}">
-                    <option *ngFor="let model of modelList" value="{{model.model_no}}">{{model.model_no}}</option>
-                  </select>
+                  
+                  <ng-select 
+                    bindLabel="model_no"
+                    placeholder="Select item"
+                    appendTo="body"
+                    [searchable]="true" 
+                    #modelNo="ngModel" 
+                    [ngModel]="modelId"
+                    name="modelNo">
+                        <ng-option [value]="item.model_no" *ngFor="let item of modelList">
+                            {{item.model_no}}
+                        </ng-option>
+                  </ng-select>
                 </div>
                 <div
                   class="form-check col-lg-6 d-flex pl-0 pl-md-4 ml-0 ml-2 mt-2 mb-2 custop_check"

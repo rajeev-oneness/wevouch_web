@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+.ng-select .ng-select-container {
+    color: #908785;
+    background-color: #f3f3f3;
+    border-radius: 0px;
+    border: 1px solid #f3f3f3;
+    min-height: 45px;
+    align-items: center;
+}
