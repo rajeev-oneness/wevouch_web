@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
   });
   public uploadedFile;
   public profilePicUrl;
+  public copyState : boolean = false;
 
 
   constructor(
@@ -177,6 +178,11 @@ export class ProfileComponent implements OnInit {
 
   gotToProfile() {
     window.location.href = environment.basePath+'user/profile'
+  }
+
+  copyReferralCode(copyText : any) {
+    navigator.clipboard.writeText(copyText);
+    this.copyState = true;
   }
 
 }

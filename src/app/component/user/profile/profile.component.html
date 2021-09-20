@@ -163,7 +163,23 @@
                 </div>
               </div>
             </div>
-           
+          </div>
+          <div class="col-lg-6 mt-4" *ngIf="userDetails?.referralCode">
+            <div class="membership">
+              <div class="row">
+                <div class="col-lg-7">
+                  <p class="text-blue">REFERRAL CODE</p>
+                  <h5>{{userDetails?.referralCode}}</h5>
+                </div>
+                <div class="col-lg-5 d-flex align-items-center">
+                  <!-- <button class="update-button">UPDATE</button> -->
+                  <a href="javascript:void(0);" (click)="copyReferralCode(userDetails?.referralCode)" class="update-button">
+                    <span *ngIf="!copyState">Copy</span>
+                    <span *ngIf="copyState">Copied!</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
           
         </div>
