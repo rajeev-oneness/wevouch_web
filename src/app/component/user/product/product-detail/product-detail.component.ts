@@ -42,9 +42,12 @@ export class ProductDetailComponent implements OnInit {
       this._api.getProductDetailsById(this.productId).subscribe(
         res => {
           this.productDetails = res;
+          this.warrantyValidTill = '';
           // res.purchaseDate = new Date(res.purchaseDate).toDateString();
-          let purchaseDate = new Date(res.purchaseDate);
-          this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
+          if (res?.purchaseDate) {
+            let purchaseDate = new Date(res.purchaseDate);
+            this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
+          }
           if(res.amcDetails?.noOfYears) {
             let amcSrtartDate = new Date(res.amcDetails.startDate);
             this.amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res.amcDetails.noOfYears*12));

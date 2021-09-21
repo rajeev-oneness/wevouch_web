@@ -11,30 +11,30 @@
                 <img src="{{productDetails.productImagesUrl}}"/>
               </div> -->
               <div class = "img-showcase p-4 bg-light">
-                <img src="{{productDetails.productImagesUrl}}"/>
-                <img src="{{productDetails.productImagesUrl}}"/>
-                <img src="{{productDetails.productImagesUrl}}"/>
-                <img src="{{productDetails.productImagesUrl}}"/>
+                <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
+                <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
+                <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
+                <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
               </div>
               <div class = "img-select mt-0">
                   <div class="img-item bg-light p-2">
                       <a href="javascript:void(0);" data-id="1">
-                        <img src="{{productDetails.productImagesUrl}}"/>
+                        <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
                       </a>
                   </div>
                   <div class="img-item bg-light p-2">
                       <a href="javascript:void(0);" data-id="2">
-                        <img src="{{productDetails.productImagesUrl}}"/>
+                        <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
                       </a>
                   </div>
                   <div class="img-item bg-light p-2">
                       <a href="javascript:void(0);" data-id="3">
-                        <img src="{{productDetails.productImagesUrl}}"/>
+                        <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
                       </a>
                   </div>
                   <div class="img-item bg-light p-2">
                       <a href="javascript:void(0);" data-id="4">
-                        <img src="{{productDetails.productImagesUrl}}"/>
+                        <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
                       </a>
                   </div>
               </div>
@@ -67,7 +67,7 @@
             <div class="invoice-details-box">
               <div class="row">
                 <div class="col-lg-3">
-                  <img src="{{productDetails?.invoicePhotoUrl}}" alt="Invoice Image" />
+                  <img src="{{productDetails?.invoicePhotoUrl || './assets/img/blank-image.png'}}" alt="Invoice Image" />
                 </div>
                 <div class="col-lg-9">
                   <h5 class="mb-3">Warranty Details</h5>
@@ -140,10 +140,10 @@
             <div class="row">
               <div class="mt-4 mb-3"  *ngIf="(user.remainingTicketCount > 0) && (newTickets.length === 0) && (ongoingTickets.length === 0)">
                 <a [routerLink]="['/user/ticket/add', productDetails._id]" class="save-button">
-                  <span *ngIf="dateNow < warrantyValidTill;">
+                  <span *ngIf="warrantyValidTill != '' && dateNow < warrantyValidTill;">
                     Claim Warranty
                   </span>
-                  <span *ngIf="dateNow > warrantyValidTill;">
+                  <span *ngIf="warrantyValidTill === '' || dateNow > warrantyValidTill;">
                     Raise service Ticket
                   </span>
                 </a>
@@ -177,7 +177,7 @@
           <div class="card">
             <div class="card-body d-flex p-2">
               <div class="image">
-                <img src="{{ticket.products?.productImagesUrl[0]}}" />
+                <img src="{{(ticket.products.productImagesUrl[0] != '')? ticket.products.productImagesUrl[0] : './assets/img/blank-image.png'}}" />
               </div>
               <h1>
                 {{ticket?.products?.name}}

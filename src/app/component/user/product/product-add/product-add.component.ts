@@ -204,7 +204,7 @@ export class ProductAddComponent implements OnInit {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
-      if (this.category && this.brandId && this.subCategory) {
+      if (this.category && this.brandId) {
         formData.value.brandId = this.brandName;
         this.addProductValue = formData.value;
         this.isFirstTab = false;
@@ -246,8 +246,7 @@ export class ProductAddComponent implements OnInit {
 
   showThirdTab(formData) {
     this.errorMessage = '';
-    if (formData.value && formData.value.purchaseDate && formData.value.serialNo && formData.value.warrantyPeriod && formData.value.warrantyType) {
-      if (this.invoiceImgUrl) {
+    if (formData.value) {
         this.addProductValue.purchaseDate = formData.value.purchaseDate;
         this.addProductValue.serialNo = formData.value.serialNo;
         this.addProductValue.modelNo =
@@ -268,9 +267,6 @@ export class ProductAddComponent implements OnInit {
         } else {
           this.errorMessage = "AMC details and Extended Warranty details required";
         }
-      } else {
-        this.errorMessage = "Plaese add invoice image";
-      }
     }
     else
     {
@@ -281,31 +277,26 @@ export class ProductAddComponent implements OnInit {
 
   showThankYou() {
     this.errorMessage = "";
-    if (this.productImgUrl) {
-      this._loader.startLoader('loader');
-      this.addProductValue.productImagesUrl = [
-        this.productImgUrl,
-      ];
-      this.addProductValue.userId = JSON.parse(
-        localStorage.getItem('we_vouch_user')
-      )._id;
-      this.addProductValue.invoicePhotoUrl = this.invoiceImgUrl;
-      console.log(this.addProductValue);
+    this._loader.startLoader('loader');
+    this.addProductValue.productImagesUrl = [
+      this.productImgUrl,
+    ];
+    this.addProductValue.userId = JSON.parse(
+      localStorage.getItem('we_vouch_user')
+    )._id;
+    this.addProductValue.invoicePhotoUrl = this.invoiceImgUrl;
+    console.log(this.addProductValue);
 
-      this._api.addProduct(this.addProductValue).subscribe(
-        (res) => {
-          this._loader.stopLoader('loader');
-          this.isThirdTab = false;
-          this.isFourthTab = true;
-        },
-        (err) => {
-          this.errorMessage = err.error.message;
-          this._loader.stopLoader('loader');
-        }
-      );
-    } else {
-      this.errorMessage = "Please add product image";
-      
-    }
+    this._api.addProduct(this.addProductValue).subscribe(
+      (res) => {
+        this._loader.stopLoader('loader');
+        this.isThirdTab = false;
+        this.isFourthTab = true;
+      },
+      (err) => {
+        this.errorMessage = err.error.message;
+        this._loader.stopLoader('loader');
+      }
+    );
   }
 }

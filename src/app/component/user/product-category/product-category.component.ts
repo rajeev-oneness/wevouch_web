@@ -53,8 +53,11 @@ export class ProductCategoryComponent implements OnInit {
 
     this._api.productList(this.userDetails._id).subscribe((res) => {
       res.map((item) => {
-        let purchaseDate = new Date(item.purchaseDate);
-        item.expiryDate = purchaseDate.setMonth(purchaseDate.getMonth()+item.warrantyPeriod);
+        item.expiryDate = '';
+        if (item.purchaseDate) {
+          let purchaseDate = new Date(item.purchaseDate);
+          item.expiryDate = purchaseDate.setMonth(purchaseDate.getMonth()+item.warrantyPeriod);
+        }
       });
       this.productList = res.filter((t) => t.status === 'active');
       this.checkingNotification();
@@ -64,23 +67,25 @@ export class ProductCategoryComponent implements OnInit {
 
   checkingNotification() {
     for (let index = 0; index < this.productList.length; index++) {
-      let purchaseDate = new Date(this.productList[index].purchaseDate);
-      this.productList[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+this.productList[index].warrantyPeriod);
-      let warrantyDaysLeft = dateDiffInDays(this.dateNow, this.productList[index].expiresOn);
-      console.log(warrantyDaysLeft+" days left");
-      if(warrantyDaysLeft == 30 || warrantyDaysLeft == 15 || warrantyDaysLeft == 3 || warrantyDaysLeft == 0) {
-        let title = '';
-        let text = '';
-        if(warrantyDaysLeft <= 0 ) {
-          title = "Warranty expired";
-          text = "Warranty of Product "+this.productList[index].name+" has expired.";
-        } else {
-          title = "Warranty Expiry in "+warrantyDaysLeft+" days";
-          text = "Warranty of Product "+this.productList[index].name+" will expire within "+warrantyDaysLeft+" days";
-        }
-        this.sendNotification(title, text);
-      } else {}
-      if(this.productList[index].amcDetails?.noOfYears) {
+      if (this.productList[index]?.purchaseDate) {
+        let purchaseDate = new Date(this.productList[index].purchaseDate);
+        this.productList[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+this.productList[index].warrantyPeriod);
+        let warrantyDaysLeft = dateDiffInDays(this.dateNow, this.productList[index].expiresOn);
+        console.log(warrantyDaysLeft+" days left");
+        if(warrantyDaysLeft == 30 || warrantyDaysLeft == 15 || warrantyDaysLeft == 3 || warrantyDaysLeft == 0) {
+          let title = '';
+          let text = '';
+          if(warrantyDaysLeft <= 0 ) {
+            title = "Warranty expired";
+            text = "Warranty of Product "+this.productList[index].name+" has expired.";
+          } else {
+            title = "Warranty Expiry in "+warrantyDaysLeft+" days";
+            text = "Warranty of Product "+this.productList[index].name+" will expire within "+warrantyDaysLeft+" days";
+          }
+          this.sendNotification(title, text);
+        } else {}
+      }
+      if(this.productList[index]?.amcDetails?.noOfYears) {
         let amcSrtartDate = new Date(this.productList[index].amcDetails.startDate);
         let amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(this.productList[index].amcDetails.noOfYears*12));
         let amcLeftDays = dateDiffInDays(this.dateNow, amcValidTill);
@@ -98,7 +103,7 @@ export class ProductCategoryComponent implements OnInit {
           this.sendNotification(title, text);
         } else {}
       }
-      if(this.productList[index].extendedWarranty?.noOfYears) {
+      if(this.productList[index]?.extendedWarranty?.noOfYears) {
         let extdWarrantyStart = new Date(this.productList[index].extendedWarranty.startDate);
         let extdWarrantyValidTill = extdWarrantyStart.setMonth(extdWarrantyStart.getMonth()+(this.productList[index].extendedWarranty.noOfYears*12));
         let extdwarrantyLeftDays = dateDiffInDays(this.dateNow, extdWarrantyValidTill);

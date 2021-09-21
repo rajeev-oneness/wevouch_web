@@ -57,7 +57,9 @@ export class ProductEditComponent implements OnInit {
         this.category = res.category;
         this.subCategory = res.subCategory;
         this.modelId = res.modelNo;
-        this.purchaseDateTime = getDateFormat(res.purchaseDate);
+        if (res?.purchaseDate) {
+          this.purchaseDateTime = getDateFormat(res.purchaseDate);
+        }
         this.fetchBrands();
 
         if(res.warrantyPeriod%12 === 0){
@@ -229,7 +231,7 @@ export class ProductEditComponent implements OnInit {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
-      if (this.category && this.subCategory) {
+      if (this.category) {
         formData.value.brandId = this.brandName;
         this.addProductValue = formData.value;
         this.isFirstTab = false;
@@ -266,7 +268,7 @@ export class ProductEditComponent implements OnInit {
   }
 
   showThirdTab(formData) {
-    if (formData.value && formData.value.purchaseDate && formData.value.serialNo && formData.value.warrantyPeriod && formData.value.warrantyType) {
+    if (formData.value) {
       this.addProductValue.purchaseDate = formData.value.purchaseDate;
       this.addProductValue.serialNo = formData.value.serialNo;
       this.addProductValue.modelNo =

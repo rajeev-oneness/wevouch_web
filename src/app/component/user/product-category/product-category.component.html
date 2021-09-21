@@ -13,11 +13,12 @@
         <ng-template *ngFor="let product of productList; let i = index" carouselSlide>
           <div routerLink="/user/product/detail/{{product._id}}" style="cursor: pointer;">
             <div class="image-wrapper">
-              <img [src]="product.productImagesUrl[0]" class="carousel-image" alt="" />
+              <img src="{{(product.productImagesUrl[0] != '')? product.productImagesUrl[0] : './assets/img/blank-image.png'}}" class="carousel-image" alt="" />
             </div>
             <div class="slider-bottom">
               <h6 class="product-name">{{product.name}}</h6>
-              <p class="text-muted text-center mb-3">Expires on {{product.expiryDate | date: 'dd MMM yyyy'}}</p>
+              <p class="text-muted text-center mb-3" *ngIf="product.expiryDate != '' ">Expires on {{product.expiryDate | date: 'dd MMM yyyy'}}</p>
+              <p class="text-muted text-center mb-3" *ngIf="product.expiryDate === ''">No expiry date</p>
             </div>
           </div>
         </ng-template>
