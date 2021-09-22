@@ -185,6 +185,14 @@ export class ApiService {
     return this._http.get<any>(_apiUrl+'ticket-log/get-by-ticket/'+ticketId);
   }
 
+  //support executive
+  getSupportExcutives() {
+    return this._http.get<any>(_apiUrl+'support-executive/list');
+  }
+  assignTicketToExecutive(formData : any) {
+    return this._http.post<any>(_apiUrl+'ticket/assign-executive', formData);
+  }
+
   //forgot password
   forgotPasswordReqSend(formData : any) {
     return this._http.post<any>(_apiUrl+'user/forgot-password', formData);

@@ -23,13 +23,13 @@
                     <p class="text-muted">Serial No : <span> </span></p>
                     <img src="./assets/img/barcode.png" class="img-fluid" >
                 </div>
-                <p><span class="text-center">Pick Up Address:</span></p>
+                <p><span class="text-center">{{ticketDetails?.transportationType}} Address:</span></p>
                 <p class="text-muted mt-2 text-center">{{ticketDetails.address?.addressLine1}}, {{ticketDetails.address?.addressLine2}}, {{ticketDetails.address?.city}}, {{ticketDetails.address?.country}}, {{ticketDetails.address?.state}}, {{ticketDetails.address?.pin}}</p>
             </div>
         </div>
     </div>
     <div class="container ticket-progress-container mt-3">
-        <ul class="progressbar progressbar-ticket" *ngIf="ticketLogs.length < 0; else noLogsBlock;">
+        <ul class="progressbar progressbar-ticket" *ngIf="ticketLogs.length > 0; else noLogsBlock;">
             <li *ngFor="let log of ticketLogs; let i=index" [ngClass]="{'active' : i < (ticketLogs.length-1)}">
                 {{log.comment}}<br>({{log.createdAt | date: 'dd MMM, yyyy'}})
             </li>
@@ -38,12 +38,11 @@
             <h4>No logs yet!</h4>
         </ng-template>
     </div>
-    <div class="ticket-question">
+    <!-- <div class="ticket-question">
         <h6>Has the {{ticketDetails.brand?.name}} team reach out to you yet?</h6>
         <div class="ticket-buttons">
-            <a href="rate.html" class="btn btn-yes">YES</a>
-            <!-- <button class="btn btn-yes">YES</button> -->
+            <a href="javascript:void(0);" class="btn btn-yes">YES</a>
             <button class="btn btn-no">NO</button>
         </div>
-    </div>
+    </div> -->
 </div>

@@ -40,6 +40,7 @@ export class TicketAddComponent implements OnInit {
   public userAddresses : any = []
   public addressData : any = {}
   public addressErrorMessage : any = ''
+  public supportExecutives : any = new Array()
 
   constructor(private _api: ApiService, private _loader: NgxUiLoaderService, private route: ActivatedRoute, private router: Router) {}
 
@@ -113,6 +114,7 @@ export class TicketAddComponent implements OnInit {
             this._api.addTicket(tosendData).subscribe(
               res=>{
                 console.log(res);
+                this.assignTicket(res.ticket._id);
                 this._api.updateUserLocally(this.user);
                 this.Toast.fire({
                   icon: 'success',
@@ -130,6 +132,24 @@ export class TicketAddComponent implements OnInit {
     {
       this.errorMessage=" Please give all the details.";
     }
+  }
+
+  assignTicket(ticketId : any) {
+    this._api.getSupportExcutives().subscribe(
+      res => {
+        this.supportExecutives = [];
+        for (let index = 0; index < res.length; index++) {
+          this.supportExecutives.push(res[index]._id);
+        }
+        const random = Math.floor(Math.random() * this.supportExecutives.length);
+        console.log(random, this.supportExecutives[random]);
+        const executiveForm = {
+          "ticketId": ticketId, 
+          "executiveId": this.supportExecutives[random]
+        };
+        this._api.assignTicketToExecutive(executiveForm).subscribe();
+      }, err => {}
+    )
   }
 
   saveAddress(formData: any) {
