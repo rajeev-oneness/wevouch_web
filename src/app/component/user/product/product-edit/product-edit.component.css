@@ -1,0 +1,31 @@
+/*-----------------*/
+
+label a{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #243249;
+    font-size: 12px;
+    display: inline-block;
+    color: #00c2cb;
+    font-size: 14px;
+    text-decoration: none;
+    text-align: center;
+    margin-left: 15px;
+    position: relative;
+}
+.tdive{
+    position: absolute;
+    left: 19px;
+    top: 5px;
+    background: #243249;
+    font-size: 11px;
+    width: 150px;
+    padding: 10px;
+    line-height: 16px;
+    visibility: hidden;
+    color:#a1adc0;
+}
+label a:hover .tdive{
+    visibility: visible !important;
+}
