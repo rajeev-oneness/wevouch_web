@@ -128,7 +128,7 @@ export class ProfileComponent implements OnInit {
               const notificationForm = {
                 "title": "Password Changed", 
                 "userId": this.userDetails._id, 
-                "description": "Your account password has updated."
+                "description": "Dear "+this.userDetails.name+", your WeVouch account password has been changed successfully."
               }
               this._api.addNotification(notificationForm).subscribe(
                 res=> {console.log(res);}
@@ -177,7 +177,8 @@ export class ProfileComponent implements OnInit {
   }
 
   gotToProfile() {
-    window.location.href = environment.basePath+'user/profile'
+    window.location.href = environment.basePath+'user/profile';
+    location.reload();
   }
 
   copyReferralCode(copyText : any) {

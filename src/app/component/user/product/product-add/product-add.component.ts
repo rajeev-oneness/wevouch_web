@@ -292,6 +292,13 @@ export class ProductAddComponent implements OnInit {
         this._loader.stopLoader('loader');
         this.isThirdTab = false;
         this.isFourthTab = true;
+        const userDetail = JSON.parse(localStorage.getItem('we_vouch_user') || '{}');
+        const notificationForm = {
+          "title": "Product add", 
+          "userId": userDetail._id, 
+          "description": "Dear "+userDetail.name+", your product "+this.addProductValue.name+" has successfully been added."
+        }
+        this._api.addNotification(notificationForm).subscribe();
       },
       (err) => {
         this.errorMessage = err.error.message;

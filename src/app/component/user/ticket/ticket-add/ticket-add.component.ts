@@ -114,12 +114,19 @@ export class TicketAddComponent implements OnInit {
             this._api.addTicket(tosendData).subscribe(
               res=>{
                 console.log(res);
+                const addedTicketDetail = res.ticket;
                 this.assignTicket(res.ticket._id);
                 this._api.updateUserLocally(this.user);
                 this.Toast.fire({
                   icon: 'success',
                   title: 'Tcket raised successfully!'
                 })
+                const notificationForm = {
+                  "title": "Ticket raised", 
+                  "userId": this.user._id, 
+                  "description": "Dear "+this.user.name+", your ticket "+addedTicketDetail.uniqueId+" has been raised for the product "+productDetails.name+"."
+                }
+                this._api.addNotification(notificationForm).subscribe();
                 this.router.navigate(['/user/ticket/list']);
               }
             )

@@ -308,6 +308,13 @@ export class ProductEditComponent implements OnInit {
         this._loader.stopLoader('loader');
         this.isThirdTab = false;
         this.isFourthTab = true;
+        const userDetail = JSON.parse(localStorage.getItem('we_vouch_user') || '{}');
+        const notificationForm = {
+          "title": "Product update", 
+          "userId": userDetail._id, 
+          "description": "Dear "+userDetail.name+", you have successfully updated your product details for "+this.addProductValue.name+"."
+        };
+        this._api.addNotification(notificationForm).subscribe();
       },
       (err) => {
         this.errorMessage = err.error.message;

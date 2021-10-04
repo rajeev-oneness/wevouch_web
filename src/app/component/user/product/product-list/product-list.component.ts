@@ -9,6 +9,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 })
 export class ProductListComponent implements OnInit {
   public userId: string;
+  public userName: string;
   constructor(
     private _api: ApiService,
     private _loader: NgxUiLoaderService,
@@ -23,6 +24,7 @@ export class ProductListComponent implements OnInit {
     this._loader.startLoader('loader');
     if (localStorage.getItem('we_vouch_user')) {
       this.userId = JSON.parse(localStorage.getItem('we_vouch_user'))._id;
+      this.userName = JSON.parse(localStorage.getItem('we_vouch_user')).name;
       this._api.productList(this.userId).subscribe((res) => {
         const dDate = new Date();
         res.map((item)=>{
@@ -45,6 +47,14 @@ export class ProductListComponent implements OnInit {
           this.productList = res;
           this._loader.stopLoader('loader');
         });
+        const notificationForm = {
+          "title": "Product deleted", 
+          "userId": this.userId, 
+          "description": "Dear "+this.userName+", you have successfully deleted the product."
+        }
+        this._api.addNotification(notificationForm).subscribe(
+          res=> {console.log(res);}
+        );
       });
     }
   }
