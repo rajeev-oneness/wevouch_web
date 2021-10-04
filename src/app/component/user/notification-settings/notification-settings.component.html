@@ -1,57 +1,66 @@
 <ngx-ui-loader loaderId="loader" fgsColor="#FFFFFF" bgsOpacity="1" overlayColor="rgba(40,40,40,0.1)"></ngx-ui-loader>
-<div class="body_content pt-4 pl-3">
-    <div class="container">
-        <div class="row m-0">
-            <div class="col-12 col-md-6 p-0">
-                <h1 class="heading mb-4">
-                    Preferences
-                </h1>
-                <ul class="settings-list">
-                    <li>
-                        <h6><i-feather name="bell"></i-feather> Notifications</h6>
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
-                    </li>
-                    <li>
-                        <h6><img src="../../../../assets/img/whp.png"> Whatsapp</h6>
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
-                    </li>
-                    <li>
-                        <h6><i-feather name="at-sign"></i-feather> Email</h6>
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
-                    </li>
-                    <li>
-                        <h6><i-feather name="mail"></i-feather> SMS</h6>
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
-                    </li>
-                    
-                    <li>
-                        <h6><i-feather name="facebook"></i-feather> Connect Facebook</h6>
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
-                    </li>
-                    <li>
-                        <h6><i-feather name="lock"></i-feather> 2 Factor Authentication</h6>
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
-                    </li>
-                </ul>
+<form #settingsForm="ngForm">
+    <div class="body_content pt-4 pl-3">
+        <div class="container">
+            <div class="row m-0">
+                <div class="col-12 col-md-6 p-0">
+                    <h1 class="heading mb-4">
+                        Preferences
+                    </h1>
+                    <ul class="settings-list">
+                        <li>
+                            <h6><i-feather name="bell"></i-feather> Notifications</h6>
+                            <label class="switch">
+                                <input type="checkbox" name="isInAppNotification" id="emailCheck" #isInAppNotification="ngModel" [(ngModel)]="userSettings.isInAppNotification" (change)="changeSetting()">
+                                <span class="slider round"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <h6><img src="../../../../assets/img/whp.png"> Whatsapp</h6>
+                            <label class="switch">
+                                <input type="checkbox" name="isWhatsappNotification" id="emailCheck" #isWhatsappNotification="ngModel" [(ngModel)]="userSettings.isWhatsappNotification" (change)="changeSetting()">
+                                <span class="slider round"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <h6><i-feather name="at-sign"></i-feather> Email</h6>
+                            <label class="switch">
+                                <input type="checkbox" name="isEmailNotification" id="emailCheck" #isEmailNotification="ngModel" [(ngModel)]="userSettings.isEmailNotification" (change)="changeSetting()">
+                                <span class="slider round"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <h6><i-feather name="mail"></i-feather> SMS</h6>
+                            <label class="switch">
+                                <input type="checkbox" name="isSMSNotification" id="emailCheck" #isSMSNotification="ngModel" [(ngModel)]="userSettings.isSMSNotification" (change)="changeSetting()">
+                                <span class="slider round"></span>
+                            </label>
+                        </li>
+                        
+                        <li>
+                            <h6><i-feather name="mail"></i-feather> Newsletter</h6>
+                            <label class="switch">
+                                <input type="checkbox" name="isEmailNewsLetter" id="emailCheck" #isEmailNewsLetter="ngModel" [(ngModel)]="userSettings.isEmailNewsLetter" (change)="changeSetting()">
+                                <span class="slider round"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <h6><i-feather name="facebook"></i-feather> Connect Facebook</h6>
+                            <label class="switch">
+                                <input type="checkbox" name="isConnectFb" id="emailCheck" #isConnectFb="ngModel" [(ngModel)]="userSettings.isConnectFb" (change)="changeSetting()">
+                                <span class="slider round"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <h6><i-feather name="lock"></i-feather> 2 Factor Authentication</h6>
+                            <label class="switch">
+                                <input type="checkbox" name="isTwoFactorAuth" id="emailCheck" #isTwoFactorAuth="ngModel" [(ngModel)]="userSettings.isTwoFactorAuth" (change)="changeSetting()">
+                                <span class="slider round"></span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>

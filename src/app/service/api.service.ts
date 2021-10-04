@@ -50,7 +50,7 @@ export class ApiService {
   logoutUser():void{
     localStorage.clear();
     window.location.href = environment.projectPath;
-    location.reload();
+    // location.reload();
     document.cookie = "wevouchUser=; expires=; path=/;";
   }
 
@@ -224,5 +224,19 @@ export class ApiService {
 
   userDetails(userId : any) {
     return this._http.get<any>(_apiUrl+'user/get/'+userId);
+  }
+
+  //site/notification settings
+  getSettings(userId : any) {
+    return this._http.get<any>(_apiUrl+'usersettings/get-by-user/'+userId);
+  }
+  getSettingsById(settingsId : any) {
+    return this._http.get<any>(_apiUrl+'address/update/'+settingsId);
+  }
+  addSettings(formData : any) {
+    return this._http.post<any>(_apiUrl+'usersettings/add', formData);
+  }
+  editSettings(settingsId : any, formData : any) {
+    return this._http.patch<any>(_apiUrl+'usersettings/update/'+settingsId, formData);
   }
 }
