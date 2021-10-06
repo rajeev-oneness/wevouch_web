@@ -26,9 +26,9 @@
             <h5>Log In to Dashboard</h5>
             <div class="p-4 form-section" *ngIf="mainLogin">
               <div class="text-center social_icon">
-                <a href="" class="gs"><img src="./assets/img/g+logo.png" /></a>
-                <a href="" class="fs"><i-feather name="facebook"></i-feather></a>
-                <a href="" class="tw"><i-feather name="twitter"></i-feather></a>
+                <a href="javascript:void(0);" (click)="signInWithGoogle()" class="gs"><img src="./assets/img/g+logo.png" /></a>
+                <a href="javascript:void(0);" (click)="signInWithFB()" class="fs"><i-feather name="facebook"></i-feather></a>
+                <!-- <a href="" class="tw"><i-feather name="twitter"></i-feather></a> -->
                 <a href="javascript:void(0);" (click)="loginWithOtp()" class="sm"><i-feather name="smartphone"></i-feather></a>
               </div>
               <!-- <button class="btn btn-secondary btn-lg btn-block g-login"><img src="./img/g+logo.png">Login with Google</button> -->
@@ -74,9 +74,7 @@
                   > -->
                   <!-- <button class="btn btn-secondary btn-lg btn-block login-btn mt-2" src="">Log in</button> -->
                   <p>
-                    Protected by recaptcha. Google
-                    <a href="javascript:void(0);">Privacy Policy</a> &
-                    <a href="javascript:void(0);">Terms of Service</a> apply.
+                    Protected by recaptcha. Google <a href="https://wevouch.in/privacy-policy/">Privacy Policy</a> & <a href="https://wevouch.in/terms-condition/">Terms of Service</a> apply.
                   </p>
                 </div>
               </form>
@@ -93,9 +91,7 @@
                   </div>
                   <button type="button" class="btn btn-secondary btn-lg btn-block login-btn mt-2" (click)="enterForgetPassEmail()"> Get Otp </button>
                   <p>
-                    Protected by recaptcha. Google
-                    <a href="javascript:void(0);">Privacy Policy</a> &
-                    <a href="javascript:void(0);">Terms of Service</a> apply.
+                    Protected by recaptcha. Google <a href="https://wevouch.in/privacy-policy/">Privacy Policy</a> & <a href="https://wevouch.in/terms-condition/">Terms of Service</a> apply.
                   </p>
                 </div>
               </form>
@@ -119,9 +115,7 @@
                   </div>
                   <button type="button" class="btn btn-secondary btn-lg btn-block login-btn mt-2" (click)="resetPassword()"> Reset Password </button>
                   <p>
-                    Protected by recaptcha. Google
-                    <a href="javascript:void(0);">Privacy Policy</a> &
-                    <a href="javascript:void(0);">Terms of Service</a> apply.
+                    Protected by recaptcha. Google <a href="https://wevouch.in/privacy-policy/">Privacy Policy</a> & <a href="https://wevouch.in/terms-condition/">Terms of Service</a> apply.
                   </p>
                 </div>
               </form>
@@ -138,9 +132,7 @@
                     </div>
                     <button type="button" class="btn btn-secondary btn-lg btn-block login-btn mt-2" (click)="enterOtp()"> Get Otp </button>
                     <p>
-                      Protected by recaptcha. Google
-                      <a href="javascript:void(0);">Privacy Policy</a> &
-                      <a href="javascript:void(0);">Terms of Service</a> apply.
+                      Protected by recaptcha. Google <a href="https://wevouch.in/privacy-policy/">Privacy Policy</a> & <a href="https://wevouch.in/terms-condition/">Terms of Service</a> apply.
                     </p>
                   </div>
                 </form>
@@ -169,7 +161,7 @@
                   <button class="text-muted resend-button">Request to resend ?</button>
                 <button class="btn btn-secondary btn-lg btn-block login-btn" (click)="submitOtp()">Log in</button>
                 <p>
-                  Protected by recaptcha. Google <a href="javascript:void(0);">Privacy Policy</a> & <a href="javascript:void(0);">Terms of Service</a> apply.
+                  Protected by recaptcha. Google <a href="https://wevouch.in/privacy-policy/">Privacy Policy</a> & <a href="https://wevouch.in/terms-condition/">Terms of Service</a> apply.
                 </p>
               </div>
               </form>

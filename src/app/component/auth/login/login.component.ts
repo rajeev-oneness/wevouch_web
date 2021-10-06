@@ -4,6 +4,8 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { environment } from "src/environments/environment";
+import { SocialAuthService } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-login',
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
   public newForgetPassword : any = ''
   public rememberMe : boolean = false
 
-  constructor(private _api:ApiService,private _loader : NgxUiLoaderService,private _router:Router) {
+  constructor(private _api:ApiService,private _loader : NgxUiLoaderService,private _router:Router,private authService: SocialAuthService) {
     this._loader.startLoader('loader');
   }
   ngOnInit(): void {
@@ -203,5 +205,35 @@ export class LoginComponent implements OnInit {
     } else {
       this.errorMessage = 'OTP and New Password required!'
     }
+  }
+
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( (userData) => {
+      let user = {'email': userData.email, 'socialId': userData.id};
+      this._api.socialLogin(user).subscribe( 
+        res => {
+          this._api.storeUserLocally(res.user);
+          console.log(res);
+          
+          this._loader.stopLoader('loader');
+        }, err => {
+          this.errorMessage = err;
+          this._loader.stopLoader('loader');
+        }
+      );
+      // this._api.storeUserLocally(userData);
+      // this._router.navigate(['/home']);
+      console.log('Google login', userData);
+      // console.log(user);
+    });
+  }
+
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
+      (userData) => {
+        console.log(userData);
+        
+      }
+    );
   }
 }

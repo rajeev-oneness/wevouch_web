@@ -50,7 +50,7 @@ export class ApiService {
   logoutUser():void{
     localStorage.clear();
     window.location.href = environment.projectPath;
-    // location.reload();
+    location.reload();
     document.cookie = "wevouchUser=; expires=; path=/;";
   }
 
@@ -70,6 +70,10 @@ export class ApiService {
 
   userLoginAPI(formData){
     return this._http.post<any>(_apiUrl+'user/login',formData);
+  }
+
+  socialLogin(formData: any) {
+    return this._http.post<any>(_apiUrl+"user/social-login", formData);
   }
 
   loginWithOtp(formData) {

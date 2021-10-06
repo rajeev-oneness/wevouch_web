@@ -2096,7 +2096,7 @@ body .fixed .fix-p {
 .invoice-box img {
   max-width: 100%;
 }
-.invoice-box:before {
+/* .invoice-box:before {
   position: absolute;
   content: url(../img/delete.png);
   background-color: #354c65;
@@ -2105,7 +2105,7 @@ body .fixed .fix-p {
   right: 0;
   bottom: 0;
   text-align: center;
-}
+} */
 
 .addProductStepThree {
   width: 100%;
