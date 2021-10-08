@@ -41,6 +41,10 @@ export class TicketAddComponent implements OnInit {
   public addressData : any = {}
   public addressErrorMessage : any = ''
   public supportExecutives : any = new Array()
+  public cityData : any = [];
+  public brandId : any = '';
+  public selectedCity : any = '';
+  public serviceCenters : any = [];
 
   constructor(private _api: ApiService, private _loader: NgxUiLoaderService, private route: ActivatedRoute, private router: Router) {}
 
@@ -50,6 +54,24 @@ export class TicketAddComponent implements OnInit {
       res => {
         this.user = res;
       }
+    )
+    this._api.getCities().subscribe(
+      res=> {
+        this.cityData = res.cities;
+        console.log('city', this.cityData);
+        
+      }
+    )
+  }
+
+  selectCity() {
+    console.log(this.selectedCity);
+    
+    this._api.getServiceCenter(this.brandId, this.selectedCity).subscribe(
+      res => {
+        console.log('service center: ', res);
+        this.serviceCenters = res.service_centers;
+      }, err => {}
     )
   }
   

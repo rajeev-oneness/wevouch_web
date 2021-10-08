@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: 'app-product-add',
@@ -267,6 +268,15 @@ export class ProductAddComponent implements OnInit {
         } else {
           this.errorMessage = "AMC details and Extended Warranty details required";
         }
+        this._api.getProductIcon(this.category).subscribe(
+          res => {
+            console.log('product icon: ',res);
+            if(res.message === 'Success') {
+              this.productImgUrl = environment.hosted_api_url+"icons/"+res.icon.icon;
+              this.uploadedFile2 = environment.hosted_api_url+"icons/"+res.icon.icon;
+            }
+          }
+        )
     }
     else
     {

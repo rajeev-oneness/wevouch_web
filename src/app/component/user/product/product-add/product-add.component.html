@@ -135,12 +135,7 @@
                   <label for="warranty">Warranty Period <span>*</span></label>
                   <div class="row">
                     <div class="col-lg-6">
-                      <!-- <select #warrantyPeriod="ngModel" [ngModel]="'1'" name="warrantyPeriod" id="warrantyPeriod" class="form-control">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select> -->
-                      <input type="number" #warrantyPeriod="ngModel" [ngModel]="1" name="warrantyPeriod" id="warrantyPeriod" class="form-control" required [ngClass]="{'is-invalid':warrantyPeriod?.invalid && warrantyPeriod?.touched}">
+                      <input type="number" #warrantyPeriod="ngModel" [ngModel]="0" name="warrantyPeriod" id="warrantyPeriod" class="form-control" required [ngClass]="{'is-invalid':warrantyPeriod?.invalid && warrantyPeriod?.touched}">
                     </div>
                     <div class="col-lg-6">
                       <select #warrantyType="ngModel" [ngModel]="'year'" name="warrantyType" id="warrantyType" class="form-control">
