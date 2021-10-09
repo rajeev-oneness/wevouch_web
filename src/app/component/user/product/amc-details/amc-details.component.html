@@ -32,15 +32,6 @@
               name="serviceProvider"
             />
           </div>
-          <div class="col-lg-6">
-            <label for="vendorNo">Vendors No. <span>(optional)</span></label>
-            <input
-              type="text"
-              #vendorNo="ngModel" [ngModel]="productAmcDetail.vendorNo"
-              class="form-control"
-              name="vendorNo"
-            />
-          </div>
            <div class="col-lg-6">
             <label for="start">Start Date<span>*</span></label>
             <input required type="date" id="startDate" #startDate [ngModel]="startDateTime" name="startDate" class="form-control" required data-date-format="dd-mm-yyyy"/>

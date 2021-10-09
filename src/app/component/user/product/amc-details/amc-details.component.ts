@@ -33,7 +33,12 @@ export class AmcDetailsComponent implements OnInit {
 
   addAmc(formData) {
     if (formData?.valid) {
-      this.addAmcDetails.next(formData.value);
+      const phnNum = formData.value.mobileNo.toString();
+      if (phnNum.length === 10) {
+        this.addAmcDetails.next(formData.value);
+      } else {
+        this.errorMessage = ' Mobile number must be ogf 10 digits';
+      }
     } else {
       this.errorMessage = ' Please give the required fields';
     }

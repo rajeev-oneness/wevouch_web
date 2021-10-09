@@ -117,7 +117,8 @@ export class ProductAddComponent implements OnInit {
           var reader = new FileReader();
           reader.readAsDataURL(event.target.files[0]); // read file as data url
           reader.onload = (event) => { // called once readAsDataURL is completed
-            this.uploadedFile1 = event.target.result;this.hasFile = true;
+            this.uploadedFile1 = event.target.result;
+            this.hasFile = true;
             const mainForm = new FormData();
             mainForm.append('file',this.selectedFile);
             console.log(this.selectedFile);
@@ -205,16 +206,21 @@ export class ProductAddComponent implements OnInit {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
-      if (this.category && this.brandId) {
-        formData.value.brandId = this.brandName;
-        this.addProductValue = formData.value;
-        this.isFirstTab = false;
-        this.isSecondTab = true;
-        this.errorMessage = "";
-        console.log(this.addProductValue);
-        
+      // console.log(formData.value.registeredMobileNo.length);
+      const phnNum = formData.value.registeredMobileNo.toString();
+      if (phnNum.length === 10) {
+        if (this.category && this.brandId) {
+          formData.value.brandId = this.brandName;
+          this.addProductValue = formData.value;
+          this.isFirstTab = false;
+          this.isSecondTab = true;
+          this.errorMessage = "";
+          console.log(this.addProductValue);
+        } else {
+          this.errorMessage = 'Please fill out all the details';
+        }
       } else {
-        this.errorMessage = 'Please fill out all the details';
+        this.errorMessage = 'Mobile number must be of 10 digits';
       }
     } else {
       this.errorMessage = 'Please fill out all the details';
@@ -316,4 +322,5 @@ export class ProductAddComponent implements OnInit {
       }
     );
   }
+
 }

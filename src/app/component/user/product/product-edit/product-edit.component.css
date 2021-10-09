@@ -3,8 +3,8 @@
 label a{
     width: 18px;
     height: 18px;
-    border-radius: 50%;
-    background: #243249;
+    /* border-radius: 50%;
+    background: #243249; */
     font-size: 12px;
     display: inline-block;
     color: #00c2cb;
@@ -28,4 +28,13 @@ label a{
 }
 label a:hover .tdive{
     visibility: visible !important;
+}
+
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
 }

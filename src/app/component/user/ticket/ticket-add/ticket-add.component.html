@@ -2,7 +2,7 @@
   <div class="container product-container">
     <div class="row justify-content-start m-0">
       <div class="col-12">
-        <h1 class="hedaing mb-3">Claim Warranty</h1>
+        <h1 class="hedaing mb-3">Add Ticket</h1>
         <ul class="progressbar">
           <li class="active"></li>
           <li [ngClass]="{ active: isSecondTab === true }"></li>
@@ -22,8 +22,8 @@
                     [(ngModel)]="issueType"
                     class="form-control"
                   >
-                    <option value="repair">Repair</option>
-                    <option value="manufacture">Manufacture</option>
+                    <option value="Breakage">Breakage</option>
+                    <option value="Malfunctioning">Malfunctioning</option>
                   </select>
                 </div>
                 <div class="col-lg-6">
@@ -86,6 +86,44 @@
             <div class="col-lg-6 text-danger">
               {{ errorMessage }}
             </div>
+            <div class="col-lg-12" *ngIf="transportationType === 'Carry In'">
+              <div class="body_content pt-4">
+                <div class="container">
+                  <div class="d-flex justify-content-between">
+                      <h1 class="heading mb-3">
+                          Choose Service Center
+                      </h1>
+                      <div class="col-6">
+                        <select name="selectedCity" id="" (change)="selectCity()" [(ngModel)]="selectedCity" class="form-control">
+                          <option value="{{city.name}}" *ngFor="let city of cityData">{{city.name}}</option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="row" *ngIf="serviceCenters.length > 0; else noServiceCenterBLock">
+                    <div class="col-lg-4 py-2" *ngFor="let serviceCenter of serviceCenters">
+                      <div class="package-container position-relative recommend">
+                        <label class="address-radio">
+                          <input type="radio" name="addressId" id="addressId" ngModel value="{{serviceCenter.id}}">
+                        </label>
+                        <h6 class="mb-2"><span>{{serviceCenter.name}}</span></h6>
+                        <h6><b>{{serviceCenter.address}}</b></h6>
+                        <p class="m-0">Contact: {{serviceCenter.phone}}</p>
+                        <p class="m-0">Email: {{serviceCenter.email}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-template #noServiceCenterBLock>
+                    <div class="row">
+                      <div class="col-lg-4 py-2">
+                        <div class="package-container position-relative recommend">
+                          <h6 class="mb-2"><span>No Service center found !</span></h6>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
             <div class="col-lg-12" *ngIf="transportationType === 'On Site'">
               <div class="body_content pt-4">
                 <div class="container">
@@ -130,7 +168,7 @@
                 class="request-button"
                 >Request Service</a
               >
-              <p class="text-right text-dark">Courier charges may apply</p>
+              <!-- <p class="text-right text-dark">Courier charges may apply</p> -->
             </div>
           </div>
         </div>
@@ -139,7 +177,7 @@
         <form class="warrantyone">
           <div class="row">
             <div class="col-lg-12">
-              <label for="issue">Request Service<span>*</span></label>
+              <label for="issue">Select Date & Time<span>*</span></label>
               <div class="row">
                 <div class="col-lg-6">
                   <input
@@ -185,7 +223,7 @@
     <div class="modal-content">
       <form  #addressForm="ngForm" (ngSubmit)="saveAddress(addressForm)">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Address</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closebutton>
                   <span aria-hidden="true">&times;</span>
               </button>
@@ -197,8 +235,8 @@
               <label for="">Address Line 2 <span class="text-danger">*</span></label>
               <input type="text" name="addressLine2" id="addressLine2" class="form-control" placeholder="Address line 2" #addressLine2="ngModel" ngModel required [ngClass]="{'is-invalid': addressLine2?.invalid && addressLine2?.touched}">
               
-              <label for="">Location <span class="text-danger">*</span></label>
-              <input type="text" name="location" id="location" class="form-control" placeholder="Location" #location="ngModel" ngModel required [ngClass]="{'is-invalid': location?.invalid && location?.touched}">
+              <label for="">Location</label>
+              <input type="text" name="location" id="location" class="form-control" placeholder="Location" #location="ngModel" ngModel [ngClass]="{'is-invalid': location?.invalid && location?.touched}">
               
               <label for="">City <span class="text-danger">*</span></label>
               <input type="text" name="city" id="city" class="form-control" placeholder="City" #city="ngModel" ngModel required [ngClass]="{'is-invalid': city?.invalid && city?.touched}">
@@ -209,7 +247,7 @@
               <label for="">Country <span class="text-danger">*</span></label>
               <input type="text" name="country" id="country" class="form-control" placeholder="Country" #country="ngModel" ngModel required [ngClass]="{'is-invalid': country?.invalid && country?.touched}">
               
-              <label for="">pin <span class="text-danger">*</span></label>
+              <label for="">Pin <span class="text-danger">*</span></label>
               <input type="number" name="pin" id="pin" class="form-control" placeholder="Pin" #pin="ngModel" ngModel required [ngClass]="{'is-invalid': pin?.invalid && pin?.touched}">
               <span class="text-danger">{{addressErrorMessage}}</span>
           </div>

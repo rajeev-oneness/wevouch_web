@@ -72,7 +72,7 @@
             
             <div class="col-lg-6">
               <label for="mobile">Registered Mobile No.<span>*</span>
-                <a href="javascript:woid:(0);">i 
+                <a href="javascript:woid:(0);"><img src="./assets/img/info.png" style="height:100%;" alt=""> 
                   <span class="tdive">
                     Give the contact number you provided while registering the product.
                   </span>
@@ -83,13 +83,11 @@
                 #registeredMobileNo="ngModel" [(ngModel)]="productDetail.registeredMobileNo" name="registeredMobileNo"
                 id="registeredMobileNo"
                 placeholder="+91"
-                class="form-control" 
-                required 
-                pattern="(?=.*\d).{10,}" 
+                class="form-control"  
                 [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}"
               />
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <span class="text-danger">{{errorMessage}}</span>
             </div>
             <div class="col-lg-6">
@@ -140,7 +138,7 @@
                     <div class="col-lg-6">
                       <select #warrantyType="ngModel" [(ngModel)]="warrantyMode" name="warrantyType" id="warrantyType" class="form-control">
                         <option value="year">Years</option>
-                        <option value="month">Month</option>
+                        <option value="month">Months</option>
                       </select>
                     </div>
                   </div>
@@ -224,7 +222,7 @@
           </div>
           <div class="col-lg-4 mt-2 mb-2">
             <div class="invoice-box">
-              <img src="{{uploadedFile2}}" alt="" />
+              <img src="{{uploadedFile2}}" alt="" style="height: 100%;"/>
             </div>
           </div>
           <!-- <div class="col-lg-4 mt-2 mb-2">

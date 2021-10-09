@@ -26,6 +26,7 @@ export class ProductListComponent implements OnInit {
       this.userId = JSON.parse(localStorage.getItem('we_vouch_user'))._id;
       this.userName = JSON.parse(localStorage.getItem('we_vouch_user')).name;
       this._api.productList(this.userId).subscribe((res) => {
+        this._loader.startLoader('loader');
         const dDate = new Date();
         res.map((item)=>{
           item.differenceInTime = dDate.getTime() - new Date(item.purchaseDate).getTime();

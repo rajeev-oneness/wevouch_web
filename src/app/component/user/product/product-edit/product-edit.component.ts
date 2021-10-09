@@ -231,16 +231,21 @@ export class ProductEditComponent implements OnInit {
       formData.controls[i].markAsTouched();
     }
     if (formData?.valid) {
-      if (this.category) {
-        formData.value.brandId = this.brandName;
-        this.addProductValue = formData.value;
-        this.isFirstTab = false;
-        this.isSecondTab = true;
-        this.errorMessage = "";
-        console.log(this.addProductValue);
-        
+      const phnNum = formData.value.registeredMobileNo.toString();
+      if (phnNum.length === 10) {
+        if (this.category) {
+          formData.value.brandId = this.brandName;
+          this.addProductValue = formData.value;
+          this.isFirstTab = false;
+          this.isSecondTab = true;
+          this.errorMessage = "";
+          console.log(this.addProductValue);
+          
+        } else {
+          this.errorMessage = 'Please fill out all the details';
+        }
       } else {
-        this.errorMessage = 'Please fill out all the details';
+        this.errorMessage = 'Mobile number must be of 10 digits';
       }
     } else {
       this.errorMessage = 'Please fill out all the details';

@@ -45,7 +45,7 @@
       <div class="modal-content">
         <form  #addressForm="ngForm" (ngSubmit)="saveAddress(addressForm)">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Address</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closebutton>
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -58,7 +58,7 @@
                 <input type="text" name="addressLine2" id="addressLine2" class="form-control" placeholder="Address line 2" #addressLine2="ngModel" [ngModel]="addressData.addressLine2" required [ngClass]="{'is-invalid': addressLine2?.invalid && addressLine2?.touched}">
                 
                 <label for="">Location <span class="text-danger">*</span></label>
-                <input type="text" name="location" id="location" class="form-control" placeholder="Location" #location="ngModel" [ngModel]="addressData.location" required [ngClass]="{'is-invalid': location?.invalid && location?.touched}">
+                <input type="text" name="location" id="location" class="form-control" placeholder="Location" #location="ngModel" [ngModel]="addressData.location" [ngClass]="{'is-invalid': location?.invalid && location?.touched}">
                 
                 <label for="">City <span class="text-danger">*</span></label>
                 <input type="text" name="city" id="city" class="form-control" placeholder="City" #city="ngModel" [ngModel]="addressData.city" required [ngClass]="{'is-invalid': city?.invalid && city?.touched}">
@@ -69,7 +69,7 @@
                 <label for="">Country <span class="text-danger">*</span></label>
                 <input type="text" name="country" id="country" class="form-control" placeholder="Country" #country="ngModel" [ngModel]="addressData.country" required [ngClass]="{'is-invalid': country?.invalid && country?.touched}">
                 
-                <label for="">pin <span class="text-danger">*</span></label>
+                <label for="">Pin <span class="text-danger">*</span></label>
                 <input type="number" name="pin" id="pin" class="form-control" placeholder="Pin" #pin="ngModel" [ngModel]="addressData.pin" required [ngClass]="{'is-invalid': pin?.invalid && pin?.touched}">
                 <span class="text-danger">{{errorMessage}}</span>
             </div>

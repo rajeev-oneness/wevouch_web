@@ -73,19 +73,18 @@
             
             <div class="col-lg-6">
               <label for="mobile">Registered Mobile No.<span>*</span>
-                <a href="javascript:woid:(0);">i 
+                <a href="javascript:void:(0);"><img src="./assets/img/info.png" style="height:100%;" alt=""> 
                   <span class="tdive">
                     Give the contact number you provided while registering the product.
                   </span>
                 </a>
               </label>
               <input
-                type="text"
+                type="number"
                 #registeredMobileNo="ngModel" [ngModel]="user.mobile" name="registeredMobileNo"
                 id="registeredMobileNo"
                 placeholder="+91"
-                class="form-control" required 
-                pattern="(?=.*\d).{10,}" 
+                class="form-control" 
                 [ngClass]="{'is-invalid':registeredMobileNo?.invalid && registeredMobileNo?.touched}"
               />
             </div>
@@ -108,7 +107,7 @@
               <div class="brand-container">
                 <div class="brand-wrapper">
                   <input type="file" class="brand-file" (change)="onSelectFile1($event)" />
-                  <img src="{{uploadedFile1}}" alt="">
+                  <img src="{{uploadedFile1}}" alt="" style="width: 100%;">
                 </div>
                 <span class="text-danger">{{fileFormatError}}</span>
                 <h6>Upload Invoice Photo</h6>
@@ -140,7 +139,7 @@
                     <div class="col-lg-6">
                       <select #warrantyType="ngModel" [ngModel]="'year'" name="warrantyType" id="warrantyType" class="form-control">
                         <option value="year">Years</option>
-                        <option value="month">Month</option>
+                        <option value="month">Months</option>
                       </select>
                     </div>
                   </div>
@@ -225,7 +224,7 @@
           </div>
           <div class="col-lg-4 mt-2 mb-2">
             <div class="invoice-box">
-              <img src="{{uploadedFile2}}" alt="" />
+              <img src="{{uploadedFile2}}" alt="" style="height: 100%;"/>
             </div>
           </div>
           <div class="col-12">
@@ -271,9 +270,9 @@
           <div class="col-12 thank-you text-center">
               <img src="./assets/img/tick3.png">
               <h1>Thank You!</h1>
-              <p class="b-bottom">Please check your email for further instructions on how to complete your account step.</p>
+              <p class="b-bottom">Your product has been added successfully.</p>
 
-              <p>Having trouble? <a href="">Contact Us</a></p>
+              <p>Having trouble? <a href="javascript:void(0);">Contact Us</a></p>
               <a routerLink="/user/product/products" class="continue-btn">CONTINUE TO HOME PAGE</a>
           </div>
       </div>

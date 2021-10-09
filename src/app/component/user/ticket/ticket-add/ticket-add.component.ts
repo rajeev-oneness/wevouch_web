@@ -42,9 +42,10 @@ export class TicketAddComponent implements OnInit {
   public addressErrorMessage : any = ''
   public supportExecutives : any = new Array()
   public cityData : any = [];
-  public brandId : any = '';
   public selectedCity : any = '';
+  public brandId : any = '';
   public serviceCenters : any = [];
+  public productDetails : any = [];
 
   constructor(private _api: ApiService, private _loader: NgxUiLoaderService, private route: ActivatedRoute, private router: Router) {}
 
@@ -55,17 +56,34 @@ export class TicketAddComponent implements OnInit {
         this.user = res;
       }
     )
-    this._api.getCities().subscribe(
-      res=> {
-        this.cityData = res.cities;
-        console.log('city', this.cityData);
-        
+    this._api.getProductDetailsById(this.route.snapshot.paramMap.get('productId')).subscribe(
+      res => {
+        console.log(res);
+        this.productDetails = res;
+        this.fetchBrands();
+        this._api.getCities().subscribe(
+          res=> {
+            this.cityData = res.cities;
+            console.log('city', this.cityData);
+            this.selectedCity = this.cityData[0].name;
+            this.selectCity();
+          }
+        )
       }
     )
   }
 
+  fetchBrands() {
+    this._api.getProductBrands().subscribe(
+      res => {
+        this.brandId = res.brands.filter((t : any) => t.name === this.productDetails.brands)[0].id;
+      }, err => {}
+    )
+  }
+
   selectCity() {
-    console.log(this.selectedCity);
+    console.log('city: ',this.selectedCity);
+    console.log('brand: ',this.brandId);
     
     this._api.getServiceCenter(this.brandId, this.selectedCity).subscribe(
       res => {
@@ -117,8 +135,7 @@ export class TicketAddComponent implements OnInit {
       this._loader.startLoader('loader');
       if(localStorage.getItem("we_vouch_user"))
       {
-        this._api.getProductDetailsById(this.route.snapshot.paramMap.get('productId')).subscribe(
-          productDetails => {
+        
             const userId = JSON.parse(localStorage.getItem("we_vouch_user"))._id;
             const tosendData = {
               issueType: this.issueType,
@@ -129,9 +146,9 @@ export class TicketAddComponent implements OnInit {
               selectedDate: this.selectedDate,
               selectedTime: this.selectedTime,
               userId,
-              productId: productDetails._id,
-              category: productDetails.category,
-              brandId: productDetails.brands
+              productId: this.productDetails._id,
+              category: this.productDetails.category,
+              brandId: this.productDetails.brands
             };
             this._api.addTicket(tosendData).subscribe(
               res=>{
@@ -146,14 +163,12 @@ export class TicketAddComponent implements OnInit {
                 const notificationForm = {
                   "title": "Ticket raised", 
                   "userId": this.user._id, 
-                  "description": "Dear "+this.user.name+", your ticket "+addedTicketDetail.uniqueId+" has been raised for the product "+productDetails.name+"."
+                  "description": "Dear "+this.user.name+", your ticket "+addedTicketDetail.uniqueId+" has been raised for the product "+this.productDetails.name+"."
                 }
                 this._api.addNotification(notificationForm).subscribe();
                 this.router.navigate(['/user/ticket/list']);
               }
             )
-          }
-        )
       
       }
     }
