@@ -27,7 +27,7 @@ export class ProductAddComponent implements OnInit {
   public isExtendenWarranty: boolean= false;
   public isAmcDetails: boolean = false;
   public invoiceImgUrl: any = '';
-  public productImgUrl: any = '';
+  public productImgUrl: any = new Array();
   public user: any = {};
   public amcDetailsFill : boolean = true;
   public extWarrantyFill : boolean = true;
@@ -155,7 +155,7 @@ export class ProductAddComponent implements OnInit {
             console.log(this.selectedFile);
             this._api.storeFile(mainForm).subscribe(
               res => {
-                this.productImgUrl = res.file_link;
+                this.productImgUrl.push(res.file_link);
                 this._loader.stopLoader('loader');
               }
             )
@@ -278,7 +278,7 @@ export class ProductAddComponent implements OnInit {
           res => {
             console.log('product icon: ',res);
             if(res.message === 'Success') {
-              this.productImgUrl = environment.hosted_api_url+"icons/"+res.icon.icon;
+              this.productImgUrl.push(environment.hosted_api_url+"icons/"+res.icon.icon);
               this.uploadedFile2 = environment.hosted_api_url+"icons/"+res.icon.icon;
             }
           }
@@ -294,9 +294,7 @@ export class ProductAddComponent implements OnInit {
   showThankYou() {
     this.errorMessage = "";
     this._loader.startLoader('loader');
-    this.addProductValue.productImagesUrl = [
-      this.productImgUrl,
-    ];
+    this.addProductValue.productImagesUrl = this.productImgUrl;
     this.addProductValue.userId = JSON.parse(
       localStorage.getItem('we_vouch_user')
     )._id;
@@ -323,4 +321,8 @@ export class ProductAddComponent implements OnInit {
     );
   }
 
+  removeImage(imageIndex : any) {
+    this.productImgUrl.splice(imageIndex, 1);
+    console.log(this.productImgUrl);
+  }
 }

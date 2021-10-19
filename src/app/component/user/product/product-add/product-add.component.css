@@ -38,3 +38,11 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
+
+.del_icon {
+    height: 30px;
+    background: #1b2c46;
+    margin-top: 157px;
+    margin-right: -50px;
+    margin-left: 21px;
+}

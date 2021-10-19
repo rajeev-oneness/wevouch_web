@@ -220,9 +220,12 @@
               </div>
             </form>
           </div>
-          <div class="col-lg-4 mt-2 mb-2">
+          <div class="col-lg-4 mt-2 mb-2" *ngFor="let productImg of this.productImgUrl; let i=index;">
             <div class="invoice-box">
-              <img src="{{uploadedFile2}}" alt="" style="height: 100%;"/>
+              <img src="{{productImg}}" alt="" style="height: 100%;"/>
+              <div class="del_icon" (click)="removeImage(i)">
+                <img src="./assets/img/delete.png" alt="">
+              </div>
             </div>
           </div>
           <!-- <div class="col-lg-4 mt-2 mb-2">

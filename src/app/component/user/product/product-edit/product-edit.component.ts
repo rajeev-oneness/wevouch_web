@@ -32,7 +32,7 @@ export class ProductEditComponent implements OnInit {
   public warrantyPeriod: any = '';
   public warrantyMode: any = 'year';
   public invoiceImgUrl: any = '';
-  public productImgUrl: any = '';
+  public productImgUrl: any = new Array();
   public purchaseDateTime: any = '';
   public uploadedFile1;
   public uploadedFile2;
@@ -71,7 +71,7 @@ export class ProductEditComponent implements OnInit {
         }
         this.invoiceImgUrl = res.invoicePhotoUrl; 
         this.uploadedFile1 = res.invoicePhotoUrl;
-        this.productImgUrl = res.productImagesUrl[0]; 
+        this.productImgUrl = res.productImagesUrl; 
         this.uploadedFile2 = res.productImagesUrl[0];
         console.log(this.purchaseDateTime);
         
@@ -213,7 +213,7 @@ export class ProductEditComponent implements OnInit {
             this._api.storeFile(mainForm).subscribe(
               res => {
                 console.log(res);
-                this.productImgUrl = res.file_link;
+                this.productImgUrl.push(res.file_link);
                 this._loader.stopLoader('loader');
               }
             )
@@ -299,9 +299,7 @@ export class ProductEditComponent implements OnInit {
 
   showThankYou() {
     this._loader.startLoader('loader');
-    this.addProductValue.productImagesUrl = [
-      this.productImgUrl,
-    ];
+    this.addProductValue.productImagesUrl = this.productImgUrl;
     this.addProductValue.userId = JSON.parse(
       localStorage.getItem('we_vouch_user')
     )._id;
@@ -326,6 +324,11 @@ export class ProductEditComponent implements OnInit {
         this._loader.stopLoader('loader');
       }
     );
+  }
+
+  removeImage(imageIndex : any) {
+    this.productImgUrl.splice(imageIndex, 1);
+    console.log(this.productImgUrl);
   }
 
 }

@@ -39,13 +39,13 @@
                   </div>
               </div> -->
             </div>
-            <!-- <div class="img-select mt-0" *ngIf="productDetails && productDetails.productImagesUrl">
+            <div class="img-select mt-0" *ngIf="productDetails && productDetails.productImagesUrl">
               <div class="img-item" *ngFor="let productImg of productDetails.productImagesUrl; let i = index">
                 <a href="javascript:void(0)" data-id="{{i}}">
-                  <img src="{{productImg}}" alt="image" />
+                  <img src="{{(productImg != '')? productImg : './assets/img/blank-image.png'}}" alt="image" />
                 </a>
               </div>
-            </div> -->
+            </div>
           </div>
           <div class="col-lg-6">
             <h1 class="heading mt-0">{{productDetails?.name}}</h1>
