@@ -34,5 +34,5 @@ export function EncodeDecodeBase64(value,changeTo:string){
 
 export function dateDiffInDays(date1:any, date2:any) {
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-    return Math.abs(Math.floor((date1 - date2) / _MS_PER_DAY));
+    return Math.floor((date1 - date2) / _MS_PER_DAY);
 }

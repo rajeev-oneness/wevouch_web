@@ -104,9 +104,13 @@
           <div class="row">
             <div class="col-lg-4">
               <div class="brand-container">
-                <div class="brand-wrapper">
-                  <input type="file" (change)="onSelectFile1($event)" class="brand-file" />
-                  <img src="{{uploadedFile1}}" width="100">
+                <div class="d-flex flex-wrap">
+                  <div class="brand-wrapper" *ngFor="let invImg of invoiceImgUrl; let i=index;" (click)="removeInvImage(i)">
+                    <img src="{{invImg}}" alt="" style="width: 100%;">
+                  </div>
+                  <div class="brand-wrapper">
+                    <input type="file" (change)="onSelectFile1($event)" class="brand-file" />
+                  </div>
                 </div>
                 <span class="text-danger">{{fileFormatError}}</span>
                 <h6>Upload Invoice Photo</h6>
@@ -210,10 +214,10 @@
       <div class="col-lg-12" *ngIf="isThirdTab">
         <h2 class="subheading text-center">Add Product Pictures</h2>
         <p class="text-muted text-center">
-          Image of invoice received on the date of purchase
+          Images of your product
         </p>
         <div class="row">
-          <div class="col-lg-4 mt-2 mb-2">
+          <div class="col-lg-4 mt-2 mb-2" style="min-height: 200px;">
             <form action="" class="addProductStepThree">
               <div class="brand-wrapper">
                 <input type="file" (change)="onSelectFile2($event)" class="brand-file" />

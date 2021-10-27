@@ -77,6 +77,7 @@ export class ProductEditComponent implements OnInit {
         
       }, err => {}
     );
+    this._loader.stopLoader('loader');
   }
 
   fetchBrands() {
@@ -105,7 +106,7 @@ export class ProductEditComponent implements OnInit {
           this.category = this.categoriesList[0].category;
         }
         this.fetchSubCategory();
-        this._loader.stopLoader('loader');
+        // this._loader.stopLoader('loader');
       }, err => {}
     )
   }
@@ -133,7 +134,6 @@ export class ProductEditComponent implements OnInit {
         if (callTime != '' || this.secondTimeCall) {
           this.modelId = res.models[0].model_no;
         }
-        this._loader.stopLoader('loader');
       }
     )
   }
@@ -181,7 +181,7 @@ export class ProductEditComponent implements OnInit {
             this._api.storeFile(mainForm).subscribe(
               res => {
                 console.log(res);
-                this.invoiceImgUrl = res.file_link;
+                this.invoiceImgUrl.push(res.file_link);
                 this._loader.stopLoader('loader');
               }
             )
@@ -329,6 +329,9 @@ export class ProductEditComponent implements OnInit {
   removeImage(imageIndex : any) {
     this.productImgUrl.splice(imageIndex, 1);
     console.log(this.productImgUrl);
+  }
+  removeInvImage(imageIndex : any) {
+    this.invoiceImgUrl.splice(imageIndex, 1);
   }
 
 }

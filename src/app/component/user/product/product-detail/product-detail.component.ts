@@ -5,6 +5,8 @@ import { ApiService } from "src/app/service/api.service";
 import Swal from "sweetalert2";
 import { Router } from "@angular/router";
 import { dateDiffInDays } from "src/app/service/globalFunction";
+import { OwlOptions } from 'ngx-owl-carousel-o';
+
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -16,14 +18,39 @@ export class ProductDetailComponent implements OnInit {
   public productId: string;
   public user: any= {};
   public productDetails: any= {};
-  public warrantyValidTill : any = ''
-  public amcValidTill : any = ''
-  public amcLeftDays : any = ''
+  public warrantyValidTill : any = '';
+  public warrantyDaysLeft : any = '';
+  public amcValidTill : any = '';
+  public amcLeftDays : any = '';
   public dateNow : any = Date.now(); 
   public tickets : any = []
   public newTickets : any = []
   public ongoingTickets : any = []
-
+  
+  customOptions: OwlOptions = {
+    loop: false,
+    mouseDrag: true,
+    touchDrag: false,
+    pullDrag: true,
+    navText:["Prev","Next"],
+    dots: false,
+    navSpeed: 700,
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      }
+    },
+    // nav: true
+  }
   constructor(private route: ActivatedRoute, private _loader:NgxUiLoaderService, private _api:ApiService, private _router:Router) { 
     this._loader.startLoader('loader');
   }
@@ -47,11 +74,14 @@ export class ProductDetailComponent implements OnInit {
           if (res?.purchaseDate) {
             let purchaseDate = new Date(res.purchaseDate);
             this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
+            
+            this.warrantyDaysLeft = (res.warrantyPeriod > 0) ? dateDiffInDays(this.warrantyValidTill, this.dateNow) : '';
           }
+          
           if(res.amcDetails?.noOfYears) {
             let amcSrtartDate = new Date(res.amcDetails.startDate);
             this.amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res.amcDetails.noOfYears*12));
-            this.amcLeftDays = dateDiffInDays(this.dateNow, this.amcValidTill);
+            this.amcLeftDays = dateDiffInDays(this.amcValidTill, this.dateNow);
           }
           console.log(this.productDetails);
           

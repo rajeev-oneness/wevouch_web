@@ -9,3 +9,41 @@
   margin-top: 70px;
 }
 
+.product-slider .tab-pane .image-wrapper img {
+  max-width: 90% !important;
+  max-height: 250px;
+}
+.slider_content {
+  cursor: pointer;
+  margin: 10px 20px;
+  background: #8996a30d;
+  padding: 5px 0px 10px 0px;
+  border-radius: 11px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  /* max-width: 25%; */
+}
+.slider-bottom {
+  margin-top: 40px;
+}
+.out_of_warranty {
+  height: 31px;
+  width: 144px;
+  font-size: 13px;
+  background: rgb(122, 21, 21);
+  color: white;
+  margin-top: -5px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 31px;
+  border-radius: 7px 0px;
+}
+.in_warranty {
+  height: 31px;
+  width: 144px;
+  font-size: 13px;
+  margin-top: -5px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 31px;
+  border-radius: 7px 0px;
+}

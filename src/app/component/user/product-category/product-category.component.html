@@ -11,9 +11,14 @@
     <owl-carousel-o [options]="customOptions" *ngIf="productList.length > 0; else noProductsBlock;">
       <ng-container>
         <ng-template *ngFor="let product of productList; let i = index" carouselSlide>
-          <div routerLink="/user/product/detail/{{product._id}}" style="cursor: pointer;">
+          <div routerLink="/user/product/detail/{{product._id}}" class="slider_content">
+            <div class="out_of_warranty" *ngIf="product.expiryDate === ''">
+              Out of warranty
+            </div>
+            <div class="in_warranty" *ngIf="product.expiryDate != ''"></div>
             <div class="image-wrapper">
-              <img src="{{(product.productImagesUrl[0] != '')? product.productImagesUrl[0] : './assets/img/blank-image.png'}}" class="carousel-image" alt="" />
+              <!-- <img src="{{product.productImagesUrl[0]}}" class="carousel-image" alt="" /> -->
+              <img src="{{(product.productImagesUrl != '')? product.productImagesUrl[0] : './assets/img/blank-image.png'}}" alt="" class="carousel-image">
             </div>
             <div class="slider-bottom">
               <h6 class="product-name">{{product.name}}</h6>

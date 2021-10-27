@@ -46,3 +46,10 @@ input[type="number"] {
     margin-right: -50px;
     margin-left: 21px;
 }
+
+.product-container .col-lg-4 .brand-container .brand-wrapper {
+    margin: 3px auto;
+}
+.product-container .col-lg-4 .brand-container {
+    height: auto;
+}

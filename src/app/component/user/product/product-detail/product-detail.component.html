@@ -6,87 +6,91 @@
       <div class="col-12 col-md-11 card shadow-lg p-0">
         <div class="row card-wrapper">
           <div class="col-lg-6 product-imgs">
-            <div class="img-display mb-0">
-              <!-- <div class="img-showcase">
-                <img src="{{productDetails.productImagesUrl}}"/>
-              </div> -->
-              <div class = "img-showcase p-4 bg-light">
-                <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
-                <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
-                <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
-                <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
-              </div>
-              <!-- <div class = "img-select mt-0">
-                  <div class="img-item bg-light p-2">
-                      <a href="javascript:void(0);" data-id="1">
-                        <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
-                      </a>
-                  </div>
-                  <div class="img-item bg-light p-2">
-                      <a href="javascript:void(0);" data-id="2">
-                        <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
-                      </a>
-                  </div>
-                  <div class="img-item bg-light p-2">
-                      <a href="javascript:void(0);" data-id="3">
-                        <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
-                      </a>
-                  </div>
-                  <div class="img-item bg-light p-2">
-                      <a href="javascript:void(0);" data-id="4">
-                        <img src="{{(productDetails.productImagesUrl[0] != '')? productDetails.productImagesUrl[0] : './assets/img/blank-image.png'}}"/>
-                      </a>
-                  </div>
-              </div> -->
+            <div class="img-display mb-0" *ngIf="productDetails.productImagesUrl != ''">
+              <owl-carousel-o [options]="customOptions">
+                <ng-container>
+                  <ng-template *ngFor="let productImg of productDetails.productImagesUrl; let i = index" carouselSlide>
+                    <div class="img-showcase p-4 bg-light">
+                      <img src="{{productImg}}" alt="Invoice Image" />
+                    </div>
+                  </ng-template>
+                </ng-container>
+              </owl-carousel-o>
             </div>
-            <div class="img-select mt-0" *ngIf="productDetails && productDetails.productImagesUrl">
-              <div class="img-item" *ngFor="let productImg of productDetails.productImagesUrl; let i = index">
-                <a href="javascript:void(0)" data-id="{{i}}">
-                  <img src="{{(productImg != '')? productImg : './assets/img/blank-image.png'}}" alt="image" />
-                </a>
+            <div class="img-display mb-0" *ngIf="productDetails.productImagesUrl == ''">
+              <div class="img-showcase p-4 bg-light">
+                <img src="./assets/img/blank-image.png" alt="Product Image" />
               </div>
             </div>
           </div>
+          
           <div class="col-lg-6">
             <h1 class="heading mt-0">{{productDetails?.name}}</h1>
-            <p class="text-muted">{{productDetails?.category}}</p>
+            <div class="row">
+              <div class="col-lg-6 pl-0">
+                <div class="details-box">
+                  <p class="text-blue">Category</p>
+                  <h5>{{productDetails?.category || 'N/A'}}</h5>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="details-box">
+                  <p class="text-blue">Sub Category</p>
+                  <h5>{{productDetails?.subCategory || 'N/A'}}</h5>
+                </div>
+              </div>
+            </div>
             <div class="row">
               <div class="col-lg-6 pl-0">
                 <div class="details-box">
                   <p class="text-blue">Model Number</p>
-                  <h5>{{productDetails?.modelNo}}</h5>
+                  <h5>{{productDetails?.modelNo || 'N/A'}}</h5>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="details-box">
                   <p class="text-blue">Brand</p>
-                  <h5>{{productDetails?.brands}}</h5>
+                  <h5>{{productDetails?.brands || 'N/A'}}</h5>
                 </div>
               </div>
             </div>
             <div class="invoice-details-box">
               <div class="row">
-                <div class="col-lg-3">
-                  <img src="{{productDetails?.invoicePhotoUrl || './assets/img/blank-image.png'}}" alt="Invoice Image" />
+                <div class="col-lg-3" *ngIf="productDetails.invoicePhotoUrl == ''">
+                  <img src='./assets/img/blank-image.png' alt="Invoice Image" />
+                </div>
+                <div class="col-lg-3" *ngIf="productDetails.invoicePhotoUrl != ''">
+                  <owl-carousel-o [options]="customOptions">
+                    <ng-container>
+                      <ng-template *ngFor="let productImg of productDetails.invoicePhotoUrl; let i = index" carouselSlide>
+                        <div class="">
+                          <img src="{{productImg}}" alt="Invoice Image" />
+                        </div>
+                      </ng-template>
+                    </ng-container>
+                  </owl-carousel-o>
                 </div>
                 <div class="col-lg-9">
                   <h5 class="mb-3">Warranty Details</h5>
                   <div class="row">
                     <div class="col-lg-6">
                       <p class="text-muted">Purchase Date</p>
-                      <h6>{{productDetails?.purchaseDate | date:'dd MMM yyyy'}}</h6>
+                      <h6 *ngIf="productDetails?.purchaseDate; else Block1;">{{productDetails?.purchaseDate | date:'dd MMM yyyy'}}</h6>
+                      <ng-template #Block1> <h6>N/A</h6> </ng-template>
                       <p class="text-blue">{{productDetails.warrantyPeriod}} Months</p>
                     </div>
                     <div class="col-lg-6">
                       <p class="text-muted">Expires on</p>
-                      <h6>{{warrantyValidTill | date: 'dd MMM yyyy'}}</h6>
-                      <!-- <p class="text-red">350 days left</p> -->
+                      <h6 *ngIf="warrantyValidTill; else block2;">{{warrantyValidTill | date: 'dd MMM yyyy'}}</h6>
+                      <ng-template #block2> <h6>N/A</h6> </ng-template>
+                      <p class="text-red" *ngIf="warrantyDaysLeft >= 0">{{(warrantyDaysLeft !== '')? warrantyDaysLeft : '0'}} days left</p>
+                      <p class="text-red" *ngIf="warrantyDaysLeft < 0">Warranty Expired</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="invoice-details-box">
+            <div class="invoice-details-box" *ngIf="productDetails?.extendedWarranty">
               <div class="row">
                 <div class="col-lg-3">
                   <img src="assets/img/blank-image.png" alt="" />
@@ -101,8 +105,10 @@
                       <p class="text-dark mt-0" style="font-size: 13px;">{{productDetails?.extendedWarranty?.noOfYears || 'N/A'}} years</p>
                     </div>
                     <div class="col-lg-6">
-                      <div class="image-wrapper">
-                        <img src="assets/img/phone.png" alt="" />
+                      <div class="image-wrapper" *ngIf="productDetails?.extendedWarranty?.mobileNo">
+                        <a href="tel:{{productDetails?.extendedWarranty?.mobileNo}}">
+                          <img src="assets/img/phone.png" alt="" />
+                        </a>
                       </div>
                       <p class="text-muted">Mobile No</p>
                       <h6>{{productDetails?.extendedWarranty?.mobileNo || 'N/A'}}</h6>
@@ -111,24 +117,27 @@
                 </div>
               </div>
             </div>
-            <div class="invoice-details-box">
+            <div class="invoice-details-box" *ngIf="productDetails?.amcDetails">
               <div class="row">
                 <div class="col-lg-3">
                   <img src="assets/img/blank-image.png" alt="" />
                 </div>
                 <div class="col-lg-9">
-                  <h5 class="mb-3">Annual maintainance (quaterly)</h5>
+                  <h5 class="mb-3">Annual maintainance </h5>
                   <div class="row">
                     <div class="col-lg-6">
                       <p class="text-muted">Service Provider</p>
                       <h6>{{productDetails?.amcDetails?.serviceProvider || 'N/A'}}</h6>
                       <p class="text-muted">Validity</p>
                       <h6>{{amcValidTill | date: 'dd MMM yyyy'}}</h6>
-                      <p class="daysLeft text-danger">{{(amcLeftDays == '')? 'N/A': amcLeftDays}} Days Left</p>
+                      <p class="daysLeft text-danger" *ngIf="amcLeftDays >= 0">{{(amcLeftDays == '')? 'N/A': amcLeftDays}} Days Left</p>
+                      <p class="daysLeft text-danger" *ngIf="amcLeftDays < 0">AMC expired</p>
                     </div>
                     <div class="col-lg-6">
-                      <div class="image-wrapper">
-                        <img src="assets/img/phone.png" alt="" />
+                      <div class="image-wrapper" *ngIf="productDetails?.amcDetails?.mobileNo">
+                        <a href="tel:{{productDetails?.amcDetails?.mobileNo}}">
+                          <img src="assets/img/phone.png" alt="" />
+                        </a>
                       </div>
                       <p class="text-muted">Vendor Agreement No</p>
                       <h6>{{productDetails?.amcDetails?.vendorNo || 'N/A'}}</h6>

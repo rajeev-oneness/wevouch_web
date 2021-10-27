@@ -18,7 +18,7 @@
             </div>
             <div class="row m-0 tt-body" *ngFor="let notification of notifications">
                 <div class="card shadow-sm">
-                    <small>{{notification.createdDate | date: 'dd MMM, yyyy'}}</small>
+                    <small>{{notification.createdDate | date: 'dd MMM, yyyy'}} ( {{notification.createdDate | date: 'h:mm a'}} )</small>
                     <h6>{{notification.title}}</h6>
                     <p>{{notification.description}}</p>
                 </div>

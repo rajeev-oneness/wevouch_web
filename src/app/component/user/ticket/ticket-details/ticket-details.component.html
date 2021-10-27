@@ -11,7 +11,7 @@
             <div class="col-lg-6">
                 <p class="text-muted">Ticket No.<span> {{ticketDetails.uniqueId}}</span></p>
                 <div class="ticket-image ticket-details-image" *ngIf="ticketDetails.products && ticketDetails.products.productImagesUrl">
-                    <img src={{ticketDetails.products.productImagesUrl[0]}} alt="" class="first-image">
+                    <img src="{{(ticketDetails.products.productImagesUrl != '')? ticketDetails.products.productImagesUrl[0] : './assets/img/blank-image.png'}}" alt="" class="first-image">
                 </div>
             </div>
             <div class="col-lg-4 ticket-text">

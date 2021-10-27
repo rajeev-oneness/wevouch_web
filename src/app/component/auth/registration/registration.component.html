@@ -23,11 +23,10 @@
       <div class="col-12 col-md-5 pl-md-3 pr-md-3">
         <div class="login-R">
           <h5>Sign Up for Dashboard</h5>
-          <div class="p-4 form-section">
+          <div class="p-4 form-section" *ngIf="mainSignupForm">
             <div class="text-center social_icon">
               <a href="" class="gs"><img src="./assets/img/g+logo.png" /></a>
               <a href="" class="fs"><i-feather name="facebook"></i-feather></a>
-              <a href="" class="tw"><i-feather name="twitter"></i-feather></a>
               <a href="get_otp.html" class="sm"><i-feather name="smartphone"></i-feather></a>
             </div>
             <span class="or-sec"><small>Or</small></span>
@@ -115,8 +114,28 @@
               </div>
             </form>
           </div>
+          <div class="p-4 form-section" *ngIf="accountConfirmation">
+            <form id="login-form" #userVerifyForm="ngForm" (ngSubmit)="verifyAccount(userVerifyForm)">
+              <div class="form-group">
+                <label><img src="./assets/img/777.png" alt="">Email OTP</label>
+                <input class="form-control" #email_otp="ngModel" ngModel type="number" name="email_otp" id="email_otp" placeholder="Enter email otp">
+                <label>
+                  <img src="./assets/img/777.png" alt="">Mobile OTP
+                </label>
+                <input class="form-control" #mobile_otp="ngModel" ngModel type="number" name="mobile_otp" id="mobile_otp" placeholder="Enter mobile otp">
+                <div>
+                  <span class="text-danger">{{errorMessage}}</span>
+                </div>
+                <button type="submit" class="btn btn-secondary btn-lg btn-block login-btn mt-2"> Get Otp </button>
+                <p>
+                  Protected by recaptcha. Google <a href="https://wevouch.in/privacy-policy/">Privacy Policy</a> & <a href="https://wevouch.in/terms-condition/">Terms of Service</a> apply.
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
+      
     </div>
   </div>
 </section>

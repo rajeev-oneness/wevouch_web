@@ -33,7 +33,7 @@
                 [searchable]="true"
                 [(ngModel)]="brandId"
                 (change)='fetchCategory()'
-                name="brandId">
+                name="brandId" required [ngClass]="{'is-invalid':brandId?.invalid && brandId?.touched}">
                     <ng-option [value]="item.id" *ngFor="let item of brandList">
                         {{item.name}}
                     </ng-option>
@@ -48,7 +48,7 @@
                 [searchable]="true"
                 [(ngModel)]="category"
                 (change)='fetchSubCategory()'
-                name="category">
+                name="category" required [ngClass]="{'is-invalid':category?.invalid && category?.touched}">
                     <ng-option [value]="item.category" *ngFor="let item of categoriesList">
                         {{item.category}}
                     </ng-option>
@@ -105,9 +105,13 @@
           <div class="row">
             <div class="col-lg-4">
               <div class="brand-container">
-                <div class="brand-wrapper">
-                  <input type="file" class="brand-file" (change)="onSelectFile1($event)" />
-                  <img src="{{uploadedFile1}}" alt="" style="width: 100%;">
+                <div class="d-flex flex-wrap">
+                  <div class="brand-wrapper" *ngFor="let invImg of invoiceImgUrl; let i=index;" (click)="removeInvImage(i)">
+                    <img src="{{invImg}}" alt="" style="width: 100%;">
+                  </div>
+                  <div class="brand-wrapper">
+                    <input type="file" class="brand-file" (change)="onSelectFile1($event)" />
+                  </div>
                 </div>
                 <span class="text-danger">{{fileFormatError}}</span>
                 <h6>Upload Invoice Photo</h6>
@@ -215,7 +219,7 @@
           Image of the product
         </p>
         <div class="row">
-          <div class="col-lg-4 mt-2 mb-2">
+          <div class="col-lg-4 mt-2 mb-2" style="min-height: 200px;">
             <form action="" class="addProductStepThree">
               <div class="brand-wrapper">
                 <input type="file" class="brand-file" (change)="onSelectFile2($event)" />

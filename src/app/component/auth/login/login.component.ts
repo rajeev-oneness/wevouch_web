@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
   public forgetPassEmailOtp : any = ''
   public newForgetPassword : any = ''
   public rememberMe : boolean = false
+  public accountConfirmation : boolean = false
 
   constructor(private _api:ApiService,private _loader : NgxUiLoaderService,private _router:Router,private authService: SocialAuthService) {
     this._loader.startLoader('loader');
@@ -65,14 +66,20 @@ export class LoginComponent implements OnInit {
       this._loader.startLoader('loader');
       this._api.userLoginAPI(formData.value).subscribe(
         res => {
-          this._api.storeUserLocally(res.user);
-          if(this.rememberMe === true) {
-            console.log('remeber me selected');
-            
-            this._api.storeUserCookie(JSON.stringify(res.user));
+          console.log(res.user);
+          this.forgotEmail = res.user.email;
+          if(res.user.is_email_verified === true && res.user.is_mobile_verified === true) {
+            this._api.storeUserLocally(res.user);
+            this._router.navigate(["/user/dashboard"]);
+          } else {
+            this.accountConfirmation = true;
+            this.mainLogin = false;
+            this.otpStep1 = false;
+            this.otpStep2 = false;
+            this.forgotEmailStep1 = false;
+            this.forgotEmailStep2 = false;
           }
           this._loader.stopLoader('loader');
-          this._router.navigate(["/user/dashboard"]);
         },
         err => {
           this.errorMessage = err.error.message;
@@ -86,8 +93,34 @@ export class LoginComponent implements OnInit {
     // console.log('Form Data SUbmitted');
   }
 
+  verifyAccount(formData) {
+    this.errorMessage = '';
+    for( let i in formData.controls ){
+      formData.controls[i].markAsTouched();
+    }
+    if( formData?.valid ){
+      this._loader.startLoader('loader');
+      const mainForm = formData.value;
+      mainForm.email = this.forgotEmail;
+      this._api.userAccountVerify(mainForm).subscribe(
+        res => {
+          console.log(res);
+          this._api.storeUserLocally(res.data);
+          this._router.navigate(["/user/dashboard"]);
+          this.accountConfirmation = false;
+          this.mainLogin = true;
+        }, err => {
+          this.errorMessage = "Something went wrong!";
+        }
+      )
+      this._loader.stopLoader("loader");
+    }
+    
+  }
+
   loginWithOtp() {
     this.errorMessage = ''
+    this.accountConfirmation = false;
     this.mainLogin = false;
     this.otpStep1 = true;
     this.otpStep2 = false;
@@ -104,6 +137,7 @@ export class LoginComponent implements OnInit {
     console.log(this.otpMobile);
     if (this.otpMobile) {
       this.replaceFirst6(this.otpMobile.toString());
+      this.accountConfirmation = false;
       this.mainLogin = false;
       this.otpStep1 = false;
       this.otpStep2 = true;
@@ -141,15 +175,14 @@ export class LoginComponent implements OnInit {
 
   forgotPassword() {
     this.errorMessage = '';
-
+    this.accountConfirmation = false;
     this.mainLogin = false;
     this.otpStep1 = false;
     this.otpStep2 = false;
     this.forgotEmailStep1 = true;
     this.forgotEmailStep2 = false;
   }
-
-  
+ 
   enterForgetPassEmail() {
     this.errorMessage = '';
     console.log(this.forgotEmail);
@@ -166,6 +199,7 @@ export class LoginComponent implements OnInit {
             icon: 'success',
             title: 'Check your email for OTP!'
           })
+          this.accountConfirmation = false;
           this.mainLogin = false;
           this.otpStep1 = false;
           this.otpStep2 = false;

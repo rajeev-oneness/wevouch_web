@@ -13,12 +13,12 @@ export class ProductAddComponent implements OnInit {
   public isSecondTab: boolean = false;
   public isThirdTab: boolean = false;
   public isFourthTab: boolean = false;
-  public category: string = '';
-  public subCategory: string = '';
+  public category: any = null;
+  public subCategory: any = null;
   public brandId: string = '';
   public brandName: string = '';
   public modelList: string = '';
-  public modelId: string = '';
+  public modelId: any = null;
   public categoriesList: any = [];
   public brandList: any = [];
   public subCategoriesList: any = [];
@@ -26,7 +26,7 @@ export class ProductAddComponent implements OnInit {
   public addProductValue: any = {};
   public isExtendenWarranty: boolean= false;
   public isAmcDetails: boolean = false;
-  public invoiceImgUrl: any = '';
+  public invoiceImgUrl: any = new Array();
   public productImgUrl: any = new Array();
   public user: any = {};
   public amcDetailsFill : boolean = true;
@@ -43,15 +43,16 @@ export class ProductAddComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('we_vouch_user') || '{}');
     this._loader.startLoader('loader');
     this.fetchBrands();
+    this._loader.stopLoader('loader');
   }
 
   fetchBrands() {
     this._api.getProductBrands().subscribe(
       res => {
-        this._loader.startLoader('loader');
         // console.log('brands :', res.brands);
         this.brandList = res.brands;
-        this.brandId = res.brands[0].id;
+        // this.brandId = res.brands[0].id;
+        this.brandId = null;
         // console.log(this.brandId);
         this.fetchCategory();
       }, err => {}
@@ -59,46 +60,48 @@ export class ProductAddComponent implements OnInit {
   }
 
   fetchCategory() {
-    console.log(this.brandId);
-    this.brandName = this.brandList.filter( (t:any) => t.id === this.brandId )[0].name;
-    console.log(this.brandName);
+    console.log('brand :', this.brandId)
+    if (this.brandId !== null) {
+      this.brandName = this.brandList.filter( (t:any) => t.id === this.brandId )[0].name;
+      console.log(this.brandName);
+      
+      this._api.getProductCategories(this.brandId).subscribe(
+        res => {
+          this.categoriesList = res.categories;
+          // console.log(this.categoriesList);
+          this.category = this.categoriesList[0].category;
+          this.fetchSubCategory();
+        }, err => {}
+      )
+    }
     
-    this._api.getProductCategories(this.brandId).subscribe(
-      res => {
-        this._loader.startLoader('loader');
-        this.categoriesList = res.categories;
-        // console.log(this.categoriesList);
-        this.category = this.categoriesList[0].category;
-        this.fetchSubCategory();
-        this._loader.stopLoader('loader');
-      }, err => {}
-    )
   }
   
   fetchSubCategory() {
-    console.log(this.category);
+    if (this.category !== null) {
+      console.log(this.category);
     
-    this._api.getProductSubCategories(this.category).subscribe(
-      res => {
-        this._loader.startLoader('loader');
-        this.subCategoriesList = res.sub_categories;
-        // console.log(this.subCategoriesList);
-        this.subCategory = this.subCategoriesList[0].sub_category
-        this.fetchModel();
-      }, err => {}
-    )
+      this._api.getProductSubCategories(this.category).subscribe(
+        res => {
+          this.subCategoriesList = res.sub_categories;
+          // console.log(this.subCategoriesList);
+          this.subCategory = this.subCategoriesList[0].sub_category
+          this.fetchModel();
+        }, err => {}
+      )
+    }
   }
 
   fetchModel() {
-    this._api.getProductModels(this.subCategory).subscribe(
-      res => {
-        this._loader.startLoader('loader');
-        this.modelList = res.models;
-        this.modelId = res.models[0].model_no;
-        // console.log(this.modelList);
-        this._loader.stopLoader('loader');
-      }
-    )
+    if (this.subCategory !== null) {
+      this._api.getProductModels(this.subCategory).subscribe(
+        res => {
+          this.modelList = res.models;
+          this.modelId = res.models[0].model_no;
+          // console.log(this.modelList);
+        }
+      )
+    }
   }
 
   public uploadedFile1;
@@ -124,7 +127,7 @@ export class ProductAddComponent implements OnInit {
             console.log(this.selectedFile);
             this._api.storeFile(mainForm).subscribe(
               res => {
-                this.invoiceImgUrl = res.file_link;
+                this.invoiceImgUrl.push(res.file_link);
                 this._loader.stopLoader('loader');
               }
             )
@@ -324,5 +327,8 @@ export class ProductAddComponent implements OnInit {
   removeImage(imageIndex : any) {
     this.productImgUrl.splice(imageIndex, 1);
     console.log(this.productImgUrl);
+  }
+  removeInvImage(imageIndex : any) {
+    this.invoiceImgUrl.splice(imageIndex, 1);
   }
 }

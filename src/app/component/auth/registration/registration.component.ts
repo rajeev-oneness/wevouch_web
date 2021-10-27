@@ -18,6 +18,9 @@ export class RegistrationComponent implements OnInit {
   }
   public errorMessage = '';
   public confirmPassword : any = '';
+  public mainSignupForm : boolean = true;
+  public accountConfirmation : boolean = false;
+  public userEmail : any = '';
   ngOnInit(): void {
     this._loader.stopLoader('loader');
   }
@@ -42,9 +45,16 @@ export class RegistrationComponent implements OnInit {
             this._api.addNotification(notificationForm).subscribe(
               res=> {console.log(res);}
             );
-            this._api.storeUserLocally(res.user);
+            this.userEmail = res.user.email;
+            if(res.user.is_email_verified === true && res.user.is_mobile_verified === true) {
+              this._api.storeUserLocally(res.user);
+              this._router.navigate(['/login']);
+            } else {
+              this.accountConfirmation = true;
+              this.mainSignupForm = false;
+            }
+            
             this._loader.stopLoader('loader');
-            this._router.navigate(['/login']);
           },
           (err) => {
             this.errorMessage = err.error.message;
@@ -62,5 +72,30 @@ export class RegistrationComponent implements OnInit {
   
   confirmPasswordCheck(e :any) {
     this.confirmPassword = e.target.value;
+  }
+
+  verifyAccount(formData) {
+    this.errorMessage = '';
+    for( let i in formData.controls ){
+      formData.controls[i].markAsTouched();
+    }
+    if( formData?.valid ){
+      this._loader.startLoader('loader');
+      const mainForm = formData.value;
+      mainForm.email = this.userEmail;
+      this._api.userAccountVerify(mainForm).subscribe(
+        res => {
+          console.log(res);
+          this._api.storeUserLocally(res.data);
+          this._router.navigate(["/user/dashboard"]);
+          this.accountConfirmation = false;
+          this.mainSignupForm = true;
+        }, err => {
+          this.errorMessage = "Something went wrong!";
+        }
+      )
+      this._loader.stopLoader("loader");
+    }
+    
   }
 }

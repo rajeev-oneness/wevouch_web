@@ -14,9 +14,9 @@ export class ProductCategoryComponent implements OnInit {
    
   customOptions: OwlOptions = {
     loop: false,
-    mouseDrag: false,
+    mouseDrag: true,
     touchDrag: false,
-    pullDrag: false,
+    pullDrag: true,
     navText:["P<br>R<br>E<br>V","N<br>E<br>X<br>T"],
     dots: false,
     navSpeed: 700,
@@ -31,7 +31,7 @@ export class ProductCategoryComponent implements OnInit {
         items: 3
       },
       940: {
-        items: 4
+        items: 3
       }
     },
     nav: true
