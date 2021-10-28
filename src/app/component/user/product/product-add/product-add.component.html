@@ -38,6 +38,7 @@
                         {{item.name}}
                     </ng-option>
               </ng-select>
+              <input type="text" name="brandNames" #brandNames="ngModel" [(ngModel)]="brandName" placeholder="Type brand" class="form-control mt-1" *ngIf="brandId === 'Others'" [requied]="brandId === 'Others'">
             </div>
             <div class="col-lg-6">
               <label for="category">Category<span>*</span></label>
@@ -53,6 +54,7 @@
                         {{item.category}}
                     </ng-option>
               </ng-select>
+              <input type="text" name="categoryNames" #categoryNames="ngModel" [(ngModel)]="categoryName" placeholder="Type category" class="form-control mt-1" *ngIf="category === 'Others'" [requied]="category === 'Others'">
             </div>
             <div class="col-lg-6">
               <label for="subCategory">Sub Category <span>*</span></label>
@@ -69,6 +71,7 @@
                         {{item.sub_category}}
                     </ng-option>
               </ng-select>
+              <input type="text" name="subCategoryNames" #subCategoryNames="ngModel" [(ngModel)]="subCategoryName" placeholder="Type sub-category" class="form-control mt-1" *ngIf="subCategory === 'Others'" [requied]="subCategory === 'Others'">
             </div>
             
             <div class="col-lg-6">
@@ -167,12 +170,13 @@
                     appendTo="body"
                     [searchable]="true" 
                     #modelNo="ngModel" 
-                    [ngModel]="modelId"
+                    [(ngModel)]="modelId"
                     name="modelNo">
                         <ng-option [value]="item.model_no" *ngFor="let item of modelList">
                             {{item.model_no}}
                         </ng-option>
                   </ng-select>
+                  <input type="text" name="modelNames" #modelNames="ngModel" [(ngModel)]="modelName" placeholder="Type model" class="form-control mt-1" *ngIf="modelId === 'Others'" [requied]="modelId === 'Others'">
                 </div>
                 <div
                   class="form-check col-lg-6 d-flex pl-0 pl-md-4 ml-0 ml-2 mt-2 mb-2 custop_check"

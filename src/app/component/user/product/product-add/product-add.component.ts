@@ -17,11 +17,16 @@ export class ProductAddComponent implements OnInit {
   public subCategory: any = null;
   public brandId: string = '';
   public brandName: string = '';
-  public modelList: string = '';
+
+  public categoryName: string = '';
+  public subCategoryName: string = '';
+  public modelName: string = '';
+
+  public modelList: any = [];
   public modelId: any = null;
-  public categoriesList: any = [];
-  public brandList: any = [];
-  public subCategoriesList: any = [];
+  public categoriesList: Array<any> = [];
+  public brandList: Array<any> = [];
+  public subCategoriesList: Array<any> = [];
   public errorMessage: string = '';
   public addProductValue: any = {};
   public isExtendenWarranty: boolean= false;
@@ -51,6 +56,8 @@ export class ProductAddComponent implements OnInit {
       res => {
         // console.log('brands :', res.brands);
         this.brandList = res.brands;
+        this.brandList.push({id: 'Others', name: 'Others'});
+
         // this.brandId = res.brands[0].id;
         this.brandId = null;
         // console.log(this.brandId);
@@ -61,46 +68,69 @@ export class ProductAddComponent implements OnInit {
 
   fetchCategory() {
     console.log('brand :', this.brandId)
-    if (this.brandId !== null) {
+    if (this.brandId != 'Others') {
       this.brandName = this.brandList.filter( (t:any) => t.id === this.brandId )[0].name;
       console.log(this.brandName);
       
       this._api.getProductCategories(this.brandId).subscribe(
         res => {
+          this.categoriesList = [];
           this.categoriesList = res.categories;
-          // console.log(this.categoriesList);
+          console.log(this.categoriesList);
+          if (this.categoriesList === undefined) {
+            this.categoriesList = [];
+          }
+          this.categoriesList.push({category: 'Others'});
+
           this.category = this.categoriesList[0].category;
           this.fetchSubCategory();
         }, err => {}
       )
+    } else {
+      this.categoriesList.push({category: 'Others'});
+      this.fetchSubCategory();
     }
     
   }
   
   fetchSubCategory() {
-    if (this.category !== null) {
-      console.log(this.category);
-    
+    console.log(this.category);
+    if (this.category != 'Others') {
       this._api.getProductSubCategories(this.category).subscribe(
         res => {
+          this.subCategoriesList = [];
           this.subCategoriesList = res.sub_categories;
           // console.log(this.subCategoriesList);
+          if (this.subCategoriesList === undefined) {
+            this.subCategoriesList = [];
+          }
+          this.subCategoriesList.push({sub_category: 'Others'})
           this.subCategory = this.subCategoriesList[0].sub_category
           this.fetchModel();
         }, err => {}
       )
+    } else {
+      this.subCategoriesList[0] = ({sub_category: 'Others'});
+      this.fetchModel();
     }
   }
 
   fetchModel() {
-    if (this.subCategory !== null) {
+    if (this.subCategory !== null || this.subCategory != 'Others') {
       this._api.getProductModels(this.subCategory).subscribe(
         res => {
+          this.modelList = [];
           this.modelList = res.models;
+          if (this.modelList === undefined) {
+            this.modelList = [];
+          }
+          this.modelList.push({model_no: 'Others'});
           this.modelId = res.models[0].model_no;
           // console.log(this.modelList);
         }
       )
+    } else {
+      this.modelList.push({model_no: 'Others'});
     }
   }
 
@@ -214,6 +244,12 @@ export class ProductAddComponent implements OnInit {
       if (phnNum.length === 10) {
         if (this.category && this.brandId) {
           formData.value.brandId = this.brandName;
+          if (this.categoryName) {
+            formData.value.category = this.categoryName;
+          }
+          if (this.subCategoryName) {
+            formData.value.subCategory = this.subCategoryName;
+          }
           this.addProductValue = formData.value;
           this.isFirstTab = false;
           this.isSecondTab = true;
@@ -259,8 +295,7 @@ export class ProductAddComponent implements OnInit {
     if (formData.value) {
         this.addProductValue.purchaseDate = formData.value.purchaseDate;
         this.addProductValue.serialNo = formData.value.serialNo;
-        this.addProductValue.modelNo =
-          formData.value.modelNo;
+        this.addProductValue.modelNo = (this.modelId == 'Others')? this.modelName : formData.value.modelNo;
         if (formData.value.warrantyType === 'year') {
           this.addProductValue.warrantyPeriod =
             Number(formData.value.warrantyPeriod) * 12;
