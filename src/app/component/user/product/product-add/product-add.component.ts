@@ -244,10 +244,10 @@ export class ProductAddComponent implements OnInit {
       if (phnNum.length === 10) {
         if (this.category && this.brandId) {
           formData.value.brandId = this.brandName;
-          if (this.categoryName) {
+          if (this.categoryName && this.category == 'Others') {
             formData.value.category = this.categoryName;
           }
-          if (this.subCategoryName) {
+          if (this.subCategoryName && this.subCategory == 'Others') {
             formData.value.subCategory = this.subCategoryName;
           }
           this.addProductValue = formData.value;
