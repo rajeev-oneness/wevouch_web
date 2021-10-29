@@ -59,8 +59,51 @@ export class ProductCategoryComponent implements OnInit {
           item.expiryDate = purchaseDate.setMonth(purchaseDate.getMonth()+item.warrantyPeriod);
         }
       });
+      
+      for (let index = 0; index < res.length; index++) {
+        let progress = res[index];
+        var count=0;
+        if (progress['brands'] !='') {
+          count = count+1;
+        }
+        if (progress['category'] !='') {
+          count = count+1;
+        }
+        if (progress['modelNo'] !='') {
+          count = count+1;
+        }
+        if (progress['name'] !='') {
+          count = count+1;
+        }
+        if (progress['purchaseDate'] !='') {
+          count = count+1;
+        }
+        if (progress['registeredMobileNo'] !='') {
+          count = count+1;
+        }
+        if (progress['serialNo'] !='') {
+          count = count+1;
+        }
+        if (progress['subCategory'] !='') {
+          count = count+1;
+        }
+        if (progress['warrantyPeriod'] !='') {
+          count = count+1;
+        }
+        if (progress['invoicePhotoUrl'].length > 0) {
+          count = count+1;
+        }
+        if (progress['productImagesUrl'].length > 0) {
+          count = count+1;
+        }
+        let progressCount=Math.floor((count/11)*100);
+        // console.log("progress("+progress.name+"): ", progressCount);
+        res[index].progressCount = progressCount;
+      }
       this.productList = res.filter((t) => t.status === 'active');
       this.checkingNotification();
+      console.log(this.productList);
+      
       this._loader.stopLoader('loader');
     });
   }
@@ -70,7 +113,7 @@ export class ProductCategoryComponent implements OnInit {
       if (this.productList[index]?.purchaseDate) {
         let purchaseDate = new Date(this.productList[index].purchaseDate);
         this.productList[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+this.productList[index].warrantyPeriod);
-        let warrantyDaysLeft = dateDiffInDays(this.dateNow, this.productList[index].expiresOn);
+        let warrantyDaysLeft = dateDiffInDays(this.productList[index].expiresOn, this.dateNow);
         console.log(warrantyDaysLeft+" days left");
         if(warrantyDaysLeft == 30 || warrantyDaysLeft == 15 || warrantyDaysLeft == 3 || warrantyDaysLeft == 0) {
           let title = '';
@@ -88,7 +131,7 @@ export class ProductCategoryComponent implements OnInit {
       if(this.productList[index]?.amcDetails?.noOfYears) {
         let amcSrtartDate = new Date(this.productList[index].amcDetails.startDate);
         let amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(this.productList[index].amcDetails.noOfYears*12));
-        let amcLeftDays = dateDiffInDays(this.dateNow, amcValidTill);
+        let amcLeftDays = dateDiffInDays(amcValidTill, this.dateNow);
         console.log(amcLeftDays+" days left of amc");
         if(amcLeftDays == 7 || amcLeftDays == 5 || amcLeftDays == 0) {
           let title = '';
@@ -106,7 +149,7 @@ export class ProductCategoryComponent implements OnInit {
       if(this.productList[index]?.extendedWarranty?.noOfYears) {
         let extdWarrantyStart = new Date(this.productList[index].extendedWarranty.startDate);
         let extdWarrantyValidTill = extdWarrantyStart.setMonth(extdWarrantyStart.getMonth()+(this.productList[index].extendedWarranty.noOfYears*12));
-        let extdwarrantyLeftDays = dateDiffInDays(this.dateNow, extdWarrantyValidTill);
+        let extdwarrantyLeftDays = dateDiffInDays(extdWarrantyValidTill, this.dateNow);
         console.log(extdwarrantyLeftDays+" days left of Extended warranty");
         if(extdwarrantyLeftDays == 7 || extdwarrantyLeftDays == 0) {
           let title = '';

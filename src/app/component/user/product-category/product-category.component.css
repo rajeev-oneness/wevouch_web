@@ -47,3 +47,22 @@
   line-height: 31px;
   border-radius: 7px 0px;
 }
+
+.progress_bar {
+    
+  width: 80%;
+  background: #00000021;
+  margin: auto;
+  border-radius: 10px;
+
+}
+.inner_progress_bar {
+  background-color: #00c2cb;
+  height: 14px;
+  border-radius: 10px;
+  margin-top: -5px;
+  margin-bottom: 5px;
+  font-size: 10px;
+  text-align: center;
+  font-weight: bold;
+}

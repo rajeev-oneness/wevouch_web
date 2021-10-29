@@ -87,7 +87,7 @@
               {{ errorMessage }}
             </div>
             <div class="col-lg-12" *ngIf="transportationType === 'Carry In'">
-              <div class="body_content pt-4">
+              <div class="pt-4">
                 <div class="container">
                   <div class="d-flex justify-content-between">
                       <h1 class="heading mb-3">
@@ -125,7 +125,7 @@
               </div>
             </div>
             <div class="col-lg-12" *ngIf="transportationType === 'On Site'">
-              <div class="body_content pt-4">
+              <div class="pt-4">
                 <div class="container">
                   <div class="d-flex justify-content-between">
                       <h1 class="heading mb-3">
@@ -160,11 +160,11 @@
               </div>
             </div>
             <div class="col-lg-12" *ngIf="transportationType === 'Pick Up'">
-              <div class="body_content pt-4">
+              <div class="pt-4">
                 <div class="container">
                   <div class="d-flex justify-content-between">
                       <h1 class="heading mb-3">
-                        Choose Address
+                        Coming Soon!
                       </h1>
                     </div>
                   </div>
@@ -195,7 +195,8 @@
                     [(ngModel)]="selectedDate"
                     placeholder="Select the date"
                     type="date"
-                    class="form-control"
+                    class="form-control" 
+                    [min]="minDate"
                   />
                 </div>
                 <div class="col-lg-6">

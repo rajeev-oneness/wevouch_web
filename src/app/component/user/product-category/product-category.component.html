@@ -25,6 +25,9 @@
               <p class="text-muted text-center mb-3" *ngIf="product.expiryDate != '' ">Expires on {{product.expiryDate | date: 'dd MMM yyyy'}}</p>
               <p class="text-muted text-center mb-3" *ngIf="product.expiryDate === ''">No expiry date</p>
             </div>
+            <div class="progress_bar">
+              <div class="inner_progress_bar" [style.width.%]="product.progressCount">{{product.progressCount}}%</div>
+            </div>
           </div>
         </ng-template>
       </ng-container>

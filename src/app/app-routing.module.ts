@@ -20,6 +20,8 @@ import { ProductsComponent } from './component/user/product/products/products.co
 
 import { AddressListComponent } from "./component/user/address/address-list/address-list.component";
 
+import { SupportComponent } from "./component/user/support/support.component";
+
 const routes: Routes = [
   {path : '', component : DashboardComponent, pathMatch:'full', canActivate: [AuthGuardService]},
   {path: 'login', component: LoginComponent},
@@ -50,6 +52,7 @@ const routes: Routes = [
       {path:"list", component:PackageListComponent},
     ]},
     {path: 'notification-settings', component:NotificationSettingsComponent},
+    {path: 'support', component:SupportComponent},
   ]},
   {path : '**', component : DashboardComponent, pathMatch:'full',canActivate: [AuthGuardService]},
 ];

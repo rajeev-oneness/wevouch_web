@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/service/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import {ActivatedRoute, Router} from "@angular/router";
 import  Swal  from "sweetalert2";
+import { getDateFormat } from "src/app/service/globalFunction";
 
 @Component({
   selector: 'app-ticket-add',
@@ -46,6 +47,7 @@ export class TicketAddComponent implements OnInit {
   public brandId : any = '';
   public serviceCenters : any = [];
   public productDetails : any = [];
+  public minDate : any = getDateFormat(Date.now());
 
   constructor(private _api: ApiService, private _loader: NgxUiLoaderService, private route: ActivatedRoute, private router: Router) {}
 

@@ -4,3 +4,12 @@
     margin-top: 5px;
     width: 25%;
 }
+
+.progress {
+    background-color: #000 !important;
+    height: 15px;
+    font-size: 10px;
+}
+.progress .progress-bar {
+    background-image: linear-gradient(to right, #00c1cb, #1b2c2d);
+}

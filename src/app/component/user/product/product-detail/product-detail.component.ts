@@ -69,6 +69,44 @@ export class ProductDetailComponent implements OnInit {
       this._api.getProductDetailsById(this.productId).subscribe(
         res => {
           this.productDetails = res;
+          this.productDetails = res;
+          let progress = this.productDetails;
+          var count=0;
+          if (progress['brands'] !='') {
+            count = count+1;
+          }
+          if (progress['category'] !='') {
+            count = count+1;
+          }
+          if (progress['modelNo'] !='') {
+            count = count+1;
+          }
+          if (progress['name'] !='') {
+            count = count+1;
+          }
+          if (progress['purchaseDate'] !='') {
+            count = count+1;
+          }
+          if (progress['registeredMobileNo'] !='') {
+            count = count+1;
+          }
+          if (progress['serialNo'] !='') {
+            count = count+1;
+          }
+          if (progress['subCategory'] !='') {
+            count = count+1;
+          }
+          if (progress['warrantyPeriod'] !='') {
+            count = count+1;
+          }
+          if (progress['invoicePhotoUrl'].length > 0) {
+            count = count+1;
+          }
+          if (progress['productImagesUrl'].length > 0) {
+            count = count+1;
+          }
+          let progressCount=Math.floor((count/11)*100);
+          this.productDetails.progressCount = progressCount;
           this.warrantyValidTill = '';
           // res.purchaseDate = new Date(res.purchaseDate).toDateString();
           if (res?.purchaseDate) {

@@ -1,0 +1,17 @@
+.sendButton {
+    width: 200px;
+    background-color: #354c65;
+    color: #ffffff;
+    border-radius: 30px;
+    padding: 10px 0px;
+    text-align: center;
+    display: block;
+    text-transform: uppercase;
+    font-weight: 500 !important;
+    position: relative;
+    z-index: 9999;
+    font-size: 15px;
+    border: none;
+    margin: 20px 0px;
+    font-size: 15px;
+}

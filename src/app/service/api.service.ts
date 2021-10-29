@@ -87,7 +87,10 @@ export class ApiService {
   userAccountVerify(formData) {
     return this._http.post<any>(_apiUrl+'user/verify-phone-email', formData);
   }
-
+  sendSupportMessage(formData: any) {
+    return this._http.post<any>(_apiUrl+'user/support/send', formData);
+  }
+  
   customerList() {
     return this._http.get<any>(_apiUrl+'user/list',{headers: this.header});
   }

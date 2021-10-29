@@ -38,10 +38,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { SupportComponent } from './component/user/support/support.component';
 
 @NgModule({
   declarations: [
-    AppComponent,HeaderComponent,SidebarComponent,DashboardComponent,ProductAddComponent,ProductListComponent,ProductDetailComponent,LoginComponent,TicketAddComponent,TicketListComponent,TicketDetailComponent,RegistrationComponent,ForgetComponent,ChangeComponent,ExtendedWarrantyComponent,AmcDetailsComponent,ProfileComponent,ProductCategoryComponent,PackageListComponent, ProductEditComponent, NotificationSettingsComponent, ProductsComponent, AddressListComponent
+    AppComponent,HeaderComponent,SidebarComponent,DashboardComponent,ProductAddComponent,ProductListComponent,ProductDetailComponent,LoginComponent,TicketAddComponent,TicketListComponent,TicketDetailComponent,RegistrationComponent,ForgetComponent,ChangeComponent,ExtendedWarrantyComponent,AmcDetailsComponent,ProfileComponent,ProductCategoryComponent,PackageListComponent, ProductEditComponent, NotificationSettingsComponent, ProductsComponent, AddressListComponent, SupportComponent
   ],
   imports: [
     BrowserModule,FeatherModule.pick(allIcons),BrowserAnimationsModule,AppRoutingModule,NgxUiLoaderModule,CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,DpDatePickerModule,CarouselModule,NgSelectModule,SocialLoginModule

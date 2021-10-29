@@ -26,6 +26,11 @@
           
           <div class="col-lg-6">
             <h1 class="heading mt-0">{{productDetails?.name}}</h1>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" [style.width.%]="productDetails.progressCount" aria-valuemin="0" aria-valuemax="100">
+                {{productDetails.progressCount}}%
+              </div>
+            </div>
             <div class="row">
               <div class="col-lg-6 pl-0">
                 <div class="details-box">

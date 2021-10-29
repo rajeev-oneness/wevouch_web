@@ -1,0 +1,32 @@
+<ngx-ui-loader
+  loaderId="loader"
+  fgsColor="#FFFFFF"
+  bgsOpacity="1"
+  overlayColor="rgba(40,40,40,0.1)"
+></ngx-ui-loader>
+<div class="body_content p-4">
+  <div class="container">
+    <h1 class="heading mb-1"><span>Support</span></h1>
+    <p class="text-muted">Send support message</p>
+
+    <div class="col-12 row m-0 p-0 mt-4">
+      <div class="col-12 col-md-6 mb-2 ticket-list">
+        <form class="warrantyone" #supportForm="ngForm" (ngSubmit)="sendSupport(supportForm)">
+            <label for="name">Name</label>
+            <input type="text" name="name" #name="ngModel" [ngModel]="userDetail.name" placeholder="Your name" required class="form-control">
+            <label for="name">Email</label>
+            <input type="text" name="email" #email="ngModel" [ngModel]="userDetail.email" placeholder="Your email" required class="form-control">
+            <label for="name">Subject</label>
+            <input type="text" name="subject" #subject="ngModel" ngModel placeholder="Your subject" required class="form-control">
+            <label for="name">Message</label>
+            <textarea name="text" id="text" #text="ngModel" ngModel cols="30" rows="5" class="form-control" placeholder="Your text..." required class="form-control"></textarea>
+            
+            <span class="text-danger">{{errorMessage}}</span>
+            <div class="addWarranty-btns">
+              <button class="sendButton" type="submit">Send message</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
