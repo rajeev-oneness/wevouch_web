@@ -185,15 +185,27 @@ export class TicketAddComponent implements OnInit {
       res => {
         this.supportExecutives = [];
         for (let index = 0; index < res.length; index++) {
-          this.supportExecutives.push(res[index]._id);
+          if (res[index].assigned === false) {
+            this.supportExecutives.push(res[index]._id);
+          }
         }
-        const random = Math.floor(Math.random() * this.supportExecutives.length);
-        console.log(random, this.supportExecutives[random]);
-        const executiveForm = {
-          "ticketId": ticketId, 
-          "executiveId": this.supportExecutives[random]
-        };
-        this._api.assignTicketToExecutive(executiveForm).subscribe();
+        if (this.supportExecutives.length) {
+          const random = Math.floor(Math.random() * this.supportExecutives.length);
+          console.log(random, this.supportExecutives[random]);
+          const executiveForm = {
+            "ticketId": ticketId, 
+            "executiveId": this.supportExecutives[random]
+          };
+          this._api.assignTicketToExecutive(executiveForm).subscribe();
+          this._api.changeExecutiveAssignStatus(this.supportExecutives[random], {assigned: true}).subscribe();
+        } else {
+          this._api.changeAllAssignStatus().subscribe(
+            res => {
+              this.assignTicket(ticketId);
+            }, err => {}
+          );
+        }
+        
       }, err => {}
     )
   }

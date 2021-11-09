@@ -30,7 +30,7 @@ export class ApiService {
     // localStorage.setItem('accessToken', 'accessToken1234567890adminWeVouch');
     localStorage.setItem('we_vouch_user',JSON.stringify(data));
     window.location.href = environment.dasboardPath;
-    // location.reload();
+    location.reload();
     // this._router.navigate([(routeIntended) ? routeIntended : '/admin/dashboard']);
   }
 
@@ -204,6 +204,12 @@ export class ApiService {
   }
   assignTicketToExecutive(formData : any) {
     return this._http.post<any>(_apiUrl+'ticket/assign-executive', formData);
+  }
+  changeAllAssignStatus() {
+    return this._http.get<any>(_apiUrl+'support-executive/all-assign-status-false');
+  }
+  changeExecutiveAssignStatus(supportExecId : any, formData : any) {
+    return this._http.patch<any>(_apiUrl+'support-executive/change-assign-status/'+supportExecId, formData);
   }
 
   //forgot password
