@@ -131,8 +131,29 @@ export class LoginComponent implements OnInit {
   replaceFirst6(str) {
     this.removedNumber = str.replace(/^.{1,6}/, m=> "X".repeat(m.length))
   }
+
+  getOtp() {
+    this.errorMessage = ''
+    if(this.otpMobile) {
+      const mainForm = {
+        "mobile" : this.otpMobile
+      }
+      this._api.getLoginOtp(mainForm).subscribe(
+        res => {
+          this._loader.startLoader('loader');
+          console.log(res);
+          this._loader.stopLoader('loader');
+        }, err => {
+          this.errorMessage = 'Something went wrong!'
+        }
+      )
+    } else {
+      this.errorMessage = 'Mobile is required'
+    }
+  }
   
   enterOtp() {
+    this.getOtp();
     this.errorMessage = '';
     console.log(this.otpMobile);
     if (this.otpMobile) {
@@ -154,7 +175,7 @@ export class LoginComponent implements OnInit {
       const mainOtp = this.otp1+this.otp2+this.otp3+this.otp4
       const mainForm = {
         "mobile" : this.otpMobile,
-        "otp" : mainOtp.toString()
+        "otp" : parseInt(mainOtp)
       }
       this._api.loginWithOtp(mainForm).subscribe(
         res => {
@@ -162,7 +183,7 @@ export class LoginComponent implements OnInit {
           console.log(res);
           this._api.storeUserLocally(res);
           this._loader.stopLoader('loader');
-          this._router.navigate(["/user/dashboard"]);
+          // this._router.navigate(["/user/dashboard"]);
         }, err => {
           this.errorMessage = 'Something went wrong.';
         }

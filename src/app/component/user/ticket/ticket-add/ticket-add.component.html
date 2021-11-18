@@ -107,8 +107,8 @@
                         </label>
                         <h6 class="mb-2"><span>{{serviceCenter.name}}</span></h6>
                         <h6><b>{{serviceCenter.address}}</b></h6>
-                        <p class="m-0">Contact: {{serviceCenter.phone}}</p>
-                        <p class="m-0">Email: {{serviceCenter.email}}</p>
+                        <p class="m-0" *ngIf="serviceCenter.phone != ''">Contact: {{serviceCenter.phone}}</p>
+                        <p class="m-0" *ngIf="serviceCenter.email != ''">Email: {{serviceCenter.email}}</p>
                       </div>
                     </div>
                   </div>
@@ -186,7 +186,7 @@
         <form class="warrantyone">
           <div class="row">
             <div class="col-lg-12">
-              <label for="issue">Select Date & Time<span>*</span></label>
+              <label for="issue">Add the desired date and time for the technician to visit your address<span>*</span></label>
               <div class="row">
                 <div class="col-lg-6">
                   <input
@@ -196,7 +196,7 @@
                     placeholder="Select the date"
                     type="date"
                     class="form-control" 
-                    [min]="minDate"
+                    [min]="minDate" [max]="maxDate"
                   />
                 </div>
                 <div class="col-lg-6">
@@ -206,7 +206,8 @@
                     [(ngModel)]="selectedTime"
                     placeholder="Select the time"
                     type="time"
-                    class="form-control"
+                    class="form-control" 
+                    [min]="'10:00'" [max]="'17:00'"
                   />
                 </div>
                 <div class="col-lg-6">

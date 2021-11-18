@@ -112,6 +112,8 @@ export class ProductCategoryComponent implements OnInit {
     for (let index = 0; index < this.productList.length; index++) {
       if (this.productList[index]?.purchaseDate) {
         let purchaseDate = new Date(this.productList[index].purchaseDate);
+        purchaseDate.setDate(purchaseDate.getDate()-1);
+
         this.productList[index].expiresOn = purchaseDate.setMonth(purchaseDate.getMonth()+this.productList[index].warrantyPeriod);
         let warrantyDaysLeft = dateDiffInDays(this.productList[index].expiresOn, this.dateNow);
         console.log(warrantyDaysLeft+" days left");
@@ -130,6 +132,8 @@ export class ProductCategoryComponent implements OnInit {
       }
       if(this.productList[index]?.amcDetails?.noOfYears) {
         let amcSrtartDate = new Date(this.productList[index].amcDetails.startDate);
+        amcSrtartDate.setDate(amcSrtartDate.getDate()-1);
+
         let amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(this.productList[index].amcDetails.noOfYears*12));
         let amcLeftDays = dateDiffInDays(amcValidTill, this.dateNow);
         console.log(amcLeftDays+" days left of amc");

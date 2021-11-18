@@ -30,7 +30,7 @@ export class ApiService {
     // localStorage.setItem('accessToken', 'accessToken1234567890adminWeVouch');
     localStorage.setItem('we_vouch_user',JSON.stringify(data));
     window.location.href = environment.dasboardPath;
-    location.reload();
+    // location.reload();
     // this._router.navigate([(routeIntended) ? routeIntended : '/admin/dashboard']);
   }
 
@@ -74,6 +74,10 @@ export class ApiService {
 
   socialLogin(formData: any) {
     return this._http.post<any>(_apiUrl+"user/social-login", formData);
+  }
+
+  getLoginOtp(formData : any) {
+    return this._http.post<any>(_apiUrl+'user/get-otp',formData);
   }
 
   loginWithOtp(formData) {

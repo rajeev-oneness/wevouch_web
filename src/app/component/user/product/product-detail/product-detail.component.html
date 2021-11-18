@@ -97,9 +97,21 @@
             </div>
             <div class="invoice-details-box" *ngIf="productDetails?.extendedWarranty">
               <div class="row">
-                <div class="col-lg-3">
-                  <img src="assets/img/blank-image.png" alt="" />
+                <div class="col-lg-3" *ngIf="productDetails?.extendedWarranty?.extendedWarrantyImages == ''">
+                  <img src='./assets/img/blank-image.png' alt="Invoice Image" />
                 </div>
+                <div class="col-lg-3" *ngIf="productDetails?.extendedWarranty?.extendedWarrantyImages != ''">
+                  <owl-carousel-o [options]="customOptions">
+                    <ng-container>
+                      <ng-template *ngFor="let extdImg of productDetails?.extendedWarranty?.extendedWarrantyImages; let i = index" carouselSlide>
+                        <div class="">
+                          <img src="{{extdImg}}" alt="Invoice Image" />
+                        </div>
+                      </ng-template>
+                    </ng-container>
+                  </owl-carousel-o>
+                </div>
+                
                 <div class="col-lg-9">
                   <h5 class="mb-3">Extended warranty</h5>
                   <div class="row">
@@ -107,7 +119,9 @@
                       <p class="text-muted">Service Provider</p>
                       <h6>{{productDetails.extendedWarranty?.serviceProvider || 'N/A'}}</h6>
                       <p class="text-muted mb-1">Validity</p>
-                      <p class="text-dark mt-0" style="font-size: 13px;">{{productDetails?.extendedWarranty?.noOfYears || 'N/A'}} years</p>
+                      <h6>{{productDetails?.extendedWarranty?.noOfYears || 'N/A'}} years</h6>
+                      <p class="text-muted">Policy No.</p>
+                      <h6>{{productDetails.extendedWarranty?.policyNumber || 'N/A'}}</h6>
                     </div>
                     <div class="col-lg-6">
                       <div class="image-wrapper" *ngIf="productDetails?.extendedWarranty?.mobileNo">
@@ -124,9 +138,21 @@
             </div>
             <div class="invoice-details-box" *ngIf="productDetails?.amcDetails">
               <div class="row">
-                <div class="col-lg-3">
-                  <img src="assets/img/blank-image.png" alt="" />
+                <div class="col-lg-3" *ngIf="productDetails?.amcDetails?.amcImages == ''">
+                  <img src='./assets/img/blank-image.png' alt="Invoice Image" />
                 </div>
+                <div class="col-lg-3" *ngIf="productDetails?.amcDetails?.amcImages != ''">
+                  <owl-carousel-o [options]="customOptions">
+                    <ng-container>
+                      <ng-template *ngFor="let amcImg of productDetails?.amcDetails?.amcImages; let i = index" carouselSlide>
+                        <div class="">
+                          <img src="{{amcImg}}" alt="Invoice Image" />
+                        </div>
+                      </ng-template>
+                    </ng-container>
+                  </owl-carousel-o>
+                </div>
+                
                 <div class="col-lg-9">
                   <h5 class="mb-3">Annual maintainance ({{productDetails?.amcDetails?.serviceDuration}}) </h5>
                   <div class="row">

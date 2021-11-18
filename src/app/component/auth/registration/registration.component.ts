@@ -21,6 +21,10 @@ export class RegistrationComponent implements OnInit {
   public mainSignupForm : boolean = true;
   public accountConfirmation : boolean = false;
   public userEmail : any = '';
+  public firstNameVal : any = '';
+  public lastNameVal : any = '';
+  public restrictedAge : number ;
+
   ngOnInit(): void {
     this._loader.stopLoader('loader');
   }
@@ -33,7 +37,8 @@ export class RegistrationComponent implements OnInit {
     if (formData?.valid) {
       if (formData.value.password === this.confirmPassword) {
         this._loader.startLoader('loader');
-        const mainForm = formData.value;
+        let mainForm = formData.value;
+        mainForm.name = this.firstNameVal+' '+this.lastNameVal;
         mainForm.image = 'https://ui-avatars.com/api/?background=random&name='+formData.value.name;
         this._api.userSignup(mainForm).subscribe(
           (res) => {

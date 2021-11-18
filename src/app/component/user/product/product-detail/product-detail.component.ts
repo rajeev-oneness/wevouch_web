@@ -111,6 +111,8 @@ export class ProductDetailComponent implements OnInit {
           // res.purchaseDate = new Date(res.purchaseDate).toDateString();
           if (res?.purchaseDate) {
             let purchaseDate = new Date(res.purchaseDate);
+            purchaseDate.setDate(purchaseDate.getDate()-1);
+
             this.warrantyValidTill = purchaseDate.setMonth(purchaseDate.getMonth()+res.warrantyPeriod);
             
             this.warrantyDaysLeft = (res.warrantyPeriod > 0) ? dateDiffInDays(this.warrantyValidTill, this.dateNow) : '';
@@ -118,6 +120,8 @@ export class ProductDetailComponent implements OnInit {
           
           if(res.amcDetails?.noOfYears) {
             let amcSrtartDate = new Date(res.amcDetails.startDate);
+            amcSrtartDate.setDate(amcSrtartDate.getDate()-1);
+
             this.amcValidTill = amcSrtartDate.setMonth(amcSrtartDate.getMonth()+(res.amcDetails.noOfYears*12));
             this.amcLeftDays = dateDiffInDays(this.amcValidTill, this.dateNow);
           }

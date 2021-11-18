@@ -36,15 +36,18 @@
               (ngSubmit)="userSignupSubmit(userSignupForm)"
             >
               <div class="form-group">
-                <label><i-feather name="user" class="mr-1"></i-feather> Name</label>
-                <input class="form-control" #name="ngModel" ngModel type="text" name="name" id="your_name" placeholder="Your Name" required [ngClass]="{ 'is-invalid': name?.invalid && name?.touched }"/>
+                <label><i-feather name="user" class="mr-1"></i-feather>First Name</label>
+                <input class="form-control" #firstName="ngModel" [(ngModel)]="firstNameVal" type="text" name="firstName" id="firstName" placeholder="Your first Name" required [ngClass]="{ 'is-invalid': firstName?.invalid && firstName?.touched }"/>
+                
+                <label><i-feather name="user" class="mr-1"></i-feather>Last Name</label>
+                <input class="form-control" #lastName="ngModel" [(ngModel)]="lastNameVal" type="text" name="lastName" id="lastName" placeholder="Your last name" required [ngClass]="{ 'is-invalid': lastName?.invalid && lastName?.touched }"/>
                 
                 <label><i-feather name="mail" class="mr-1"></i-feather> Email Address</label>
                 <input class="form-control" #email="ngModel" ngModel type="email" autocomplete="email" name="email" id="your_email" placeholder="Your Email" required [ngClass]="{ 'is-invalid': email?.invalid && email?.touched }"/>
                 
                 <div>
                   <label><i-feather name="phone" class="mr-1"></i-feather> Mobile</label>
-                  <input class="form-control" #mobile="ngModel" ngModel type="text" name="mobile" placeholder="Your Mobile" pattern="(?=.*\d).{10}" required [ngClass]="{ 'is-invalid': mobile?.invalid && mobile?.touched }"/>
+                  <input class="form-control" #mobile="ngModel" ngModel type="number" name="mobile" placeholder="Your Mobile" pattern="(?=.*\d).{10}" required [ngClass]="{ 'is-invalid': mobile?.invalid && mobile?.touched }"/>
                   <span class="mb-1 text-danger" *ngIf="mobile?.invalid && mobile?.touched">
                     <small>
                       Mobile number must be of 10 digit.
@@ -73,18 +76,26 @@
                   </small>
                 </span>
                </div>
+
                <label><i-feather name="lock" class="mr-1"></i-feather>Confirm Password</label>
                <input class="form-control" tabindex="2" [value]="confirmPassword" (blur)="confirmPasswordCheck($event)" type="password" placeholder="Confirm Password">
 
                 <label><i-feather name="calendar" class="mr-1"></i-feather>Age</label>
-                <input class="form-control" tabindex="2" #age="ngModel" ngModel type="text" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" required [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
-                
-                <label><i-feather name="users" class="mr-1"></i-feather>Gender</label>
-                <select class="form-control" tabindex="2" #gender="ngModel" [ngModel]="'Male'" type="gender" name="gender" placeholder="gender" required [ngClass]="{'is-invalid':gender?.invalid && gender?.touched}">
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Others">Others</option>
-                </select>
+                <input class="form-control" tabindex="2" #age="ngModel" [(ngModel)]="restrictedAge" type="number" name="age" placeholder="age" required pattern="(?=.*\d).{1,}" required [ngClass]="{ 'is-invalid': age?.invalid && age?.touched }">
+                <span class="mb-1 text-danger" *ngIf="age?.touched && restrictedAge < 18">
+                  <small>
+                   User must be 18+ years
+                  </small>
+                </span>
+
+                <div>
+                  <label><i-feather name="users" class="mr-1"></i-feather>Gender</label>
+                  <select class="form-control" tabindex="2" #gender="ngModel" [ngModel]="'Male'" type="gender" name="gender" placeholder="gender" required [ngClass]="{'is-invalid':gender?.invalid && gender?.touched}">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Others">Others</option>
+                  </select>
+                </div>
 
                 <label><i-feather name="Unlock" class="mr-1"></i-feather>Referral code <span class="text-muted">(if any)</span></label>
                 <input class="form-control" tabindex="2" #userReferralCode="ngModel" ngModel type="text" name="userReferralCode" placeholder="eg: abc123">
@@ -126,7 +137,7 @@
                 <div>
                   <span class="text-danger">{{errorMessage}}</span>
                 </div>
-                <button type="submit" class="btn btn-secondary btn-lg btn-block login-btn mt-2"> Get Otp </button>
+                <button type="submit" class="btn btn-secondary btn-lg btn-block login-btn mt-2"> Verify and login </button>
                 <p>
                   Protected by recaptcha. Google <a href="https://wevouch.in/privacy-policy/">Privacy Policy</a> & <a href="https://wevouch.in/terms-condition/">Terms of Service</a> apply.
                 </p>

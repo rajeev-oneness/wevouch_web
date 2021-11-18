@@ -48,8 +48,10 @@ export class TicketAddComponent implements OnInit {
   public serviceCenters : any = [];
   public productDetails : any = [];
   public minDate : any = getDateFormat(Date.now());
+  public someDate = new Date();
+  public maxDate : any = getDateFormat(this.someDate.setDate(this.someDate.getDate() + 10));
 
-  constructor(private _api: ApiService, private _loader: NgxUiLoaderService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private _api: ApiService, private _loader: NgxUiLoaderService, private route: ActivatedRoute, private _router: Router) {}
 
   ngOnInit(): void {
     this.getAddressData();
@@ -62,6 +64,18 @@ export class TicketAddComponent implements OnInit {
       res => {
         console.log(res);
         this.productDetails = res;
+        if(this.productDetails?.brands == '' || this.productDetails?.category == '' || this.productDetails?.modelNo == '' || this.productDetails?.subCategory == '') {
+          Swal.fire({
+            title: 'Failed!',
+            text: 'You need to add brand, category, sub category, model no to your product.',
+            icon: 'error',
+            confirmButtonText: 'Edit product',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this._router.navigate(['/user/product/edit/'+this.route.snapshot.paramMap.get('productId')])
+            }
+          })
+        }
         this.fetchBrands();
         this._api.getCities().subscribe(
           res=> {
@@ -132,50 +146,54 @@ export class TicketAddComponent implements OnInit {
 
   submitTicket()
   {
-    if(this.selectedDate && this.selectedTime)
-    {
-      this._loader.startLoader('loader');
-      if(localStorage.getItem("we_vouch_user"))
-      {
-        
-            const userId = JSON.parse(localStorage.getItem("we_vouch_user"))._id;
-            const tosendData = {
-              issueType: this.issueType,
-              functionType: this.functionType,
-              description: this.description,
-              transportationType: this.transportationType,
-              addressId: this.addressId,
-              selectedDate: this.selectedDate,
-              selectedTime: this.selectedTime,
-              userId,
-              productId: this.productDetails._id,
-              category: this.productDetails.category,
-              brandId: this.productDetails.brands
-            };
-            this._api.addTicket(tosendData).subscribe(
-              res=>{
-                console.log(res);
-                const addedTicketDetail = res.ticket;
-                this.assignTicket(res.ticket._id);
-                this._api.updateUserLocally(this.user);
-                this.Toast.fire({
-                  icon: 'success',
-                  title: 'Tcket raised successfully!'
-                })
-                const notificationForm = {
-                  "title": "Ticket raised", 
-                  "userId": this.user._id, 
-                  "description": "Dear "+this.user.name+", your ticket "+addedTicketDetail.uniqueId+" has been raised for the product "+this.productDetails.name+"."
-                }
-                this._api.addNotification(notificationForm).subscribe();
-                this.router.navigate(['/user/ticket/list']);
+    
+    
+    this.errorMessage = '';
+    if(this.selectedDate && this.selectedTime) {
+      if (this.selectedTime >= '10:00' && this.selectedTime <= '17:00') {
+        console.log(this.selectedTime);
+        this._loader.startLoader('loader');
+        if(localStorage.getItem("we_vouch_user")) {
+          
+          const userId = JSON.parse(localStorage.getItem("we_vouch_user"))._id;
+          const tosendData = {
+            issueType: this.issueType,
+            functionType: this.functionType,
+            description: this.description,
+            transportationType: this.transportationType,
+            addressId: this.addressId,
+            selectedDate: this.selectedDate,
+            selectedTime: this.selectedTime,
+            userId,
+            productId: this.productDetails._id,
+            category: this.productDetails.category,
+            brandId: this.productDetails.brands
+          };
+          this._api.addTicket(tosendData).subscribe(
+            res=>{
+              console.log(res);
+              const addedTicketDetail = res.ticket;
+              this.assignTicket(res.ticket._id);
+              this._api.updateUserLocally(this.user);
+              this.Toast.fire({
+                icon: 'success',
+                title: 'Tcket raised successfully!'
+              })
+              const notificationForm = {
+                "title": "Ticket raised", 
+                "userId": this.user._id, 
+                "description": "Dear "+this.user.name+", your ticket "+addedTicketDetail.uniqueId+" has been raised for the product "+this.productDetails.name+"."
               }
-            )
-      
+              this._api.addNotification(notificationForm).subscribe();
+              this._router.navigate(['/user/ticket/list']);
+            }
+          )
+        }
+      } else {
+        this.errorMessage="Time should be from 10 am to 5 pm";
       }
     }
-    else
-    {
+    else {
       this.errorMessage=" Please give all the details.";
     }
   }

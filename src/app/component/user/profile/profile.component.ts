@@ -46,6 +46,7 @@ export class ProfileComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.userDetails = JSON.parse(localStorage.getItem('we_vouch_user'));
+    this.userDetails.name = this.userDetails.name.split(" ");
     this.uploadedFile = this.userDetails.image;
   }
 
@@ -155,6 +156,7 @@ export class ProfileComponent implements OnInit {
       if (this.userDetails.name && this.userDetails.mobile) {
         this.errorMessage = '';
         this._loader.startLoader('loader');
+        this.userDetails.name = this.userDetails.name.join(" ");
         this._api.updateUserDetails(this.userDetails).subscribe(
           (res) => {
             this._api.updateUserLocally(res);

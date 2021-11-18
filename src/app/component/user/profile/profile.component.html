@@ -39,15 +39,27 @@
          
         </div> -->
         <div class="row">
-          <div class="col-lg-12 pr-0">
-            <label for="name">Name</label>
+          <div class="col-lg-6">
+            <label for="name">First Name</label>
             <div class="input-group">
               <input
                 type="text"
                 class="form-control border-0"
                 placeholder="Youe Name"
                 [disabled]="!isEdit"
-                name="name" id="name" [(ngModel)]="userDetails.name" 
+                name="name" id="name" [(ngModel)]="userDetails.name[0]" 
+              />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <label for="name">Last Name</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control border-0"
+                placeholder="Youe Name"
+                [disabled]="!isEdit"
+                name="name" id="name" [(ngModel)]="userDetails.name[1]" 
               />
             </div>
           </div>
