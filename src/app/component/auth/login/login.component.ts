@@ -67,22 +67,26 @@ export class LoginComponent implements OnInit {
       this._api.userLoginAPI(formData.value).subscribe(
         res => {
           console.log(res.user);
-          this.forgotEmail = res.user.email;
-          if(res.user.is_email_verified === true && res.user.is_mobile_verified === true) {
-            this._api.storeUserLocally(res.user);
-            this._router.navigate(["/user/dashboard"]);
+          if (res.error === false) {
+            this.forgotEmail = res.user.email;
+            if(res.user.is_email_verified === true && res.user.is_mobile_verified === true) {
+              this._api.storeUserLocally(res.user);
+              this._router.navigate(["/user/dashboard"]);
+            } else {
+              this.accountConfirmation = true;
+              this.mainLogin = false;
+              this.otpStep1 = false;
+              this.otpStep2 = false;
+              this.forgotEmailStep1 = false;
+              this.forgotEmailStep2 = false;
+            }
           } else {
-            this.accountConfirmation = true;
-            this.mainLogin = false;
-            this.otpStep1 = false;
-            this.otpStep2 = false;
-            this.forgotEmailStep1 = false;
-            this.forgotEmailStep2 = false;
+            this.errorMessage = res.message;
           }
           this._loader.stopLoader('loader');
         },
         err => {
-          this.errorMessage = err.error.message;
+          this.errorMessage = "Something went wrong, please try after sometime.";
           this._loader.stopLoader('loader');
         }
         

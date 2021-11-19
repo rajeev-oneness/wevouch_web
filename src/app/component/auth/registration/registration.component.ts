@@ -42,27 +42,31 @@ export class RegistrationComponent implements OnInit {
         mainForm.image = 'https://ui-avatars.com/api/?background=random&name='+formData.value.name;
         this._api.userSignup(mainForm).subscribe(
           (res) => {
-            const notificationForm = {
-              "title": "Free Ticket Earn", 
-              "userId": res.user._id, 
-              "description": "You earn "+res.user.subscription.ticketCount+" tickets."
-            }
-            this._api.addNotification(notificationForm).subscribe(
-              res=> {console.log(res);}
-            );
-            this.userEmail = res.user.email;
-            if(res.user.is_email_verified === true && res.user.is_mobile_verified === true) {
-              this._api.storeUserLocally(res.user);
-              this._router.navigate(['/login']);
+            if (res.error === false) {
+              const notificationForm = {
+                "title": "Free Ticket Earn", 
+                "userId": res.user._id, 
+                "description": "You earn "+res.user.subscription.ticketCount+" tickets."
+              }
+              this._api.addNotification(notificationForm).subscribe(
+                res=> {console.log(res);}
+              );
+              this.userEmail = res.user.email;
+              if(res.user.is_email_verified === true && res.user.is_mobile_verified === true) {
+                this._api.storeUserLocally(res.user);
+                this._router.navigate(['/login']);
+              } else {
+                this.accountConfirmation = true;
+                this.mainSignupForm = false;
+              }
             } else {
-              this.accountConfirmation = true;
-              this.mainSignupForm = false;
+              this.errorMessage = res.message;
             }
             
             this._loader.stopLoader('loader');
           },
           (err) => {
-            this.errorMessage = err.error.message;
+            this.errorMessage = "Something went wrong, please try after sometime.";
             this._loader.stopLoader('loader');
           }
         );
