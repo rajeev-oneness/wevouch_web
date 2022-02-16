@@ -37,16 +37,17 @@
             <li *ngFor="let log of ticketLogs; let i=index" [ngClass]="{'active' : i < (ticketLogs.length-1)}">
                 {{log.comment}}<br>({{log.createdAt | date: 'dd MMM, yyyy'}})
             </li>
+            <div class="ticket-question" *ngIf="log?.userApproval === true">
+                <h6>{{log?.approvalQuestion || 'Are you agree?'}}</h6>
+                <div class="ticket-buttons">
+                    <a href="javascript:void(0);" class="btn btn-yes" (click)="approveLog(log?._id, true)">YES</a>
+                    <button class="btn btn-no" (click)="approveLog(log?._id, false)">NO</button>
+                </div>
+            </div>
         </ul>
         <ng-template #noLogsBlock>
             <h4>No logs yet!</h4>
         </ng-template>
     </div>
-    <!-- <div class="ticket-question">
-        <h6>Has the {{ticketDetails.brand?.name}} team reach out to you yet?</h6>
-        <div class="ticket-buttons">
-            <a href="javascript:void(0);" class="btn btn-yes">YES</a>
-            <button class="btn btn-no">NO</button>
-        </div>
-    </div> -->
+    
 </div>

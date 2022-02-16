@@ -30,7 +30,7 @@ export class ApiService {
     // localStorage.setItem('accessToken', 'accessToken1234567890adminWeVouch');
     localStorage.setItem('we_vouch_user',JSON.stringify(data));
     window.location.href = environment.dasboardPath;
-    // location.reload();
+    location.reload();
     // this._router.navigate([(routeIntended) ? routeIntended : '/admin/dashboard']);
   }
 
@@ -156,6 +156,9 @@ export class ApiService {
   {
     return this._http.delete<any>(_apiUrl+'ticket/delete/'+ticketId);
   }
+  ticketFeedbackAdd(ticketId : any, formData: any) {
+    return this._http.patch<any>(_apiUrl+'ticket/add-feedback/'+ticketId, formData);
+  }
   
   //package
   packageList() {
@@ -200,6 +203,9 @@ export class ApiService {
   //ticket log
   getTicketLog(ticketId : any) {
     return this._http.get<any>(_apiUrl+'ticket-log/get-by-ticket/'+ticketId);
+  }
+  approveTicketLog(ticketLogId : any, formData : any) {
+    return this._http.patch<any>(_apiUrl+'ticket-log/user-approval/'+ticketLogId, formData);
   }
 
   //support executive

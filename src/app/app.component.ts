@@ -32,7 +32,9 @@ export class AppComponent {
       this._router.navigate(['/login']);
     }
     this.userDetails = JSON.parse(localStorage.getItem('we_vouch_user'));
-    this.getNotifications();
+    if (this.userDetails) {
+      this.getNotifications();
+    }
   }
 
   getNotifications() {
